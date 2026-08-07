@@ -241,112 +241,151 @@
       <p>Klik judulnya untuk membaca selengkapnya.</p>
     </div>
 
-    <div class="article-list">
+    <div class="article-list" id="articleList"></div>
 
-      <a href="berani-jujur.html" class="honesty-card reveal">
+    <script>
+      // ====================================================================
+      // DAFTAR MATERI / ARTIKEL
+      // Untuk menambah materi baru, cukup tambahkan satu object baru di
+      // array "articles" di bawah ini. Tidak perlu edit HTML lain.
+      //
+      // Dua jenis object:
+      // 1) Link ke halaman terpisah (misal cerita bergambar / halaman interaktif):
+      //    { type: "link", tag: "...", title: "...", desc: "...", href: "nama-file.html" }
+      //
+      // 2) Artikel yang bisa dibuka langsung di halaman ini (accordion):
+      //    { type: "details", tag: "...", title: "...", intro: "...",
+      //      sections: [ { h: "Judul kecil", p: "Isi paragraf" }, ... ],
+      //      closing: "Kalimat penutup (opsional)" }
+      // ====================================================================
+      const articles = [
+        {
+          type: "link",
+          tag: "Kejujuran",
+          title: "Berani Jujur itu Hebat",
+          desc: "Kompas kejujuran interaktif, skenario refleksi, dan janji jujur — coba langsung, bukan cuma dibaca.",
+          href: "berani-jujur.html"
+        },
+        {
+          type: "link",
+          tag: "Manajemen Waktu",
+          title: "Kelola Waktumu, Kuasai Harimu",
+          desc: "Roda 24 jam interaktif, uji kebiasaan waktu, dan janji manajemen waktu — coba langsung, bukan cuma dibaca.",
+          href: "manajemen-waktu.html"
+        },
+        {
+          type: "link",
+          tag: "Pertemanan & Perasaan",
+          title: "Sahabat, Rasa, dan Cerita SMP",
+          desc: "Cerita bergambar Rani & Dito tentang perasaan suka yang wajar, tekanan teman, dan cara menyikapinya dengan sehat.",
+          href: "cerita-rani-dito.html"
+        },
+        {
+          type: "link",
+          tag: "Ruang BK",
+          title: "Ruang yang Tak Semenakutkan Itu",
+          desc: "Cerita bergambar Dika saat dipanggil ke ruang BK — dan kenapa ruang itu ternyata bukan tempat hukuman.",
+          href: "cerita-ruang-bk.html"
+        },
+        {
+          type: "link",
+          tag: "Pacaran & Pergaulan",
+          title: "Bukan Soal Ikut-ikutan",
+          desc: "Cerita bergambar Vino saat teman-temannya ramai membicarakan pacaran, dan obrolan jujur di ruang BK yang mengubah cara pandangnya.",
+          href: "cerita-pacaran-smp.html"
+        },
+        {
+          type: "details",
+          tag: "Kenal Diri",
+          title: "Mengenal Diri Sendiri, Mulai dari Mana?",
+          intro: "Mengenal diri sendiri bukan hal yang bisa selesai dalam sehari. Prosesnya berjalan pelan-pelan, lewat kebiasaan kecil yang dilakukan berulang. Berikut beberapa langkah yang bisa mulai dicoba.",
+          sections: [
+            { h: "1. Kenali apa yang disukai dan tidak disukai", p: "Coba perhatikan kegiatan apa yang membuat waktu terasa cepat berlalu — itu biasanya petunjuk tentang minat. Sebaliknya, kegiatan yang terasa berat juga penting untuk dikenali, bukan untuk dihindari selamanya, tapi untuk dipahami alasannya." },
+            { h: "2. Tuliskan tiga kelebihan yang dimiliki", p: "Tidak perlu menunggu orang lain memuji dulu. Coba tuliskan tiga hal yang dirasa menjadi kekuatan diri, sekecil apa pun itu — misalnya sabar mendengarkan teman, atau teliti mengerjakan tugas." },
+            { h: "3. Amati reaksi diri saat menghadapi tantangan", p: "Apakah cenderung mencoba dulu, atau menunggu diyakinkan orang lain? Tidak ada jawaban yang salah, tapi mengenali pola ini membantu memahami cara diri sendiri bekerja." },
+            { h: "4. Bicarakan dengan orang yang dipercaya", p: "Kadang orang lain melihat kekuatan yang tidak disadari oleh diri sendiri. Ngobrol dengan sahabat, orang tua, atau Guru BK bisa membuka sudut pandang baru tentang diri sendiri." }
+          ],
+          closing: "Mengenal diri adalah perjalanan, bukan tujuan akhir. Tidak apa-apa kalau masih banyak yang belum dipahami — itu artinya masih ada ruang untuk terus bertumbuh."
+        },
+        {
+          type: "details",
+          tag: "Percaya Diri",
+          title: "Membangun Kepercayaan Diri di Sekolah",
+          intro: "Rasa percaya diri tidak muncul begitu saja, tapi bisa dilatih lewat kebiasaan sehari-hari di sekolah. Berikut beberapa cara sederhana yang bisa dicoba.",
+          sections: [
+            { h: "1. Mulai dari hal kecil", p: "Tidak perlu langsung berani tampil di depan kelas. Coba mulai dari mengangkat tangan untuk bertanya, atau menyapa teman baru lebih dulu. Keberanian kecil yang berhasil akan menumbuhkan keberanian berikutnya." },
+            { h: "2. Siapkan diri sebelum tampil", p: "Rasa gugup sering muncul karena merasa belum siap. Latihan singkat sebelum presentasi atau menjawab soal di depan kelas bisa membantu menenangkan pikiran." },
+            { h: "3. Ubah cara bicara pada diri sendiri", p: "Ganti pikiran \"aku pasti salah\" menjadi \"aku sudah coba yang terbaik\". Cara berbicara pada diri sendiri sangat memengaruhi seberapa percaya diri seseorang merasa." },
+            { h: "4. Terima bahwa kesalahan itu wajar", p: "Rasa percaya diri bukan berarti selalu benar, tapi berani mencoba meskipun ada kemungkinan salah. Kesalahan adalah bagian dari proses belajar, bukan tanda kegagalan." }
+          ],
+          closing: "Kalau rasa cemas atau minder terasa berat untuk dihadapi sendiri, jangan ragu untuk cerita ke Guru BK — ada banyak cara yang bisa dicoba bersama-sama."
+        },
+        {
+          type: "details",
+          tag: "Emosi",
+          title: "Mengelola Emosi Saat Menghadapi Masalah",
+          intro: "Setiap orang pasti pernah merasa marah, sedih, kecewa, atau cemas. Perasaan-perasaan ini wajar dan tidak perlu ditolak. Yang penting adalah bagaimana cara menyalurkannya dengan sehat.",
+          sections: [
+            { h: "1. Beri nama pada perasaan", p: "Kadang sulit menjelaskan apa yang dirasakan. Coba berhenti sejenak dan tanyakan pada diri sendiri: ini marah, kecewa, atau sebenarnya takut? Memberi nama pada perasaan membantu memahaminya lebih jelas." },
+            { h: "2. Beri jeda sebelum bereaksi", p: "Saat emosi sedang tinggi, tarik napas dalam-dalam beberapa kali sebelum bicara atau bertindak. Jeda singkat ini bisa mencegah kata-kata atau tindakan yang disesali kemudian." },
+            { h: "3. Salurkan lewat cara yang sehat", p: "Menulis di jurnal, menggambar, olahraga ringan, atau ngobrol dengan orang yang dipercaya adalah beberapa cara menyalurkan emosi tanpa menyakiti diri sendiri atau orang lain." },
+            { h: "4. Jangan dipendam sendirian", p: "Berbagi cerita bukan tanda lemah. Bicara dengan sahabat, orang tua, atau Guru BK bisa meringankan beban yang dirasakan, dan seringkali membantu menemukan solusi yang tidak terpikirkan sebelumnya." }
+          ],
+          closing: "Kalau perasaan yang berat terasa sulit dikendalikan sendiri, Tim BK selalu terbuka untuk mendengarkan tanpa menghakimi."
+        },
+        {
+          type: "details",
+          tag: "Media Sosial",
+          title: "FOMO di Kalangan Remaja: Kenapa Rasanya Takut Ketinggalan?",
+          intro: "FOMO atau <em>fear of missing out</em> adalah rasa cemas karena takut ketinggalan momen, tren, atau kesenangan yang sedang dijalani orang lain. Di usia remaja, perasaan ini sering muncul lewat media sosial — melihat teman jalan bareng tanpa diajak, atau tren baru yang belum sempat dicoba. Wajar dirasakan, tapi penting dikenali supaya tidak terus-menerus menekan.",
+          sections: [
+            { h: "1. Kenali dari mana rasa cemas itu muncul", p: "FOMO biasanya muncul setelah scroll media sosial dalam waktu lama. Melihat unggahan orang lain yang terlihat serba menyenangkan bisa membuat hidup sendiri terasa kurang, padahal yang terlihat di layar hanyalah sepotong momen, bukan keseluruhan cerita." },
+            { h: "2. Batasi waktu bermain media sosial", p: "Coba tetapkan waktu tertentu untuk membuka media sosial, lalu perhatikan bedanya. Banyak remaja merasa lebih tenang setelah mengurangi waktu scrolling, karena pikiran tidak terus-menerus dibandingkan dengan kehidupan orang lain." },
+            { h: "3. Fokus pada apa yang sedang dijalani sendiri", p: "Alih-alih membandingkan diri dengan unggahan orang lain, coba alihkan perhatian pada kegiatan atau hal yang sedang dikerjakan saat ini. Menghargai proses sendiri membantu mengurangi rasa \"kurang\" yang sering dipicu FOMO." },
+            { h: "4. Ingat bahwa tidak semua hal perlu diikuti", p: "Tidak ikut suatu tren atau tidak hadir di suatu acara bukan berarti kehilangan sesuatu yang penting. Belajar memilih mana yang benar-benar ingin diikuti, bukan sekadar takut ketinggalan, adalah langkah penting menuju rasa nyaman dengan diri sendiri." }
+          ],
+          closing: "Kalau rasa cemas karena FOMO mulai mengganggu belajar atau membuat sulit tidur, jangan ragu untuk cerita ke Guru BK. Ada banyak cara untuk menemukan kembali rasa cukup dan tenang tanpa harus mengikuti semua hal yang sedang ramai."
+        }
+      ];
+
+      function renderArticles() {
+        const container = document.getElementById('articleList');
+        const html = articles.map(a => {
+          if (a.type === 'link') {
+            return `
+      <a href="${a.href}" class="honesty-card reveal">
         <div>
-          <span class="art-tag">Kejujuran</span>
-          <h3>Berani Jujur itu Hebat</h3>
-          <p>Kompas kejujuran interaktif, skenario refleksi, dan janji jujur — coba langsung, bukan cuma dibaca.</p>
+          <span class="art-tag">${a.tag}</span>
+          <h3>${a.title}</h3>
+          <p>${a.desc}</p>
         </div>
         <span class="arrow">→</span>
-      </a>
-
-      <a href="manajemen-waktu.html" class="honesty-card reveal">
-        <div>
-          <span class="art-tag">Manajemen Waktu</span>
-          <h3>Kelola Waktumu, Kuasai Harimu</h3>
-          <p>Roda 24 jam interaktif, uji kebiasaan waktu, dan janji manajemen waktu — coba langsung, bukan cuma dibaca.</p>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-
-      <a href="cerita-rani-dito.html" class="honesty-card reveal">
-        <div>
-          <span class="art-tag">Pertemanan &amp; Perasaan</span>
-          <h3>Sahabat, Rasa, dan Cerita SMP</h3>
-          <p>Cerita bergambar Rani &amp; Dito tentang perasaan suka yang wajar, tekanan teman, dan cara menyikapinya dengan sehat.</p>
-        </div>
-        <span class="arrow">→</span>
-      </a>
-
+      </a>`;
+          }
+          if (a.type === 'details') {
+            const sectionsHtml = a.sections.map(s => `
+          <h4>${s.h}</h4>
+          <p>${s.p}</p>`).join('');
+            const closingHtml = a.closing ? `<p class="closing">${a.closing}</p>` : '';
+            return `
       <details class="article-card reveal">
         <summary>
-          <div class="art-summary-txt"><span class="art-tag">Kenal Diri</span><h3>Mengenal Diri Sendiri, Mulai dari Mana?</h3></div>
+          <div class="art-summary-txt"><span class="art-tag">${a.tag}</span><h3>${a.title}</h3></div>
           <span class="art-chevron">+</span>
         </summary>
         <div class="art-body">
-          <p>Mengenal diri sendiri bukan hal yang bisa selesai dalam sehari. Prosesnya berjalan pelan-pelan, lewat kebiasaan kecil yang dilakukan berulang. Berikut beberapa langkah yang bisa mulai dicoba.</p>
-          <h4>1. Kenali apa yang disukai dan tidak disukai</h4>
-          <p>Coba perhatikan kegiatan apa yang membuat waktu terasa cepat berlalu — itu biasanya petunjuk tentang minat. Sebaliknya, kegiatan yang terasa berat juga penting untuk dikenali, bukan untuk dihindari selamanya, tapi untuk dipahami alasannya.</p>
-          <h4>2. Tuliskan tiga kelebihan yang dimiliki</h4>
-          <p>Tidak perlu menunggu orang lain memuji dulu. Coba tuliskan tiga hal yang dirasa menjadi kekuatan diri, sekecil apa pun itu — misalnya sabar mendengarkan teman, atau teliti mengerjakan tugas.</p>
-          <h4>3. Amati reaksi diri saat menghadapi tantangan</h4>
-          <p>Apakah cenderung mencoba dulu, atau menunggu diyakinkan orang lain? Tidak ada jawaban yang salah, tapi mengenali pola ini membantu memahami cara diri sendiri bekerja.</p>
-          <h4>4. Bicarakan dengan orang yang dipercaya</h4>
-          <p>Kadang orang lain melihat kekuatan yang tidak disadari oleh diri sendiri. Ngobrol dengan sahabat, orang tua, atau Guru BK bisa membuka sudut pandang baru tentang diri sendiri.</p>
-          <p class="closing">Mengenal diri adalah perjalanan, bukan tujuan akhir. Tidak apa-apa kalau masih banyak yang belum dipahami — itu artinya masih ada ruang untuk terus bertumbuh.</p>
+          <p>${a.intro}</p>${sectionsHtml}
+          ${closingHtml}
         </div>
-      </details>
+      </details>`;
+          }
+          return '';
+        }).join('\n');
+        container.innerHTML = html;
+      }
 
-      <details class="article-card reveal">
-        <summary>
-          <div class="art-summary-txt"><span class="art-tag">Percaya Diri</span><h3>Membangun Kepercayaan Diri di Sekolah</h3></div>
-          <span class="art-chevron">+</span>
-        </summary>
-        <div class="art-body">
-          <p>Rasa percaya diri tidak muncul begitu saja, tapi bisa dilatih lewat kebiasaan sehari-hari di sekolah. Berikut beberapa cara sederhana yang bisa dicoba.</p>
-          <h4>1. Mulai dari hal kecil</h4>
-          <p>Tidak perlu langsung berani tampil di depan kelas. Coba mulai dari mengangkat tangan untuk bertanya, atau menyapa teman baru lebih dulu. Keberanian kecil yang berhasil akan menumbuhkan keberanian berikutnya.</p>
-          <h4>2. Siapkan diri sebelum tampil</h4>
-          <p>Rasa gugup sering muncul karena merasa belum siap. Latihan singkat sebelum presentasi atau menjawab soal di depan kelas bisa membantu menenangkan pikiran.</p>
-          <h4>3. Ubah cara bicara pada diri sendiri</h4>
-          <p>Ganti pikiran "aku pasti salah" menjadi "aku sudah coba yang terbaik". Cara berbicara pada diri sendiri sangat memengaruhi seberapa percaya diri seseorang merasa.</p>
-          <h4>4. Terima bahwa kesalahan itu wajar</h4>
-          <p>Rasa percaya diri bukan berarti selalu benar, tapi berani mencoba meskipun ada kemungkinan salah. Kesalahan adalah bagian dari proses belajar, bukan tanda kegagalan.</p>
-          <p class="closing">Kalau rasa cemas atau minder terasa berat untuk dihadapi sendiri, jangan ragu untuk cerita ke Guru BK — ada banyak cara yang bisa dicoba bersama-sama.</p>
-        </div>
-      </details>
-
-      <details class="article-card reveal">
-        <summary>
-          <div class="art-summary-txt"><span class="art-tag">Emosi</span><h3>Mengelola Emosi Saat Menghadapi Masalah</h3></div>
-          <span class="art-chevron">+</span>
-        </summary>
-        <div class="art-body">
-          <p>Setiap orang pasti pernah merasa marah, sedih, kecewa, atau cemas. Perasaan-perasaan ini wajar dan tidak perlu ditolak. Yang penting adalah bagaimana cara menyalurkannya dengan sehat.</p>
-          <h4>1. Beri nama pada perasaan</h4>
-          <p>Kadang sulit menjelaskan apa yang dirasakan. Coba berhenti sejenak dan tanyakan pada diri sendiri: ini marah, kecewa, atau sebenarnya takut? Memberi nama pada perasaan membantu memahaminya lebih jelas.</p>
-          <h4>2. Beri jeda sebelum bereaksi</h4>
-          <p>Saat emosi sedang tinggi, tarik napas dalam-dalam beberapa kali sebelum bicara atau bertindak. Jeda singkat ini bisa mencegah kata-kata atau tindakan yang disesali kemudian.</p>
-          <h4>3. Salurkan lewat cara yang sehat</h4>
-          <p>Menulis di jurnal, menggambar, olahraga ringan, atau ngobrol dengan orang yang dipercaya adalah beberapa cara menyalurkan emosi tanpa menyakiti diri sendiri atau orang lain.</p>
-          <h4>4. Jangan dipendam sendirian</h4>
-          <p>Berbagi cerita bukan tanda lemah. Bicara dengan sahabat, orang tua, atau Guru BK bisa meringankan beban yang dirasakan, dan seringkali membantu menemukan solusi yang tidak terpikirkan sebelumnya.</p>
-          <p class="closing">Kalau perasaan yang berat terasa sulit dikendalikan sendiri, Tim BK selalu terbuka untuk mendengarkan tanpa menghakimi.</p>
-        </div>
-      </details>
-
-      <details class="article-card reveal">
-        <summary>
-          <div class="art-summary-txt"><span class="art-tag">Media Sosial</span><h3>FOMO di Kalangan Remaja: Kenapa Rasanya Takut Ketinggalan?</h3></div>
-          <span class="art-chevron">+</span>
-        </summary>
-        <div class="art-body">
-          <p>FOMO atau <em>fear of missing out</em> adalah rasa cemas karena takut ketinggalan momen, tren, atau kesenangan yang sedang dijalani orang lain. Di usia remaja, perasaan ini sering muncul lewat media sosial — melihat teman jalan bareng tanpa diajak, atau tren baru yang belum sempat dicoba. Wajar dirasakan, tapi penting dikenali supaya tidak terus-menerus menekan.</p>
-          <h4>1. Kenali dari mana rasa cemas itu muncul</h4>
-          <p>FOMO biasanya muncul setelah scroll media sosial dalam waktu lama. Melihat unggahan orang lain yang terlihat serba menyenangkan bisa membuat hidup sendiri terasa kurang, padahal yang terlihat di layar hanyalah sepotong momen, bukan keseluruhan cerita.</p>
-          <h4>2. Batasi waktu bermain media sosial</h4>
-          <p>Coba tetapkan waktu tertentu untuk membuka media sosial, lalu perhatikan bedanya. Banyak remaja merasa lebih tenang setelah mengurangi waktu scrolling, karena pikiran tidak terus-menerus dibandingkan dengan kehidupan orang lain.</p>
-          <h4>3. Fokus pada apa yang sedang dijalani sendiri</h4>
-          <p>Alih-alih membandingkan diri dengan unggahan orang lain, coba alihkan perhatian pada kegiatan atau hal yang sedang dikerjakan saat ini. Menghargai proses sendiri membantu mengurangi rasa "kurang" yang sering dipicu FOMO.</p>
-          <h4>4. Ingat bahwa tidak semua hal perlu diikuti</h4>
-          <p>Tidak ikut suatu tren atau tidak hadir di suatu acara bukan berarti kehilangan sesuatu yang penting. Belajar memilih mana yang benar-benar ingin diikuti, bukan sekadar takut ketinggalan, adalah langkah penting menuju rasa nyaman dengan diri sendiri.</p>
-          <p class="closing">Kalau rasa cemas karena FOMO mulai mengganggu belajar atau membuat sulit tidur, jangan ragu untuk cerita ke Guru BK. Ada banyak cara untuk menemukan kembali rasa cukup dan tenang tanpa harus mengikuti semua hal yang sedang ramai.</p>
-        </div>
-      </details>
-
-    </div>
+      renderArticles();
+    </script>
   </div>
 </section>
 

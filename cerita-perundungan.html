@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kursi Kosong di Sudut Kelas — Cerita Edukasi Anti-Perundungan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EAF3EC;
+    --paper-line: #d3e4d8;
+    --ink: #1F2D2B;
+    --ink-soft: #48605c;
+    --coral: #FF6F59;
+    --coral-soft: #ffd9d2;
+    --sun: #FFC94A;
+    --teal: #4C7A93;
+    --white: #fbfdfc;
+    --radius: 3px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(
+        var(--paper) 0px, var(--paper) 34px,
+        var(--paper-line) 35px
+      );
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Literata', Georgia, serif;
+    line-height: 1.7;
+    font-size: 18px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  .page{
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 100px;
+    position: relative;
+  }
+
+  /* margin rule like a notebook */
+  .page::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0; left:56px;
+    width:1.5px;
+    background: rgba(255,111,89,0.25);
+  }
+  @media (max-width:600px){ .page::before{ display:none; } }
+
+  header.hero{
+    margin-bottom: 56px;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    text-transform: uppercase;
+    display:inline-block;
+    padding: 4px 10px;
+    border: 1.5px solid var(--teal);
+    border-radius: 20px;
+    background: var(--white);
+  }
+
+  h1{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size: clamp(42px, 8vw, 64px);
+    margin: 18px 0 6px;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+
+  .subtitle{
+    font-size: 17px;
+    color: var(--ink-soft);
+    font-style: italic;
+    max-width: 46ch;
+  }
+
+  .tape{
+    position: relative;
+    width: 110px;
+    height: 30px;
+    background: var(--sun);
+    opacity: 0.85;
+    margin: 28px 0 0 -6px;
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+
+  section.scene{
+    margin: 0 0 8px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  section.scene.in{
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .scene-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin: 44px 0 14px;
+  }
+
+  .scene-icon{
+    flex: 0 0 auto;
+    width: 42px; height:42px;
+    color: var(--teal);
+  }
+
+  .scene-num{
+    font-family:'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--coral);
+    letter-spacing: 0.08em;
+  }
+
+  h2{
+    font-family:'Caveat', cursive;
+    font-size: 30px;
+    font-weight:600;
+    margin: 2px 0 0;
+    color: var(--ink);
+  }
+
+  p{ margin: 0 0 16px; }
+
+  .quote-line{
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  mark{
+    background: none;
+    background-image: linear-gradient(var(--coral-soft), var(--coral-soft));
+    background-repeat: no-repeat;
+    background-size: 0% 55%;
+    background-position: 0 88%;
+    color: inherit;
+    padding: 0 2px;
+    transition: background-size 0.9s ease;
+  }
+  mark.lit{ background-size: 100% 55%; }
+
+  .tear{
+    height: 22px;
+    margin: 40px 0;
+    background:
+      linear-gradient(135deg, var(--paper) 25%, transparent 25%) 0 0,
+      linear-gradient(225deg, var(--paper) 25%, transparent 25%) 0 0;
+    background-size: 16px 16px;
+    background-color: var(--white);
+    opacity: 0.6;
+  }
+
+  .messages{
+    margin-top: 60px;
+  }
+
+  .messages h2{
+    font-size: 34px;
+    margin-bottom: 22px;
+  }
+
+  .sticky-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  @media (max-width:560px){ .sticky-grid{ grid-template-columns: 1fr; } }
+
+  .sticky{
+    background: var(--sun);
+    padding: 20px 18px 24px;
+    font-family: 'Caveat', cursive;
+    font-size: 21px;
+    line-height: 1.35;
+    color: var(--ink);
+    box-shadow: 0 6px 14px rgba(31,45,43,0.12);
+    transform: rotate(-1.2deg);
+  }
+  .sticky:nth-child(2){ transform: rotate(1.5deg); background:#ffe6df; }
+  .sticky:nth-child(3){ transform: rotate(1deg); background:#dcecef; }
+  .sticky:nth-child(4){ transform: rotate(-1.6deg); }
+
+  .discuss{
+    margin-top: 70px;
+    background: var(--white);
+    border: 1.5px dashed var(--teal);
+    border-radius: 4px;
+    padding: 28px 24px;
+  }
+
+  .discuss .eyebrow{ margin-bottom: 10px; }
+
+  .discuss h2{ margin-top:4px; }
+
+  .discuss ol{
+    padding-left: 22px;
+    margin: 14px 0 0;
+  }
+  .discuss li{ margin-bottom: 12px; }
+
+  footer{
+    margin-top: 70px;
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+    border-top: 1px solid var(--paper-line);
+    padding-top: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <span class="eyebrow">Cerita Edukasi &middot; Bimbingan Konseling SMP</span>
+    <h1>Kursi Kosong<br>di Sudut Kelas</h1>
+    <p class="subtitle">Sebuah cerita tentang perundungan, keberanian menyaksikan, dan langkah kecil yang bisa mengubah keadaan.</p>
+    <div class="tape"></div>
+  </header>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="24" cy="16" r="7"/>
+        <path d="M10 40c0-9 6-15 14-15s14 6 14 15" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 1</div>
+        <h2>Anak Baru</h2>
+      </div>
+    </div>
+    <p>Dika baru pindah ke SMP Nusantara dua minggu lalu. Logatnya masih kental logat kampung, sepatunya sudah agak usang, dan dia lebih suka diam di sudut kelas daripada ramai di tengah keramaian.</p>
+    <p>Bel istirahat berbunyi. Sementara teman-teman lain berhamburan ke kantin, Dika memilih tetap duduk. Bukan karena tidak lapar, tapi karena dia tahu apa yang menunggunya di luar kelas.</p>
+    <p>"Eh, si udik lewat!" — begitu Bima dan gengnya biasa menyapanya. Kadang bukunya disembunyikan. Kadang cuma tatapan mengejek dan tawa yang sengaja dikeraskan. <mark>Tidak ada yang "kelihatan" seperti kekerasan. Tapi setiap hari, rasanya seperti ada beban yang makin berat di dada Dika.</mark></p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M24 8c9 0 17 6 20 16-3 10-11 16-20 16S7 34 4 24C7 14 15 8 24 8Z"/>
+        <circle cx="24" cy="24" r="4.5"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 2</div>
+        <h2>Yang Diam Melihat</h2>
+      </div>
+    </div>
+    <p>Sari, teman sebangku Dika, sebenarnya sering melihat semua itu. Tapi dia diam. <span class="quote-line">"Bukan urusanku,"</span> pikirnya. <span class="quote-line">"Nanti aku juga jadi sasaran."</span></p>
+    <p>Sampai suatu hari, Sari melihat buku catatan Dika dicoret-coret habis, isinya dirobek sebagian, lalu dilempar ke tempat sampah. Dika hanya memungutnya diam-diam, tanpa protes, tanpa air mata yang terlihat — tapi Sari tahu, itu bukan hal kecil.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M24 40c-9-6-16-12-16-20a9 9 0 0 1 16-6 9 9 0 0 1 16 6c0 8-7 14-16 20Z"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 3</div>
+        <h2>Langkah Kecil Sari</h2>
+      </div>
+    </div>
+    <p>Malam itu Sari tidak bisa tidur. Dia teringat video edukasi dari guru BK minggu lalu: <mark>"Diam saat melihat perundungan bukan berarti netral. Itu membuat pelaku merasa didukung."</mark></p>
+    <p>Besoknya, Sari memberanikan diri. Dia duduk di sebelah Dika saat istirahat, mengajaknya ngobrol soal PR Matematika — hal sederhana, tapi itu artinya Dika tidak lagi sendirian. Sari juga melaporkan apa yang dia lihat ke guru BK, Bu Rani.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="8" y="10" width="32" height="24" rx="2"/>
+        <path d="M14 18h20M14 24h14" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 4</div>
+        <h2>Peran Bu Rani</h2>
+      </div>
+    </div>
+    <p>Bu Rani tidak langsung memarahi Bima di depan kelas — itu justru bisa mempermalukannya dan memperburuk keadaan. Ia memanggil Bima secara pribadi, mengajaknya bicara dari hati ke hati. Ternyata, Bima sendiri sering diejek oleh kakaknya di rumah, dan tanpa sadar dia melampiaskan rasa kesalnya ke Dika.</p>
+    <p>Bu Rani juga mengadakan sesi kelas tentang empati: bagaimana rasanya jadi orang baru, dan bagaimana lelucon yang menurut sebagian orang "biasa saja" ternyata bisa menyakitkan bagi yang lain.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M14 24l7 7 14-14" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="24" r="18"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 5</div>
+        <h2>Kelas yang Berubah</h2>
+      </div>
+    </div>
+    <p>Beberapa minggu kemudian, kelas 7C terasa berbeda. Bima meminta maaf pada Dika, dan meski canggung, keduanya mulai bisa saling menyapa. Dika mulai berani mengangkat tangan di kelas.</p>
+    <p>Sari? Dia jadi tahu, <mark>satu tindakan kecil — duduk di sebelah seseorang yang kesepian — bisa mengubah keadaan lebih dari yang dia kira.</mark></p>
+  </section>
+
+  <div class="messages">
+    <span class="eyebrow">Pesan Untuk Kita Semua</span>
+    <h2>Yang Perlu Diingat</h2>
+    <div class="sticky-grid">
+      <div class="sticky">Perundungan tidak selalu berupa pukulan — kata-kata dan pengucilan juga melukai.</div>
+      <div class="sticky">Jadi saksi yang diam sama artinya dengan membiarkan.</div>
+      <div class="sticky">Melapor ke guru BK bukan tanda lemah — itu langkah berani.</div>
+      <div class="sticky">Setiap orang pantas merasa aman di sekolahnya sendiri.</div>
+    </div>
+  </div>
+
+  <div class="discuss">
+    <span class="eyebrow">Untuk Bimbingan Klasikal</span>
+    <h2>Bahan Diskusi</h2>
+    <ol>
+      <li>Menurutmu, kenapa Sari awalnya memilih diam saat melihat Dika diperlakukan tidak baik?</li>
+      <li>Apa yang membuat Sari akhirnya berani bertindak? Pernahkah kamu berada di posisi Sari?</li>
+      <li>Bagaimana cara Bu Rani menangani Bima tanpa mempermalukannya? Menurutmu, kenapa cara itu penting?</li>
+      <li>Jika kamu melihat kejadian seperti ini di sekolahmu, langkah kecil apa yang bisa kamu lakukan?</li>
+      <li>Ke mana saja kamu bisa melapor jika mengalami atau menyaksikan perundungan di sekolah?</li>
+    </ol>
+  </div>
+
+  <footer>
+    Cerita edukasi anti-perundungan &middot; disusun untuk mendukung layanan Bimbingan Konseling SMP
+  </footer>
+
+</div>
+
+<script>
+  // Reveal scenes on scroll
+  const scenes = document.querySelectorAll('.scene');
+  const marks = document.querySelectorAll('mark');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  scenes.forEach(s => io.observe(s));
+
+  const markIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        setTimeout(() => e.target.classList.add('lit'), 200);
+        markIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  marks.forEach(m => markIo.observe(m));
+</script>
+</body>
+</html>

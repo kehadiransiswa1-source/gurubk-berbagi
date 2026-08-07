@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Apa dengan Tubuhku? — Cerita Edukasi Kesehatan Reproduksi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Literata:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F1EFF7;
+    --paper-line: #ded9ee;
+    --ink: #2B2A3A;
+    --ink-soft: #5c5a72;
+    --lilac: #8C6FCE;
+    --lilac-soft: #e4dbf9;
+    --sun: #FFC94A;
+    --mint: #4FAE9B;
+    --white: #fbfaff;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      repeating-linear-gradient(
+        var(--paper) 0px, var(--paper) 34px,
+        var(--paper-line) 35px
+      );
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Literata', Georgia, serif;
+    line-height: 1.7;
+    font-size: 18px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+
+  .page{
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 64px 28px 100px;
+    position: relative;
+  }
+
+  .page::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0; left:56px;
+    width:1.5px;
+    background: rgba(140,111,206,0.25);
+  }
+  @media (max-width:600px){ .page::before{ display:none; } }
+
+  header.hero{ margin-bottom: 56px; }
+
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--mint);
+    text-transform: uppercase;
+    display:inline-block;
+    padding: 4px 10px;
+    border: 1.5px solid var(--mint);
+    border-radius: 20px;
+    background: var(--white);
+  }
+
+  h1{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size: clamp(40px, 7.5vw, 60px);
+    margin: 18px 0 6px;
+    line-height: 1.08;
+    color: var(--ink);
+  }
+
+  .subtitle{
+    font-size: 17px;
+    color: var(--ink-soft);
+    font-style: italic;
+    max-width: 48ch;
+  }
+
+  .tape{
+    position: relative;
+    width: 110px;
+    height: 30px;
+    background: var(--sun);
+    opacity: 0.85;
+    margin: 28px 0 0 -6px;
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+
+  section.scene{
+    margin: 0 0 8px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  section.scene.in{ opacity: 1; transform: translateY(0); }
+
+  .scene-head{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin: 44px 0 14px;
+  }
+
+  .scene-icon{ flex: 0 0 auto; width: 42px; height:42px; color: var(--mint); }
+
+  .scene-num{
+    font-family:'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--lilac);
+    letter-spacing: 0.08em;
+  }
+
+  h2{
+    font-family:'Caveat', cursive;
+    font-size: 30px;
+    font-weight:600;
+    margin: 2px 0 0;
+    color: var(--ink);
+  }
+
+  p{ margin: 0 0 16px; }
+  .quote-line{ font-style: italic; color: var(--ink); }
+
+  mark{
+    background: none;
+    background-image: linear-gradient(var(--lilac-soft), var(--lilac-soft));
+    background-repeat: no-repeat;
+    background-size: 0% 55%;
+    background-position: 0 88%;
+    color: inherit;
+    padding: 0 2px;
+    transition: background-size 0.9s ease;
+  }
+  mark.lit{ background-size: 100% 55%; }
+
+  .tear{
+    height: 22px;
+    margin: 40px 0;
+    background:
+      linear-gradient(135deg, var(--paper) 25%, transparent 25%) 0 0,
+      linear-gradient(225deg, var(--paper) 25%, transparent 25%) 0 0;
+    background-size: 16px 16px;
+    background-color: var(--white);
+    opacity: 0.6;
+  }
+
+  .infobox{
+    background: var(--white);
+    border-left: 4px solid var(--mint);
+    padding: 16px 18px;
+    margin: 4px 0 20px;
+    font-size: 16.5px;
+    color: var(--ink-soft);
+    border-radius: 2px;
+  }
+  .infobox b{ color: var(--ink); }
+
+  .messages{ margin-top: 60px; }
+  .messages h2{ font-size: 34px; margin-bottom: 22px; }
+
+  .sticky-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 8px;
+  }
+  @media (max-width:560px){ .sticky-grid{ grid-template-columns: 1fr; } }
+
+  .sticky{
+    background: var(--sun);
+    padding: 20px 18px 24px;
+    font-family: 'Caveat', cursive;
+    font-size: 21px;
+    line-height: 1.35;
+    color: var(--ink);
+    box-shadow: 0 6px 14px rgba(43,42,58,0.12);
+    transform: rotate(-1.2deg);
+  }
+  .sticky:nth-child(2){ transform: rotate(1.5deg); background: var(--lilac-soft); }
+  .sticky:nth-child(3){ transform: rotate(1deg); background:#d9f0e9; }
+  .sticky:nth-child(4){ transform: rotate(-1.6deg); }
+
+  .discuss{
+    margin-top: 70px;
+    background: var(--white);
+    border: 1.5px dashed var(--mint);
+    border-radius: 4px;
+    padding: 28px 24px;
+  }
+  .discuss .eyebrow{ margin-bottom: 10px; }
+  .discuss h2{ margin-top:4px; }
+  .discuss ol{ padding-left: 22px; margin: 14px 0 0; }
+  .discuss li{ margin-bottom: 12px; }
+
+  .helpline{
+    margin-top: 32px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    background: var(--lilac-soft);
+    padding: 14px 18px;
+    border-radius: 4px;
+  }
+  .helpline b{ color: var(--ink); }
+
+  footer{
+    margin-top: 70px;
+    font-family:'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+    border-top: 1px solid var(--paper-line);
+    padding-top: 18px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <span class="eyebrow">Cerita Edukasi &middot; Kesehatan Reproduksi Remaja</span>
+    <h1>Ada Apa dengan<br>Tubuhku?</h1>
+    <p class="subtitle">Cerita tentang masa pubertas, rasa penasaran yang wajar, dan pentingnya mencari informasi dari sumber yang benar.</p>
+    <div class="tape"></div>
+  </header>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M24 6c6 10 12 17 12 25a12 12 0 0 1-24 0c0-8 6-15 12-25Z" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 1</div>
+        <h2>Kejutan di Jam Istirahat</h2>
+      </div>
+    </div>
+    <p>Nadia baru saja duduk di bangku kelas 7 semester dua. Pagi itu, saat istirahat, ia menyadari ada yang berbeda pada tubuhnya — sesuatu yang selama ini hanya ia dengar dari materi pelajaran: menstruasi pertamanya datang, di sekolah, tanpa persiapan sama sekali.</p>
+    <p>Jantungnya berdebar. Ia panik, takut ada yang melihat, dan buru-buru berjalan ke toilet sambil menutupi rok dengan tas.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M24 8c9 0 17 6 20 16-3 10-11 16-20 16S7 34 4 24C7 14 15 8 24 8Z"/>
+        <circle cx="24" cy="24" r="4.5"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 2</div>
+        <h2>Bisik-Bisik yang Keliru</h2>
+      </div>
+    </div>
+    <p>Di kelas, beberapa teman berbisik-bisik. Ada yang bilang menstruasi itu "penyakit", ada juga yang bilang perempuan yang sedang menstruasi "tidak boleh olahraga sama sekali" atau "sedang kotor". Nadia jadi makin cemas dan malu, padahal yang ia butuhkan hanya penjelasan yang benar dan bantuan praktis.</p>
+    <p class="quote-line">Sayangnya, banyak informasi yang beredar di antara teman sebaya justru bercampur dengan mitos yang keliru.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="9" y="6" width="24" height="32" rx="2"/>
+        <path d="M15 14h12M15 20h12M15 26h8" stroke-linecap="round"/>
+        <path d="M33 30l6 6M39 30l-6 6" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 3</div>
+        <h2>Ke Ruang Bu Rani</h2>
+      </div>
+    </div>
+    <p>Wali kelas melihat Nadia gelisah dan mengantarnya ke ruang UKS, lalu memanggil Bu Rani, guru BK. Di sana, dengan tenang, Bu Rani menjelaskan bahwa <mark>menstruasi adalah proses alami dan sehat, tanda tubuh perempuan mulai memasuki masa reproduksi — bukan penyakit, bukan sesuatu yang memalukan.</mark></p>
+    <div class="infobox">Bu Rani membantu Nadia dengan pembalut cadangan yang selalu tersedia di UKS, dan mengajarkan cara mengganti serta membuang pembalut dengan bersih dan higienis setiap 4 jam sekali.</div>
+    <p>Nadia merasa lega. Ternyata ada tempat aman untuk bertanya, dan rasa malunya perlahan hilang setelah tahu bahwa ini dialami semua perempuan.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M6 24c4-6 6-6 8 0s4 6 8 0 4-6 8 0 4 6 8 0" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 4</div>
+        <h2>Suara Fajar yang Pecah</h2>
+      </div>
+    </div>
+    <p>Minggu berikutnya, giliran Fajar yang merasa canggung. Suaranya tiba-tiba "pecah" saat presentasi di depan kelas, membuat beberapa teman tertawa. Wajahnya memerah, ia jadi enggan bicara di depan kelas lagi.</p>
+    <p>Guru olahraga yang melihat kejadian itu menjelaskan ke seluruh kelas bahwa <mark>perubahan suara, tumbuhnya jakun, jerawat, keringat yang lebih banyak, dan mimpi basah adalah bagian normal dari pubertas laki-laki</mark> — sama alaminya dengan menstruasi pada perempuan.</p>
+  </section>
+
+  <div class="tear"></div>
+
+  <section class="scene">
+    <div class="scene-head">
+      <svg class="scene-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="16" cy="20" r="6"/>
+        <circle cx="32" cy="20" r="6"/>
+        <path d="M6 40c0-6 5-10 10-10s10 4 10 10M22 40c0-6 5-10 10-10s10 4 10 10" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="scene-num">Bagian 5</div>
+        <h2>Satu Kelas, Satu Pemahaman</h2>
+      </div>
+    </div>
+    <p>Bu Rani lalu mengadakan sesi edukasi kesehatan reproduksi untuk satu kelas. Ia menjelaskan bahwa setiap orang mengalami pubertas dengan waktu dan cara yang berbeda-beda — dan itu wajar. Ia juga mengingatkan pentingnya menjaga kebersihan diri, serta menghargai privasi dan tubuh diri sendiri maupun orang lain.</p>
+    <p>Yang paling diingat Nadia dan Fajar: <mark>lebih baik bertanya kepada guru, orang tua, atau tenaga kesehatan daripada percaya begitu saja pada kata teman atau informasi sembarangan dari internet.</mark></p>
+  </section>
+
+  <div class="messages">
+    <span class="eyebrow">Pesan Untuk Kita Semua</span>
+    <h2>Yang Perlu Diingat</h2>
+    <div class="sticky-grid">
+      <div class="sticky">Pubertas adalah proses alami — semua orang mengalaminya dengan waktu yang berbeda-beda.</div>
+      <div class="sticky">Informasi yang benar sebaiknya didapat dari guru, orang tua, atau tenaga kesehatan, bukan dari rumor teman.</div>
+      <div class="sticky">Menjaga kebersihan diri saat pubertas penting untuk kesehatan tubuh.</div>
+      <div class="sticky">Tubuhmu adalah milikmu — kamu berhak merasa nyaman, dihormati, dan aman.</div>
+    </div>
+  </div>
+
+  <div class="discuss">
+    <span class="eyebrow">Untuk Bimbingan Klasikal</span>
+    <h2>Bahan Diskusi</h2>
+    <ol>
+      <li>Apa saja perubahan fisik yang umum terjadi saat pubertas pada perempuan dan laki-laki?</li>
+      <li>Kenapa penting mencari informasi kesehatan reproduksi dari sumber yang tepat dan terpercaya?</li>
+      <li>Bagaimana perasaan Nadia saat pertama kali menstruasi, dan kenapa dukungan orang dewasa saat itu penting?</li>
+      <li>Apa yang sebaiknya kita lakukan jika melihat teman diejek karena perubahan tubuhnya?</li>
+      <li>Kepada siapa saja kamu bisa bertanya jika punya pertanyaan seputar kesehatan reproduksi?</li>
+    </ol>
+    <div class="helpline">Ingat: jika ada bagian tubuhmu yang disentuh tanpa izin atau membuatmu tidak nyaman, itu bukan salahmu. <b>Segera ceritakan kepada orang dewasa yang kamu percaya</b> — orang tua, wali kelas, atau guru BK.</div>
+  </div>
+
+  <footer>
+    Cerita edukasi kesehatan reproduksi &middot; disusun untuk mendukung layanan Bimbingan Konseling SMP
+  </footer>
+
+</div>
+
+<script>
+  const scenes = document.querySelectorAll('.scene');
+  const marks = document.querySelectorAll('mark');
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  scenes.forEach(s => io.observe(s));
+
+  const markIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        setTimeout(() => e.target.classList.add('lit'), 200);
+        markIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  marks.forEach(m => markIo.observe(m));
+</script>
+</body>
+</html>
