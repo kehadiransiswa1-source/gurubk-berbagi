@@ -369,7 +369,465 @@
     <div>© <span id="year"></span> Guru BK Berbagi — Tim BK SMP Wisata Sanur. Dibuat dengan niat baik untuk mendampingi tumbuh kembang siswa.</div>
   </div>
 </footer>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahabat, Rasa, dan Cerita SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF3E3;
+    --paper:#FFFDF8;
+    --plum:#2E2540;
+    --coral:#FF6F5E;
+    --mint:#3FB6A8;
+    --sun:#FFC93C;
+    --sky:#5B8FD6;
+    --line:#E7DCC2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 10% 10%, #fff7e6 0%, transparent 40%),
+      var(--cream);
+    font-family:'Nunito',sans-serif;
+    color:var(--plum);
+    line-height:1.65;
+  }
 
+  /* ===== Notebook shell ===== */
+  .notebook{
+    max-width:860px;
+    margin:32px auto 80px;
+    background:var(--paper);
+    border-radius:18px;
+    box-shadow:0 30px 60px -20px rgba(46,37,64,0.25), 0 2px 0 rgba(46,37,64,0.05);
+    position:relative;
+    overflow:hidden;
+    padding-left:56px;
+  }
+  .spiral{
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width:56px;
+    background:linear-gradient(90deg, #efe4c8 0%, #f6ecd6 100%);
+    border-right:1px dashed #d8c99e;
+  }
+  .spiral::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:0; bottom:0;
+    background-image:radial-gradient(circle at 28px 0, transparent 8px, #fbf3e3 9px);
+    background-size:56px 42px;
+    background-repeat:repeat-y;
+  }
+  .spiral-hole{
+    position:absolute; left:20px; width:16px; height:16px; border-radius:50%;
+    background:var(--cream);
+    box-shadow:inset 0 2px 3px rgba(0,0,0,0.25);
+  }
+
+  /* ===== Cover ===== */
+  .cover{
+    padding:54px 48px 46px;
+    background:
+      linear-gradient(180deg, #FF6F5E 0%, #FF8A6E 100%);
+    color:#fff;
+    text-align:left;
+    position:relative;
+  }
+  .cover .eyebrow{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-size:13px;
+    opacity:.85;
+    display:inline-block;
+    padding:5px 14px;
+    border:1.5px dashed rgba(255,255,255,.7);
+    border-radius:999px;
+  }
+  .cover h1{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:42px;
+    line-height:1.15;
+    margin:18px 0 10px;
+  }
+  .cover p.lede{
+    font-size:17px;
+    max-width:480px;
+    margin:0 0 6px;
+    opacity:.95;
+  }
+  .cover .tag{
+    margin-top:22px;
+    font-family:'Baloo 2',sans-serif;
+    font-size:14px;
+    opacity:.9;
+  }
+  .cover-art{
+    position:absolute;
+    right:28px; top:24px;
+    width:150px; height:150px;
+  }
+
+  /* ===== Section generic ===== */
+  section.page{
+    padding:40px 48px;
+    border-bottom:1px dashed var(--line);
+  }
+  section.page:last-of-type{border-bottom:none;}
+  .chapter-label{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--coral);
+    margin-bottom:6px;
+  }
+  h2{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:26px;
+    margin:0 0 16px;
+    color:var(--plum);
+  }
+  p{margin:0 0 14px; font-size:16px;}
+  .story-row{
+    display:flex;
+    gap:28px;
+    align-items:flex-start;
+  }
+  .story-row .txt{flex:1.3;}
+  .story-row .art{flex:1; text-align:center;}
+  .story-row .art svg{width:100%; max-width:220px; height:auto;}
+  @media(max-width:640px){
+    .story-row{flex-direction:column;}
+  }
+
+  /* speech bubble dialog */
+  .dialog{
+    display:flex; gap:12px; align-items:flex-start;
+    margin:16px 0;
+  }
+  .avatar{
+    flex:none;
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Baloo 2',sans-serif; font-weight:700; color:#fff; font-size:16px;
+  }
+  .avatar.rani{background:var(--coral);}
+  .avatar.dito{background:var(--sky);}
+  .avatar.bu{background:var(--mint);}
+  .bubble{
+    background:#F4EEDD;
+    border-radius:4px 16px 16px 16px;
+    padding:10px 16px;
+    font-size:15.5px;
+    max-width:440px;
+  }
+  .bubble b{font-family:'Baloo 2',sans-serif;}
+
+  /* sticky note */
+  .sticky{
+    background:var(--sun);
+    color:#3a2c05;
+    padding:18px 20px;
+    border-radius:2px;
+    transform:rotate(-1.4deg);
+    box-shadow:0 10px 18px -8px rgba(0,0,0,.25);
+    font-family:'Nunito',sans-serif;
+    margin:26px 0;
+    position:relative;
+  }
+  .sticky.mint{background:var(--mint); color:#0d2e2a; transform:rotate(1.2deg);}
+  .sticky.sky{background:var(--sky); color:#fff; transform:rotate(-0.8deg);}
+  .sticky .lbl{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    display:block;
+    margin-bottom:6px;
+  }
+  .sticky ul{margin:6px 0 0; padding-left:18px;}
+  .sticky li{margin-bottom:4px; font-size:14.5px;}
+
+  /* fact box */
+  .fact{
+    display:flex; gap:14px; align-items:flex-start;
+    background:#EFF7F5;
+    border-left:4px solid var(--mint);
+    padding:14px 18px;
+    border-radius:8px;
+    margin:20px 0;
+    font-size:14.5px;
+  }
+  .fact svg{flex:none; width:34px; height:34px;}
+
+  /* divider */
+  .divider{margin:6px 0 28px;}
+  .divider svg{width:100%; height:16px; display:block;}
+
+  /* closing */
+  .closing{
+    background:linear-gradient(180deg,#2E2540,#3a2c52);
+    color:#fbf3e3;
+    padding:44px 48px 50px;
+    text-align:center;
+  }
+  .closing h2{color:#fff; font-size:24px;}
+  .closing p{color:#e6ddf2; max-width:520px; margin-left:auto; margin-right:auto;}
+  .closing .badges{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:24px;
+  }
+  .badge{
+    font-family:'Baloo 2',sans-serif;
+    font-size:13px; font-weight:600;
+    padding:8px 16px;
+    border-radius:999px;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.25);
+  }
+
+  .footnote{
+    text-align:center;
+    font-size:12.5px;
+    color:#8a7f5e;
+    padding:18px 20px 30px;
+  }
+</style>
+</head>
+<body>
+
+<div class="notebook">
+  <div class="spiral" id="spiral"></div>
+
+  <!-- COVER -->
+  <div class="cover">
+    <span class="eyebrow">Cerita Edukasi &middot; Untuk Kamu yang SMP</span>
+    <h1>Sahabat, Rasa,<br>dan Cerita SMP</h1>
+    <p class="lede">Kisah Rani &amp; Dito &mdash; tentang perasaan suka yang wajar, tekanan dari teman, dan cara menyikapinya dengan bijak.</p>
+    <div class="tag">📓 Dibaca sambil santai, ditulis untuk usia 12&ndash;15 tahun</div>
+    <svg class="cover-art" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="92" fill="rgba(255,255,255,0.12)"/>
+      <path d="M60 120 Q100 60 140 120" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.85"/>
+      <circle cx="70" cy="95" r="9" fill="#fff" opacity="0.9"/>
+      <circle cx="130" cy="95" r="9" fill="#fff" opacity="0.9"/>
+      <path d="M90 70 h20 l-4 14 h-12 z" fill="#FFC93C"/>
+    </svg>
+  </div>
+
+  <!-- CHAPTER 1 -->
+  <section class="page">
+    <div class="chapter-label">Bab 1</div>
+    <h2>Perasaan yang Tiba-Tiba Datang</h2>
+    <div class="story-row">
+      <div class="txt">
+        <p>Rani, siswa kelas 8, mulai merasa berdebar setiap kali Dito &mdash; teman sekelasnya yang jago olimpiade matematika &mdash; duduk di dekatnya. Rasanya aneh: kadang malu, kadang ingin cepat-cepat mengobrol dengannya.</p>
+        <p>Rani bingung. Ia bertanya-tanya, <i>"Apa aku suka Dito? Apa ini normal?"</i></p>
+      </div>
+      <div class="art">
+        <svg viewBox="0 0 200 180" fill="none">
+          <rect x="20" y="40" width="60" height="70" rx="10" fill="#5B8FD6"/>
+          <rect x="120" y="40" width="60" height="70" rx="10" fill="#FF6F5E"/>
+          <path d="M85 70 Q100 40 115 70" stroke="#FFC93C" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <circle cx="100" cy="130" r="14" fill="#3FB6A8"/>
+          <text x="100" y="136" text-anchor="middle" font-family="Baloo 2" font-size="16" fill="#fff" font-weight="700">?</text>
+        </svg>
+      </div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#3FB6A8"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#fff" font-weight="800">i</text></svg>
+      <div><b>Tahukah kamu?</b> Merasa tertarik atau nyaman dengan seseorang di usia remaja itu wajar. Tubuh dan perasaan memang sedang belajar mengenali hal baru ini &mdash; bukan sesuatu yang perlu ditakuti atau digegas.</div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 2 -->
+  <section class="page">
+    <div class="chapter-label">Bab 2</div>
+    <h2>Ajakan &amp; Tekanan dari Teman</h2>
+    <p>Keesokan harinya, teman-teman satu geng mulai menggoda Rani.</p>
+
+    <div class="dialog">
+      <div class="avatar" style="background:#B79CED;">T</div>
+      <div class="bubble"><b>Tasya:</b> "Udah jadian aja sama Dito! Semua juga tahu kalian saling suka kok!"</div>
+    </div>
+    <div class="dialog">
+      <div class="avatar rani">R</div>
+      <div class="bubble"><b>Rani:</b> "Aku... belum tahu, deh. Rasanya aku belum siap kalau harus 'pacaran'."</div>
+    </div>
+
+    <div class="story-row">
+      <div class="art">
+        <svg viewBox="0 0 200 160" fill="none">
+          <circle cx="50" cy="60" r="26" fill="#B79CED"/>
+          <circle cx="150" cy="60" r="26" fill="#FFC93C"/>
+          <circle cx="100" cy="110" r="26" fill="#FF6F5E"/>
+          <path d="M76 65 L124 65" stroke="#2E2540" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>
+          <path d="M65 85 L88 100" stroke="#2E2540" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>
+          <path d="M135 85 L112 100" stroke="#2E2540" stroke-width="4" stroke-dasharray="6 6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="txt">
+        <p>Rani merasa tertekan. Ia ingin dianggap "gak kudet", tapi di sisi lain hatinya bilang belum siap. Inilah yang disebut <b>tekanan teman sebaya (peer pressure)</b> &mdash; dorongan untuk ikut-ikutan supaya diterima kelompok.</p>
+      </div>
+    </div>
+
+    <div class="sticky mint">
+      <span class="lbl">Tips Sehat</span>
+      Menolak ajakan yang belum kamu siapkan itu BUKAN hal memalukan.
+      <ul>
+        <li>Kamu berhak bilang "belum siap" tanpa alasan panjang.</li>
+        <li>Teman yang baik akan menghargai keputusanmu, bukan memaksa.</li>
+        <li>Rasa suka tidak harus langsung berujung "status pacaran".</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHAPTER 3 -->
+  <section class="page">
+    <div class="chapter-label">Bab 3</div>
+    <h2>Cerita ke Orang yang Dipercaya</h2>
+    <div class="story-row">
+      <div class="txt">
+        <p>Malamnya, Rani cerita ke Bu Nita, wali kelasnya yang sering ia percaya. Bercerita ternyata membuat pikirannya jauh lebih lega.</p>
+      </div>
+      <div class="art">
+        <svg viewBox="0 0 200 160" fill="none">
+          <rect x="30" y="50" width="55" height="65" rx="10" fill="#3FB6A8"/>
+          <rect x="115" y="50" width="55" height="65" rx="10" fill="#FF6F5E"/>
+          <path d="M92 75 h16" stroke="#2E2540" stroke-width="4" stroke-linecap="round"/>
+          <path d="M92 85 h16" stroke="#2E2540" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="100" cy="30" r="10" fill="#FFC93C"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="dialog">
+      <div class="avatar bu">B</div>
+      <div class="bubble"><b>Bu Nita:</b> "Wajar kok kalau kamu suka seseorang. Yang penting, kamu ngerti bedanya suka sama seseorang dan komitmen 'pacaran' yang sering dibayangkan orang dewasa &mdash; itu dua hal berbeda."</div>
+    </div>
+    <div class="dialog">
+      <div class="avatar bu">B</div>
+      <div class="bubble">"Fokus dulu kembangkan diri, jaga pertemanan yang sehat. Kalau soal rasa suka, cukup simpan sebagai motivasi baik, misalnya semangat belajar bareng."</div>
+    </div>
+
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#5B8FD6"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#fff" font-weight="800">i</text></svg>
+      <div><b>Tahukah kamu?</b> Penelitian tumbuh kembang remaja menunjukkan, hubungan romantis yang terlalu dini dan intens berpotensi mengalihkan fokus belajar, memicu konflik emosional, dan menambah tekanan sosial yang belum tentu siap dihadapi anak usia SMP.</div>
+    </div>
+  </section>
+
+  <!-- CHAPTER 4 -->
+  <section class="page">
+    <div class="chapter-label">Bab 4</div>
+    <h2>Memilih Jalan yang Sehat</h2>
+    <p>Rani akhirnya mengobrol baik-baik dengan Dito. Bukan tentang "jadian", tapi tentang menjadi partner belajar dan teman diskusi yang seru.</p>
+
+    <div class="dialog">
+      <div class="avatar rani">R</div>
+      <div class="bubble"><b>Rani:</b> "Dit, aku nyaman kok kalau kita temenan deket. Tapi aku belum mau buru-buru soal status pacaran, ya."</div>
+    </div>
+    <div class="dialog">
+      <div class="avatar dito">D</div>
+      <div class="bubble"><b>Dito:</b> "Oke, aku ngerti. Kita tetap bisa belajar bareng dan ikut lomba matematika bareng kok!"</div>
+    </div>
+
+    <div class="story-row">
+      <div class="art">
+        <svg viewBox="0 0 200 160" fill="none">
+          <rect x="40" y="90" width="120" height="14" rx="7" fill="#E7DCC2"/>
+          <rect x="55" y="40" width="30" height="55" rx="6" fill="#FF6F5E"/>
+          <rect x="90" y="30" width="30" height="65" rx="6" fill="#3FB6A8"/>
+          <rect x="125" y="50" width="30" height="45" rx="6" fill="#5B8FD6"/>
+          <circle cx="70" cy="30" r="9" fill="#FFC93C"/>
+          <circle cx="105" cy="20" r="9" fill="#FFC93C"/>
+          <circle cx="140" cy="40" r="9" fill="#FFC93C"/>
+        </svg>
+      </div>
+      <div class="txt">
+        <p>Mereka tetap berteman baik, ikut lomba bareng, dan sama-sama tumbuh sebagai pribadi yang lebih percaya diri &mdash; tanpa embel-embel status yang membebani.</p>
+      </div>
+    </div>
+
+    <div class="sticky sky">
+      <span class="lbl">Tips Sehat</span>
+      Cara menyalurkan rasa suka tanpa harus "pacaran":
+      <ul>
+        <li>Jadikan semangat untuk berprestasi bersama, misalnya belajar kelompok.</li>
+        <li>Tetap jaga circle pertemanan biar tidak berdua-duaan terus.</li>
+        <li>Bicarakan perasaanmu ke orang tua, kakak, guru BK, atau orang dewasa yang kamu percaya.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CHAPTER 5: RANGKUMAN -->
+  <section class="page">
+    <div class="chapter-label">Bab 5</div>
+    <h2>Yang Bisa Kita Pelajari</h2>
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FF6F5E"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#fff" font-weight="800">✓</text></svg>
+      <div>Merasa suka pada teman itu wajar dan bukan sesuatu yang salah.</div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#3FB6A8"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#fff" font-weight="800">✓</text></svg>
+      <div>Kamu tidak wajib "jadian" hanya karena diajak atau digoda teman.</div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#5B8FD6"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#fff" font-weight="800">✓</text></svg>
+      <div>Bicarakan perasaanmu dengan orang tua, guru, atau orang dewasa yang kamu percaya.</div>
+    </div>
+    <div class="fact">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#FFC93C"/><text x="20" y="27" text-anchor="middle" font-family="Baloo 2" font-size="20" fill="#3a2c05" font-weight="800">✓</text></svg>
+      <div>Fokus utama masa SMP tetap belajar, mengembangkan bakat, dan menjaga pertemanan yang sehat.</div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <h2>Untuk Kamu yang Sedang Merasakannya</h2>
+    <p>Perasaan suka itu bagian normal dari tumbuh dewasa. Yang penting, kamu tahu caranya menyikapi dengan bijak &mdash; tanpa tekanan, tanpa terburu-buru, dan tetap fokus pada mimpi-mimpimu.</p>
+    <div class="badges">
+      <span class="badge">💬 Cerita ke orang dewasa terpercaya</span>
+      <span class="badge">📚 Fokus belajar &amp; kembangkan bakat</span>
+      <span class="badge">🤝 Jaga circle pertemanan sehat</span>
+      <span class="badge">🛡️ Kamu berhak bilang "belum siap"</span>
+    </div>
+  </div>
+
+  <div class="footnote">Cerita fiktif untuk tujuan edukasi &middot; Cocok dibacakan bersama orang tua, wali kelas, atau guru BK.</div>
+</div>
+
+<script>
+  // generate spiral holes dynamically to match notebook height
+  const spiral = document.getElementById('spiral');
+  const notebook = document.querySelector('.notebook');
+  function buildHoles(){
+    spiral.querySelectorAll('.spiral-hole').forEach(h=>h.remove());
+    const h = notebook.offsetHeight;
+    const count = Math.floor(h/42);
+    for(let i=0;i<count;i++){
+      const hole = document.createElement('div');
+      hole.className='spiral-hole';
+      hole.style.top = (14 + i*42)+'px';
+      spiral.appendChild(hole);
+    }
+  }
+  window.addEventListener('load', buildHoles);
+  window.addEventListener('resize', buildHoles);
+</script>
+
+</body>
+</html>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
