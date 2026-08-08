@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Manajemen Emosi — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F0F5F4; --ink:#20302E; --sage:#3E6E63; --sage-dark:#254743;
+    --lilac:#8C6FB0; --peach:#E39B72; --green:#3F8F5F; --red:#C0453A;
+    --shadow:0 10px 24px rgba(32,48,46,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 8%, rgba(140,111,176,0.10), transparent 42%),
+               radial-gradient(circle at 88% 92%, rgba(62,110,99,0.12), transparent 42%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--lilac);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--sage-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#5c6b67;max-width:520px;text-align:center;margin-bottom:24px;}
+
+  .wrap{max-width:520px;width:100%;}
+
+  .menu{display:flex;flex-direction:column;gap:14px;}
+  .scenario-card{
+    background:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);
+    border:1px solid rgba(32,48,46,0.06);cursor:pointer;display:flex;align-items:center;gap:16px;
+    transition:.15s;
+  }
+  .scenario-card:hover{transform:translateY(-2px);}
+  .scenario-icon{font-size:32px;flex-shrink:0;}
+  .scenario-title{font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--sage-dark);margin-bottom:3px;}
+  .scenario-desc{font-size:13px;color:#5c6b67;}
+
+  .story{display:none;}
+  .story.visible{display:block;}
+  .back-link{
+    display:inline-block;margin-bottom:14px;font-family:'Baloo 2';font-weight:700;font-size:13px;
+    color:var(--sage);cursor:pointer;
+  }
+  .story-card{
+    background:#fff;border-radius:20px;padding:26px 24px;box-shadow:var(--shadow);
+    border:1px solid rgba(32,48,46,0.06);
+  }
+  .scene-tag{font-family:'Baloo 2';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lilac);font-weight:700;margin-bottom:10px;}
+  .scene-text{font-size:16px;line-height:1.7;margin-bottom:20px;}
+  .choices{display:flex;flex-direction:column;gap:10px;}
+  .choice-btn{
+    text-align:left;padding:13px 16px;border-radius:12px;border:2px solid #dbe6e2;
+    background:#fff;font-family:'Nunito';font-weight:700;font-size:14px;cursor:pointer;transition:.15s;
+  }
+  .choice-btn:hover{border-color:var(--sage);background:rgba(62,110,99,0.05);}
+  .choice-btn:disabled{opacity:.55;cursor:default;}
+
+  .feedback{
+    margin-top:16px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:700;
+  }
+  .feedback.good{background:rgba(63,143,95,0.14);color:var(--green);}
+  .feedback.mid{background:rgba(227,155,114,0.22);color:#8a4c1f;}
+
+  .ending-card{text-align:center;}
+  .ending-emoji{font-size:48px;margin-bottom:10px;}
+  .ending-title{font-family:'Baloo 2';font-size:20px;color:var(--sage-dark);margin-bottom:10px;}
+  .ending-text{font-size:14px;color:#5c6b67;line-height:1.6;margin-bottom:22px;}
+  .btn{
+    padding:12px 22px;border:none;border-radius:12px;font-family:'Baloo 2';font-weight:700;
+    font-size:14px;cursor:pointer;background:var(--lilac);color:#fff;box-shadow:0 5px 0 #6a4f8c;
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #6a4f8c;}
+
+  .footnote{
+    margin-top:22px;background:#fff;border-radius:14px;padding:14px 16px;font-size:12px;
+    color:#5c6b67;box-shadow:var(--shadow);border:1px solid rgba(32,48,46,0.06);
+  }
+  .footnote b{color:var(--sage-dark);}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Simulasi Manajemen Emosi</h1>
+<p class="subtitle">Pilih satu situasi tentang emosi sehari-hari, lalu ambil keputusan di setiap langkah cerita. Lihat bagaimana caramu merespons emosi memengaruhi hasilnya.</p>
+
+<div class="wrap">
+  <div class="menu" id="menu"></div>
+
+  <div class="story" id="story">
+    <span class="back-link" id="backLink">← Kembali ke daftar skenario</span>
+    <div class="story-card" id="storyCard"></div>
+  </div>
+
+  <div class="footnote">
+    <b>Ingat:</b> semua emosi itu wajar dirasakan — marah, cemas, sedih, kecewa. Yang penting adalah cara kita meresponsnya. Kalau emosi terasa terlalu berat, cerita pada guru BK atau orang tua bisa sangat membantu.
+  </div>
+</div>
+
+<script>
+const SCENARIOS = {
+  marah: {
+    icon: "😤",
+    title: "Saat Rasa Marah Memuncak",
+    desc: "Barang kesayanganmu dirusak tanpa sengaja oleh adik/temanmu.",
+    start: "a1",
+    nodes: {
+      a1: {
+        tag: "Baru saja terjadi",
+        text: "Kamu baru tahu barang kesayanganmu rusak karena kecerobohan orang lain. Dadamu terasa panas dan ingin marah besar. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Menarik napas dalam-dalam beberapa kali sebelum bicara apa pun", next: "a2a", feedback: "Bagus! Memberi jeda sebelum bereaksi membantu emosi tidak meledak begitu saja.", type:"good" },
+          { label: "Langsung membentak dan melempar barang lain karena kesal", next: "a2b", feedback: "Melampiaskan amarah secara impulsif sering membuat keadaan makin runyam.", type:"mid" }
+        ]
+      },
+      a2a: {
+        tag: "Setelah menenangkan diri",
+        text: "Setelah beberapa tarikan napas, kamu masih kesal tapi sudah lebih tenang. Apa langkahmu selanjutnya?",
+        choices: [
+          { label: "Sampaikan perasaanmu dengan tenang: \"Aku kesal karena barang ini rusak\"", next: "end_good", feedback: "Mengungkapkan perasaan dengan jelas dan tenang adalah cara sehat mengelola amarah.", type:"good" },
+          { label: "Diam saja dan menyimpan semua kekesalan itu sendiri", next: "end_mid", feedback: "Memendam amarah terus-menerus bisa membuatnya menumpuk dan meledak di lain waktu." , type:"mid"}
+        ]
+      },
+      a2b: {
+        tag: "Setelah meluapkan amarah",
+        text: "Suasana menjadi tegang dan orang di sekitarmu jadi takut. Kamu mulai merasa tidak enak dengan reaksimu sendiri. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Menenangkan diri lalu meminta maaf atas reaksi berlebihanmu", next: "end_mid", feedback: "Menyadari dan memperbaiki reaksi adalah langkah penting untuk belajar mengelola amarah." , type:"mid"},
+          { label: "Tetap merasa reaksimu wajar dan tidak perlu minta maaf", next: "end_low", feedback: "Tidak mengakui dampak amarah pada orang lain bisa merusak hubungan dari waktu ke waktu." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Amarah yang Dikelola dengan Baik",
+        text: "Kamu berhasil memberi jeda sebelum bereaksi dan menyampaikan perasaanmu dengan cara yang sehat. Ini adalah keterampilan penting yang akan terus berguna."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Belajar dari Reaksi Sendiri",
+        text: "Prosesnya belum sempurna, tapi menyadari dan memperbaiki cara meresponsnya adalah langkah maju yang berarti."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Yuk Coba Cara Baru",
+        text: "Amarah yang meledak bisa berdampak pada orang di sekitar kita. Coba latihan menarik napas dan menyampaikan perasaan dengan kata-kata lain kali."
+      }
+    }
+  },
+  cemas: {
+    icon: "😰",
+    title: "Cemas Menjelang Ujian",
+    desc: "Besok ujian penting dan pikiranmu dipenuhi rasa khawatir.",
+    start: "b1",
+    nodes: {
+      b1: {
+        tag: "Malam sebelum ujian",
+        text: "Pikiranmu terus dipenuhi bayangan gagal, jantungmu berdebar, dan sulit fokus belajar. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Berhenti sejenak, tarik napas perlahan, lalu buat daftar materi yang sudah dan belum dikuasai", next: "b2a", feedback: "Menenangkan tubuh dan menyusun langkah konkret membantu meredakan kecemasan.", type:"good" },
+          { label: "Terus memaksakan belajar semalaman tanpa istirahat karena panik", next: "b2b", feedback: "Belajar tanpa istirahat saat panik justru membuat otak makin sulit menyerap informasi.", type:"mid" }
+        ]
+      },
+      b2a: {
+        tag: "Setelah menyusun daftar",
+        text: "Kamu merasa sedikit lebih tenang karena tahu apa yang perlu difokuskan. Apa yang kamu lakukan sebelum tidur?",
+        choices: [
+          { label: "Berhenti belajar di waktu yang wajar dan tidur cukup", next: "end_good", feedback: "Istirahat cukup membantu otak dan tubuhmu lebih siap menghadapi ujian besok.", type:"good" },
+          { label: "Tetap begadang membaca ulang semua materi karena masih takut kurang", next: "end_mid", feedback: "Niatnya baik, tapi begadang bisa membuatmu lelah dan kurang fokus saat ujian." , type:"mid"}
+        ]
+      },
+      b2b: {
+        tag: "Tengah malam",
+        text: "Kamu sudah sangat lelah tapi kecemasan belum juga hilang. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Akhirnya berhenti sejenak, tarik napas, dan coba tidur meski masih cemas", next: "end_mid", feedback: "Belum terlambat untuk berhenti dan istirahat — tubuh yang lelah butuh jeda." , type:"mid"},
+          { label: "Tetap terjaga sampai pagi karena takut tertinggal materi", next: "end_low", feedback: "Kurang tidur total bisa membuat kecemasan dan kelelahan makin sulit dikendalikan saat ujian." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Cemas yang Dikelola dengan Tenang",
+        text: "Kamu berhasil menenangkan diri dan menyusun langkah nyata alih-alih tenggelam dalam kekhawatiran. Persiapan yang seimbang ini akan sangat membantu esok hari."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Belajar Menenangkan Diri",
+        text: "Kamu sempat kewalahan, tapi akhirnya menemukan cara untuk berhenti sejenak. Ini keterampilan yang bisa terus dilatih."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Tubuh Juga Butuh Istirahat",
+        text: "Kecemasan yang menumpuk tanpa jeda bisa sangat melelahkan. Coba latihan teknik menenangkan diri (seperti tarik napas) sebelum situasi menegangkan berikutnya."
+      }
+    }
+  },
+  kecewa: {
+    icon: "💧",
+    title: "Kecewa karena Hasil Tak Sesuai Harapan",
+    desc: "Kamu tidak terpilih dalam tim/kegiatan yang sangat kamu inginkan.",
+    start: "c1",
+    nodes: {
+      c1: {
+        tag: "Saat pengumuman hasil seleksi",
+        text: "Kamu sudah berlatih keras, tapi ternyata tidak terpilih. Rasa kecewa dan sedih langsung memenuhi dadamu. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Mengizinkan diri merasa sedih sebentar, lalu bicara pada seseorang yang dipercaya", next: "c2a", feedback: "Mengakui perasaan sedih dan berbagi cerita adalah cara sehat memproses kekecewaan.", type:"good" },
+          { label: "Menahan semua perasaan itu dan berpura-pura biasa saja di depan orang lain", next: "c2b", feedback: "Menahan perasaan terus-menerus bisa membuat kekecewaan itu bertahan lebih lama." , type:"mid"}
+        ]
+      },
+      c2a: {
+        tag: "Setelah bercerita",
+        text: "Setelah berbagi cerita, kamu merasa sedikit lebih lega. Apa langkahmu selanjutnya?",
+        choices: [
+          { label: "Tanyakan pada dirimu apa yang bisa dipelajari dan dicoba lagi lain waktu", next: "end_good", feedback: "Mengambil pelajaran dari kekecewaan membantumu tumbuh dan tetap punya harapan ke depan.", type:"good" },
+          { label: "Memutuskan untuk tidak pernah mencoba hal serupa lagi", next: "end_mid", feedback: "Wajar merasa enggan mencoba lagi, tapi menutup semua kesempatan bisa membatasi dirimu sendiri." , type:"mid"}
+        ]
+      },
+      c2b: {
+        tag: "Beberapa hari kemudian",
+        text: "Kamu masih merasa berat setiap kali teringat kejadian itu, meski berusaha terlihat baik-baik saja. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Akhirnya memberanikan diri cerita pada guru BK atau orang terdekat", next: "end_mid", feedback: "Tidak pernah terlambat untuk berbagi perasaan — ini membantu kekecewaan terasa lebih ringan." , type:"mid"},
+          { label: "Terus memendamnya sendirian", next: "end_low", feedback: "Memendam kekecewaan besar sendirian dalam waktu lama bisa terasa sangat berat." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Kecewa yang Diproses dengan Sehat",
+        text: "Kamu mengizinkan dirimu merasa sedih, mencari dukungan, dan tetap membuka ruang untuk mencoba lagi. Ini cara yang kuat sekaligus lembut pada diri sendiri."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Langkah Kecil Menuju Lega",
+        text: "Prosesnya belum selesai, tapi kamu sudah mulai membuka diri pada perasaanmu sendiri. Itu langkah penting menuju pemulihan."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Kamu Tidak Harus Menahannya Sendiri",
+        text: "Kekecewaan besar yang dipendam sendirian bisa terasa sangat berat. Coba ceritakan pada guru BK atau orang yang kamu percaya — mereka ada untuk membantumu."
+      }
+    }
+  }
+};
+
+const menuEl = document.getElementById('menu');
+const storyEl = document.getElementById('story');
+const storyCardEl = document.getElementById('storyCard');
+let currentScenarioKey = null;
+let currentNodeKey = null;
+
+Object.entries(SCENARIOS).forEach(([key, sc])=>{
+  const card = document.createElement('div');
+  card.className = 'scenario-card';
+  card.innerHTML = `
+    <div class="scenario-icon">${sc.icon}</div>
+    <div>
+      <div class="scenario-title">${sc.title}</div>
+      <div class="scenario-desc">${sc.desc}</div>
+    </div>`;
+  card.onclick = () => startScenario(key);
+  menuEl.appendChild(card);
+});
+
+function startScenario(key){
+  currentScenarioKey = key;
+  currentNodeKey = SCENARIOS[key].start;
+  menuEl.style.display = 'none';
+  storyEl.classList.add('visible');
+  renderNode();
+}
+
+function renderNode(){
+  const sc = SCENARIOS[currentScenarioKey];
+  const node = sc.nodes[currentNodeKey];
+  if(node.ending){
+    storyCardEl.innerHTML = `
+      <div class="ending-card">
+        <div class="ending-emoji">${node.emoji}</div>
+        <div class="ending-title">${node.title}</div>
+        <div class="ending-text">${node.text}</div>
+        <button class="btn" id="restartSc">Pilih Skenario Lain</button>
+      </div>`;
+    document.getElementById('restartSc').onclick = backToMenu;
+    return;
+  }
+  storyCardEl.innerHTML = `
+    <div class="scene-tag">${node.tag}</div>
+    <div class="scene-text">${node.text}</div>
+    <div class="choices" id="choicesBox"></div>
+    <div id="feedbackBox"></div>`;
+  const choicesBox = document.getElementById('choicesBox');
+  node.choices.forEach(choice=>{
+    const b = document.createElement('button');
+    b.className = 'choice-btn';
+    b.textContent = choice.label;
+    b.onclick = () => selectChoice(choice, choicesBox);
+    choicesBox.appendChild(b);
+  });
+}
+
+function selectChoice(choice, choicesBox){
+  choicesBox.querySelectorAll('.choice-btn').forEach(b=> b.disabled = true);
+  const fb = document.createElement('div');
+  fb.className = 'feedback ' + (choice.type === 'good' ? 'good' : 'mid');
+  fb.textContent = choice.feedback;
+  document.getElementById('feedbackBox').appendChild(fb);
+  setTimeout(()=>{
+    currentNodeKey = choice.next;
+    renderNode();
+  }, 1400);
+}
+
+function backToMenu(){
+  storyEl.classList.remove('visible');
+  menuEl.style.display = 'flex';
+  currentScenarioKey = null;
+  currentNodeKey = null;
+}
+
+document.getElementById('backLink').onclick = backToMenu;
+</script>
+</body>
+</html>

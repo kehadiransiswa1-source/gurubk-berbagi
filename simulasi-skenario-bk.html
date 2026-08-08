@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Skenario — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC; --ink:#1F2E3D; --teal:#256B67; --teal-dark:#163F3D;
+    --coral:#F26B5E; --gold:#F2B441; --green:#3F8F5F; --red:#C0453A;
+    --shadow:0 10px 24px rgba(31,46,61,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 10%, rgba(37,107,103,0.08), transparent 40%),
+               radial-gradient(circle at 85% 90%, rgba(242,107,94,0.08), transparent 40%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--teal-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#5a6b78;max-width:500px;text-align:center;margin-bottom:24px;}
+
+  .wrap{max-width:520px;width:100%;}
+
+  /* menu */
+  .menu{display:flex;flex-direction:column;gap:14px;}
+  .scenario-card{
+    background:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);
+    border:1px solid rgba(31,46,61,0.06);cursor:pointer;display:flex;align-items:center;gap:16px;
+    transition:.15s;
+  }
+  .scenario-card:hover{transform:translateY(-2px);}
+  .scenario-icon{font-size:32px;flex-shrink:0;}
+  .scenario-title{font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--teal-dark);margin-bottom:3px;}
+  .scenario-desc{font-size:13px;color:#5a6b78;}
+
+  /* story */
+  .story{display:none;}
+  .story.visible{display:block;}
+  .back-link{
+    display:inline-block;margin-bottom:14px;font-family:'Baloo 2';font-weight:700;font-size:13px;
+    color:var(--teal);cursor:pointer;
+  }
+  .story-card{
+    background:#fff;border-radius:20px;padding:26px 24px;box-shadow:var(--shadow);
+    border:1px solid rgba(31,46,61,0.06);
+  }
+  .scene-tag{font-family:'Baloo 2';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:10px;}
+  .scene-text{font-size:16px;line-height:1.7;margin-bottom:20px;}
+  .choices{display:flex;flex-direction:column;gap:10px;}
+  .choice-btn{
+    text-align:left;padding:13px 16px;border-radius:12px;border:2px solid #e4ddce;
+    background:#fff;font-family:'Nunito';font-weight:700;font-size:14px;cursor:pointer;transition:.15s;
+  }
+  .choice-btn:hover{border-color:var(--teal);background:rgba(37,107,103,0.05);}
+
+  .feedback{
+    margin-top:16px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:700;
+  }
+  .feedback.good{background:rgba(63,143,95,0.14);color:var(--green);}
+  .feedback.mid{background:rgba(242,180,65,0.2);color:#8a660f;}
+
+  .ending-card{text-align:center;}
+  .ending-emoji{font-size:48px;margin-bottom:10px;}
+  .ending-title{font-family:'Baloo 2';font-size:20px;color:var(--teal-dark);margin-bottom:10px;}
+  .ending-text{font-size:14px;color:#5a6b78;line-height:1.6;margin-bottom:22px;}
+  .btn{
+    padding:12px 22px;border:none;border-radius:12px;font-family:'Baloo 2';font-weight:700;
+    font-size:14px;cursor:pointer;background:var(--coral);color:#fff;box-shadow:0 5px 0 #c94a3f;
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #c94a3f;}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Simulasi Skenario Pilihan</h1>
+<p class="subtitle">Pilih satu situasi, lalu ambil keputusan di setiap langkah cerita. Lihat bagaimana pilihanmu memengaruhi hasilnya.</p>
+
+<div class="wrap">
+  <div class="menu" id="menu"></div>
+
+  <div class="story" id="story">
+    <span class="back-link" id="backLink">← Kembali ke daftar skenario</span>
+    <div class="story-card" id="storyCard"></div>
+  </div>
+</div>
+
+<script>
+const SCENARIOS = {
+  presentasi: {
+    icon: "🎤",
+    title: "Presentasi di Depan Kelas",
+    desc: "Kamu ditunjuk mempresentasikan tugas kelompok besok pagi.",
+    start: "s1",
+    nodes: {
+      s1: {
+        tag: "Malam sebelum presentasi",
+        text: "Besok kamu harus presentasi di depan kelas. Perutmu mulai terasa tidak enak membayangkannya. Apa yang kamu lakukan malam ini?",
+        choices: [
+          { label: "Latihan berbicara sendiri di depan cermin sambil membaca catatan", next: "s2a", feedback: "Bagus! Latihan membantu otakmu lebih siap dan mengurangi rasa cemas.", type:"good" },
+          { label: "Menghindar dan bermain gawai sampai larut agar lupa soal presentasi", next: "s2b", feedback: "Menghindar hanya menunda rasa cemas, bukan menguranginya.", type:"mid" }
+        ]
+      },
+      s2a: {
+        tag: "Pagi hari presentasi",
+        text: "Kamu sudah latihan semalam. Sekarang giliranmu maju ke depan kelas, dan tanganmu sedikit gemetar. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Tarik napas dalam-dalam, lalu mulai bicara pelan-pelan sesuai catatan", next: "end_good", feedback: "Mantap! Menenangkan diri dulu membuat presentasimu lebih lancar.", type:"good" },
+          { label: "Bicara secepat mungkin supaya cepat selesai", next: "end_mid", feedback: "Bicara terlalu cepat membuat teman-teman sulit mengikuti, dan kamu makin gugup.", type:"mid" }
+        ]
+      },
+      s2b: {
+        tag: "Pagi hari presentasi",
+        text: "Karena semalam tidak latihan, kamu merasa belum siap. Lima menit sebelum maju, apa yang kamu lakukan?",
+        choices: [
+          { label: "Baca cepat catatan sekali lagi dan tarik napas untuk menenangkan diri", next: "end_mid", feedback: "Lebih baik terlambat daripada tidak sama sekali — usaha kecil ini tetap membantu.", type:"mid" },
+          { label: "Panik dan berharap gurunya lupa memanggil namamu", next: "end_low", feedback: "Menghindar tidak menghilangkan rasa takut, malah membuatnya makin besar.", type:"mid" }
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Presentasi Berjalan Lancar",
+        text: "Persiapan dan ketenangan yang kamu bangun membuahkan hasil. Kamu berhasil menyampaikan presentasi dengan cukup percaya diri, meski masih ada rasa deg-degan — dan itu wajar!"
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Presentasi Selesai, Ada yang Bisa Diperbaiki",
+        text: "Presentasimu selesai, meski belum semulus yang kamu harapkan. Setiap pengalaman seperti ini adalah latihan untuk membangun kepercayaan dirimu di kesempatan berikutnya."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Belajar dari Pengalaman",
+        text: "Presentasi terasa berat kali ini. Tidak apa-apa — coba bicarakan perasaanmu dengan guru BK, dan siapkan strategi latihan yang lebih matang untuk lain waktu."
+      }
+    }
+  },
+  kenalan: {
+    icon: "🤝",
+    title: "Berkenalan dengan Teman Baru",
+    desc: "Kamu baru pindah sekolah dan belum kenal siapa pun.",
+    start: "k1",
+    nodes: {
+      k1: {
+        tag: "Hari pertama di sekolah baru",
+        text: "Saat istirahat, kamu duduk sendirian di kantin. Ada sekelompok siswa yang terlihat ramah sedang mengobrol tidak jauh darimu. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Menghampiri dan menyapa dengan memperkenalkan diri singkat", next: "k2a", feedback: "Berani! Menyapa duluan sering kali membuka pertemanan baru.", type:"good" },
+          { label: "Tetap di tempat duduk sambil berharap ada yang menghampirimu", next: "k2b", feedback: "Menunggu juga boleh, tapi kadang kesempatan baik butuh langkah kecil dari kita dulu.", type:"mid" }
+        ]
+      },
+      k2a: {
+        tag: "Setelah menyapa",
+        text: "Mereka menyambutmu dengan ramah dan mulai bertanya tentang sekolah lamamu. Kamu merasa sedikit canggung menjawabnya. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Jawab santai apa adanya dan balik bertanya tentang mereka", next: "end_good", feedback: "Percakapan dua arah membuat pertemanan terasa lebih natural.", type:"good" },
+          { label: "Jawab singkat lalu diam karena takut salah bicara", next: "end_mid", feedback: "Wajar merasa canggung di awal — dengan latihan, ini akan terasa lebih mudah." , type:"mid"}
+        ]
+      },
+      k2b: {
+        tag: "Sepuluh menit kemudian",
+        text: "Tidak ada yang menghampiri, dan istirahat hampir selesai. Kamu merasa sedikit kecewa. Apa yang kamu lakukan besok?",
+        choices: [
+          { label: "Coba lagi besok dengan menyapa satu orang saja terlebih dahulu", next: "end_mid", feedback: "Langkah kecil dan konsisten adalah cara realistis membangun keberanian." , type:"mid"},
+          { label: "Memutuskan untuk terus duduk sendirian saja seterusnya", next: "end_low", feedback: "Menghindar terus-menerus bisa membuat rasa kesepian bertambah berat." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Pertemanan Baru Dimulai",
+        text: "Keberanianmu menyapa duluan membuka jalan pertemanan baru. Rasa canggung di awal itu wajar, dan kamu berhasil melewatinya dengan baik!"
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Langkah Kecil yang Berarti",
+        text: "Belum semua berjalan mulus, tapi kamu sudah mengambil langkah penting. Pertemanan sering kali butuh waktu dan percobaan berulang — teruskan usahamu."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Saatnya Minta Dukungan",
+        text: "Merasa kesepian di lingkungan baru itu berat. Coba ceritakan perasaanmu pada guru BK atau orang tua — mereka bisa membantumu menemukan langkah selanjutnya."
+      }
+    }
+  },
+  kritik: {
+    icon: "💬",
+    title: "Menerima Kritik dari Teman",
+    desc: "Hasil karyamu dikomentari kurang bagus oleh teman sekelompok.",
+    start: "c1",
+    nodes: {
+      c1: {
+        tag: "Saat diskusi kelompok",
+        text: "Temanmu berkata, \"Menurutku bagian ini masih kurang rapi.\" Kamu merasa sedikit tersinggung karena sudah berusaha keras. Apa reaksimu?",
+        choices: [
+          { label: "Tarik napas, dengarkan lebih lanjut, lalu tanyakan bagian mana yang bisa diperbaiki", next: "c2a", feedback: "Bagus, mendengarkan dulu sebelum bereaksi menunjukkan kematangan.", type:"good" },
+          { label: "Langsung membalas dengan nada kesal", next: "c2b", feedback: "Reaksi marah sering membuat diskusi jadi tegang tanpa menyelesaikan masalah.", type:"mid" }
+        ]
+      },
+      c2a: {
+        tag: "Setelah bertanya",
+        text: "Temanmu menjelaskan bagian yang dimaksud dengan lebih detail. Ternyata masukannya cukup masuk akal. Apa langkahmu selanjutnya?",
+        choices: [
+          { label: "Ucapkan terima kasih dan perbaiki bagian tersebut bersama-sama", next: "end_good", feedback: "Menerima masukan dengan lapang dada membantumu berkembang lebih cepat.", type:"good" },
+          { label: "Setuju di depan tapi diam-diam tetap kesal sepanjang hari", next: "end_mid", feedback: "Menyimpan kekesalan sendiri bisa membuatmu tidak nyaman berkepanjangan.", type:"mid" }
+        ]
+      },
+      c2b: {
+        tag: "Setelah membalas kesal",
+        text: "Suasana diskusi jadi canggung. Beberapa menit kemudian, kamu mulai berpikir ulang. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Minta maaf atas reaksimu dan coba dengarkan masukan temanmu", next: "end_mid", feedback: "Menyadari dan memperbaiki reaksi adalah langkah dewasa yang berani.", type:"mid" },
+          { label: "Tetap diam dan menghindari temanmu sisa hari itu", next: "end_low", feedback: "Menghindar bisa membuat hubungan pertemanan makin renggang." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Kritik Jadi Bahan Berkembang",
+        text: "Kamu berhasil menerima masukan dengan tenang dan menjadikannya kesempatan untuk memperbaiki karyamu. Ini tanda kepercayaan diri yang sehat!"
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Belajar Mengelola Reaksi",
+        text: "Prosesnya tidak sempurna, tapi kamu belajar sesuatu yang penting: reaksi pertama tidak harus jadi reaksi terakhir."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Coba Cara Lain Lain Kali",
+        text: "Menghindar terasa lebih mudah sesaat, tapi menyelesaikan masalah secara langsung biasanya membuat kita lebih lega. Yuk coba latihan ini lagi lain waktu."
+      }
+    }
+  }
+};
+
+const menuEl = document.getElementById('menu');
+const storyEl = document.getElementById('story');
+const storyCardEl = document.getElementById('storyCard');
+let currentScenarioKey = null;
+let currentNodeKey = null;
+
+Object.entries(SCENARIOS).forEach(([key, sc])=>{
+  const card = document.createElement('div');
+  card.className = 'scenario-card';
+  card.innerHTML = `
+    <div class="scenario-icon">${sc.icon}</div>
+    <div>
+      <div class="scenario-title">${sc.title}</div>
+      <div class="scenario-desc">${sc.desc}</div>
+    </div>`;
+  card.onclick = () => startScenario(key);
+  menuEl.appendChild(card);
+});
+
+function startScenario(key){
+  currentScenarioKey = key;
+  currentNodeKey = SCENARIOS[key].start;
+  menuEl.style.display = 'none';
+  storyEl.classList.add('visible');
+  renderNode();
+}
+
+function renderNode(){
+  const sc = SCENARIOS[currentScenarioKey];
+  const node = sc.nodes[currentNodeKey];
+  if(node.ending){
+    storyCardEl.innerHTML = `
+      <div class="ending-card">
+        <div class="ending-emoji">${node.emoji}</div>
+        <div class="ending-title">${node.title}</div>
+        <div class="ending-text">${node.text}</div>
+        <button class="btn" id="restartSc">Pilih Skenario Lain</button>
+      </div>`;
+    document.getElementById('restartSc').onclick = backToMenu;
+    return;
+  }
+  storyCardEl.innerHTML = `
+    <div class="scene-tag">${node.tag}</div>
+    <div class="scene-text">${node.text}</div>
+    <div class="choices" id="choicesBox"></div>
+    <div id="feedbackBox"></div>`;
+  const choicesBox = document.getElementById('choicesBox');
+  node.choices.forEach(choice=>{
+    const b = document.createElement('button');
+    b.className = 'choice-btn';
+    b.textContent = choice.label;
+    b.onclick = () => selectChoice(choice, choicesBox);
+    choicesBox.appendChild(b);
+  });
+}
+
+function selectChoice(choice, choicesBox){
+  choicesBox.querySelectorAll('.choice-btn').forEach(b=> b.disabled = true);
+  const fb = document.createElement('div');
+  fb.className = 'feedback ' + (choice.type === 'good' ? 'good' : 'mid');
+  fb.textContent = choice.feedback;
+  document.getElementById('feedbackBox').appendChild(fb);
+  setTimeout(()=>{
+    currentNodeKey = choice.next;
+    renderNode();
+  }, 1400);
+}
+
+function backToMenu(){
+  storyEl.classList.remove('visible');
+  menuEl.style.display = 'flex';
+  currentScenarioKey = null;
+  currentNodeKey = null;
+}
+
+document.getElementById('backLink').onclick = backToMenu;
+</script>
+</body>
+</html>

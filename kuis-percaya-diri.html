@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Percaya Diri — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC; --ink:#1F2E3D; --teal:#256B67; --teal-dark:#163F3D;
+    --coral:#F26B5E; --gold:#F2B441; --green:#3F8F5F; --red:#C0453A;
+    --shadow:0 10px 24px rgba(31,46,61,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 10%, rgba(37,107,103,0.08), transparent 40%),
+               radial-gradient(circle at 85% 90%, rgba(242,107,94,0.08), transparent 40%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--teal-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#5a6b78;max-width:480px;text-align:center;margin-bottom:22px;}
+
+  .wrap{max-width:480px;width:100%;}
+  .progress-bar{
+    height:10px;background:#eee5d1;border-radius:999px;overflow:hidden;margin-bottom:22px;
+  }
+  .progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--coral));width:0%;transition:width .35s;}
+
+  .card{
+    background:#fff;border-radius:20px;padding:26px 24px;box-shadow:var(--shadow);
+    border:1px solid rgba(31,46,61,0.06);
+  }
+  .q-num{font-family:'Baloo 2';font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--coral);font-weight:700;margin-bottom:10px;}
+  .q-text{font-size:18px;font-weight:800;line-height:1.5;margin-bottom:20px;}
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    text-align:left;padding:13px 16px;border-radius:12px;border:2px solid #e4ddce;
+    background:#fff;font-family:'Nunito';font-weight:700;font-size:14px;cursor:pointer;
+    transition:.15s;
+  }
+  .opt:hover{border-color:var(--teal);}
+  .opt.correct{border-color:var(--green);background:rgba(63,143,95,0.12);color:var(--green);}
+  .opt.wrong{border-color:var(--red);background:rgba(192,69,58,0.12);color:var(--red);}
+  .opt.disabled{cursor:default;}
+  .explain{
+    margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(242,180,65,0.18);
+    font-size:13px;line-height:1.5;color:#5a4a1c;display:none;
+  }
+  .explain.visible{display:block;}
+  .next-row{margin-top:18px;text-align:right;}
+  .btn{
+    padding:12px 22px;border:none;border-radius:12px;font-family:'Baloo 2';font-weight:700;
+    font-size:14px;cursor:pointer;background:var(--teal);color:#fff;box-shadow:0 5px 0 var(--teal-dark);
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--teal-dark);}
+  .btn:disabled{opacity:.4;cursor:not-allowed;}
+
+  .result-card{display:none;text-align:center;}
+  .result-card.visible{display:block;}
+  .result-emoji{font-size:56px;margin-bottom:10px;}
+  .result-score{font-family:'Baloo 2';font-size:32px;color:var(--teal-dark);font-weight:800;margin-bottom:6px;}
+  .result-msg{font-size:15px;color:#5a6b78;line-height:1.6;margin-bottom:22px;}
+  .restart-btn{background:var(--coral);box-shadow:0 5px 0 #c94a3f;}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Kuis Percaya Diri</h1>
+<p class="subtitle">Jawab pertanyaan berikut untuk mengecek pemahamanmu tentang membangun rasa percaya diri. Ini bukan ujian — santai saja!</p>
+
+<div class="wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+  <div class="card" id="quizCard">
+    <div class="q-num" id="qNum">Pertanyaan 1 dari 8</div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="options"></div>
+    <div class="explain" id="explain"></div>
+    <div class="next-row"><button class="btn" id="nextBtn" disabled>Lanjut</button></div>
+  </div>
+
+  <div class="card result-card" id="resultCard">
+    <div class="result-emoji" id="resultEmoji">🌟</div>
+    <div class="result-score" id="resultScore"></div>
+    <div class="result-msg" id="resultMsg"></div>
+    <button class="btn restart-btn" id="restartBtn">Ulangi Kuis</button>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  {
+    q: "Saat gugup sebelum tampil di depan kelas, cara paling sehat untuk menenangkan diri adalah...",
+    opts: [
+      "Menarik napas dalam-dalam beberapa kali dan mengingat persiapan yang sudah dilakukan",
+      "Menghindar dan berpura-pura sakit",
+      "Membandingkan diri dengan teman yang lebih jago",
+      "Memaksakan diri tanpa persiapan sama sekali"
+    ],
+    correct: 0,
+    explain: "Menenangkan tubuh lewat napas dan mengingat persiapan membantu otak fokus, bukan panik."
+  },
+  {
+    q: "Kepercayaan diri yang sehat paling tepat digambarkan sebagai...",
+    opts: [
+      "Merasa selalu benar dan tidak pernah salah",
+      "Percaya pada kemampuan diri sambil tetap terbuka untuk belajar dan menerima masukan",
+      "Tidak peduli sama sekali pada pendapat orang lain",
+      "Selalu tampil paling menonjol di antara teman-teman"
+    ],
+    correct: 1,
+    explain: "Percaya diri yang sehat itu seimbang: yakin pada diri sendiri, tapi tetap mau belajar."
+  },
+  {
+    q: "Ketika membuat kesalahan di depan umum, sikap yang paling membantu adalah...",
+    opts: [
+      "Menyalahkan diri sendiri terus-menerus",
+      "Berhenti mencoba hal itu selamanya",
+      "Menerima bahwa kesalahan itu wajar dan mencari cara memperbaikinya",
+      "Menyalahkan orang lain atas kesalahan itu"
+    ],
+    correct: 2,
+    explain: "Kesalahan adalah bagian dari proses belajar. Menerimanya membantu kita bangkit lebih cepat."
+  },
+  {
+    q: "Membandingkan diri terus-menerus dengan pencapaian orang lain di media sosial biasanya membuat kita...",
+    opts: [
+      "Semakin termotivasi tanpa efek samping",
+      "Lebih mudah merasa minder atau kurang percaya diri",
+      "Tidak berpengaruh sama sekali",
+      "Otomatis menjadi lebih baik dari mereka"
+    ],
+    correct: 1,
+    explain: "Membandingkan diri secara berlebihan bisa menurunkan rasa percaya diri. Fokus pada progres diri sendiri lebih sehat."
+  },
+  {
+    q: "Salah satu cara membangun rasa percaya diri jangka panjang adalah...",
+    opts: [
+      "Menunggu orang lain memuji kita",
+      "Mengenali kelebihan diri dan terus melatih keterampilan yang kita minati",
+      "Menghindari semua tantangan baru",
+      "Berpura-pura tidak punya kekurangan"
+    ],
+    correct: 1,
+    explain: "Mengenali kelebihan dan berlatih rutin membangun rasa percaya diri yang benar-benar kuat, bukan sekadar sementara."
+  },
+  {
+    q: "Saat teman mengejek atau meremehkan kita, respons yang paling sehat adalah...",
+    opts: [
+      "Percaya begitu saja bahwa ejekan itu benar",
+      "Membalas dengan kekerasan",
+      "Mengingat nilai diri sendiri dan mencari dukungan dari orang yang dipercaya",
+      "Menjauhi semua orang selamanya"
+    ],
+    correct: 2,
+    explain: "Mengingat nilai diri dan bicara dengan orang yang dipercaya (guru BK, orang tua, sahabat) membantu kita tetap kuat."
+  },
+  {
+    q: "Bahasa tubuh yang mencerminkan rasa percaya diri saat berbicara di depan orang lain adalah...",
+    opts: [
+      "Menunduk dan bicara sangat pelan",
+      "Berdiri tegak, kontak mata secukupnya, dan bicara dengan jelas",
+      "Menyilangkan tangan sambil menghindari tatapan",
+      "Berbicara sangat cepat tanpa jeda"
+    ],
+    correct: 1,
+    explain: "Postur tegak dan kontak mata membantu kita terlihat—dan akhirnya merasa—lebih percaya diri."
+  },
+  {
+    q: "Jika kamu ingin mencoba hal baru tapi takut gagal, langkah pertama yang baik adalah...",
+    opts: [
+      "Tidak mencoba sama sekali agar aman",
+      "Memulai dari langkah kecil yang terasa mampu dilakukan",
+      "Langsung melakukan hal paling sulit tanpa persiapan",
+      "Menunggu sampai rasa takut hilang sepenuhnya"
+    ],
+    correct: 1,
+    explain: "Langkah kecil membangun momentum dan bukti nyata bahwa kita mampu, sehingga rasa takut berangsur berkurang."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+const qNumEl = document.getElementById('qNum');
+const qTextEl = document.getElementById('qText');
+const optionsEl = document.getElementById('options');
+const explainEl = document.getElementById('explain');
+const nextBtn = document.getElementById('nextBtn');
+const progressFill = document.getElementById('progressFill');
+
+function loadQuestion(){
+  answered = false;
+  explainEl.classList.remove('visible');
+  nextBtn.disabled = true;
+  const item = QUESTIONS[current];
+  qNumEl.textContent = `Pertanyaan ${current+1} dari ${QUESTIONS.length}`;
+  qTextEl.textContent = item.q;
+  optionsEl.innerHTML = '';
+  item.opts.forEach((opt, idx)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = opt;
+    b.onclick = () => selectOption(idx, b);
+    optionsEl.appendChild(b);
+  });
+  progressFill.style.width = ((current)/QUESTIONS.length*100) + '%';
+}
+
+function selectOption(idx, btnEl){
+  if(answered) return;
+  answered = true;
+  const item = QUESTIONS[current];
+  const allBtns = document.querySelectorAll('.opt');
+  allBtns.forEach((b,i)=>{
+    b.classList.add('disabled');
+    if(i===item.correct) b.classList.add('correct');
+    else if(i===idx) b.classList.add('wrong');
+  });
+  if(idx===item.correct) score++;
+  explainEl.textContent = item.explain;
+  explainEl.classList.add('visible');
+  nextBtn.disabled = false;
+}
+
+nextBtn.onclick = () => {
+  current++;
+  if(current >= QUESTIONS.length){
+    showResult();
+  } else {
+    loadQuestion();
+  }
+};
+
+function showResult(){
+  document.getElementById('quizCard').style.display = 'none';
+  progressFill.style.width = '100%';
+  const resultCard = document.getElementById('resultCard');
+  resultCard.classList.add('visible');
+  document.getElementById('resultScore').textContent = `${score} / ${QUESTIONS.length} benar`;
+  let emoji = '🌱', msg = '';
+  const pct = score / QUESTIONS.length;
+  if(pct >= 0.85){
+    emoji = '🌟';
+    msg = "Luar biasa! Kamu sudah paham betul cara-cara sehat membangun rasa percaya diri. Teruskan kebiasaan baik ini!";
+  } else if(pct >= 0.5){
+    emoji = '🙂';
+    msg = "Kerja bagus! Kamu sudah mengenal banyak cara membangun kepercayaan diri. Yuk terus dipraktikkan sedikit demi sedikit.";
+  } else {
+    emoji = '🌱';
+    msg = "Tidak apa-apa, ini bukan tentang benar-salah — ini kesempatan belajar. Coba diskusikan hasil ini dengan guru BK-mu, ya!";
+  }
+  document.getElementById('resultEmoji').textContent = emoji;
+  document.getElementById('resultMsg').textContent = msg;
+}
+
+document.getElementById('restartBtn').onclick = () => {
+  current = 0; score = 0;
+  document.getElementById('resultCard').classList.remove('visible');
+  document.getElementById('quizCard').style.display = 'block';
+  loadQuestion();
+};
+
+loadQuestion();
+</script>
+</body>
+</html>

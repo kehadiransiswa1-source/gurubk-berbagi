@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Cita-Cita — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFF6EA; --ink:#2B2418; --navy:#2C3E66; --navy-dark:#1B2745;
+    --amber:#E08A2E; --gold:#F2B441; --green:#3F8F5F; --red:#C0453A;
+    --shadow:0 10px 24px rgba(43,36,24,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 8%, rgba(224,138,46,0.12), transparent 42%),
+               radial-gradient(circle at 88% 92%, rgba(44,62,102,0.10), transparent 42%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--amber);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--navy-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#6b5f4c;max-width:520px;text-align:center;margin-bottom:24px;}
+
+  .wrap{max-width:520px;width:100%;}
+
+  .menu{display:flex;flex-direction:column;gap:14px;}
+  .scenario-card{
+    background:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);
+    border:1px solid rgba(43,36,24,0.06);cursor:pointer;display:flex;align-items:center;gap:16px;
+    transition:.15s;
+  }
+  .scenario-card:hover{transform:translateY(-2px);}
+  .scenario-icon{font-size:32px;flex-shrink:0;}
+  .scenario-title{font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--navy-dark);margin-bottom:3px;}
+  .scenario-desc{font-size:13px;color:#6b5f4c;}
+
+  .story{display:none;}
+  .story.visible{display:block;}
+  .back-link{
+    display:inline-block;margin-bottom:14px;font-family:'Baloo 2';font-weight:700;font-size:13px;
+    color:var(--navy);cursor:pointer;
+  }
+  .story-card{
+    background:#fff;border-radius:20px;padding:26px 24px;box-shadow:var(--shadow);
+    border:1px solid rgba(43,36,24,0.06);
+  }
+  .scene-tag{font-family:'Baloo 2';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:10px;}
+  .scene-text{font-size:16px;line-height:1.7;margin-bottom:20px;}
+  .choices{display:flex;flex-direction:column;gap:10px;}
+  .choice-btn{
+    text-align:left;padding:13px 16px;border-radius:12px;border:2px solid #eee0c8;
+    background:#fff;font-family:'Nunito';font-weight:700;font-size:14px;cursor:pointer;transition:.15s;
+  }
+  .choice-btn:hover{border-color:var(--navy);background:rgba(44,62,102,0.05);}
+  .choice-btn:disabled{opacity:.55;cursor:default;}
+
+  .feedback{
+    margin-top:16px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:700;
+  }
+  .feedback.good{background:rgba(63,143,95,0.14);color:var(--green);}
+  .feedback.mid{background:rgba(242,180,65,0.22);color:#8a5c0f;}
+
+  .ending-card{text-align:center;}
+  .ending-emoji{font-size:48px;margin-bottom:10px;}
+  .ending-title{font-family:'Baloo 2';font-size:20px;color:var(--navy-dark);margin-bottom:10px;}
+  .ending-text{font-size:14px;color:#6b5f4c;line-height:1.6;margin-bottom:22px;}
+  .btn{
+    padding:12px 22px;border:none;border-radius:12px;font-family:'Baloo 2';font-weight:700;
+    font-size:14px;cursor:pointer;background:var(--amber);color:#fff;box-shadow:0 5px 0 #b56c1f;
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #b56c1f;}
+
+  .footnote{
+    margin-top:22px;background:#fff;border-radius:14px;padding:14px 16px;font-size:12px;
+    color:#6b5f4c;box-shadow:var(--shadow);border:1px solid rgba(43,36,24,0.06);
+  }
+  .footnote b{color:var(--navy-dark);}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Simulasi Menuju Cita-Cita</h1>
+<p class="subtitle">Pilih satu situasi tentang cita-cita dan masa depan, lalu ambil keputusan di setiap langkah cerita. Lihat bagaimana pilihanmu membentuk perjalananmu.</p>
+
+<div class="wrap">
+  <div class="menu" id="menu"></div>
+
+  <div class="story" id="story">
+    <span class="back-link" id="backLink">← Kembali ke daftar skenario</span>
+    <div class="story-card" id="storyCard"></div>
+  </div>
+
+  <div class="footnote">
+    <b>Ingat:</b> cita-cita boleh berubah seiring waktu, dan itu wajar. Yang penting terus mengenali minatmu dan berani mencoba langkah kecil menuju arah yang kamu inginkan.
+  </div>
+</div>
+
+<script>
+const SCENARIOS = {
+  jurusan: {
+    icon: "🎯",
+    title: "Memilih Jurusan Lanjutan",
+    desc: "Sebentar lagi kamu harus memilih arah sekolah/jurusan setelah SMP.",
+    start: "a1",
+    nodes: {
+      a1: {
+        tag: "Menjelang pendaftaran sekolah lanjutan",
+        text: "Kamu bingung antara mengikuti jurusan yang disarankan orang tua atau jurusan yang benar-benar kamu minati. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Cari informasi tentang kedua pilihan, lalu diskusikan secara terbuka dengan orang tua", next: "a2a", feedback: "Bagus! Diskusi terbuka dengan data membantu menemukan jalan tengah yang lebih matang.", type:"good" },
+          { label: "Menuruti saja pilihan orang tua tanpa menyampaikan pendapatmu", next: "a2b", feedback: "Menuruti tanpa bicara bisa membuatmu menyesal karena minatmu tidak tersampaikan.", type:"mid" }
+        ]
+      },
+      a2a: {
+        tag: "Setelah berdiskusi",
+        text: "Orang tuamu ternyata mau mendengarkan alasanmu, meski masih ada kekhawatiran soal masa depan. Apa langkahmu selanjutnya?",
+        choices: [
+          { label: "Tunjukkan keseriusanmu dengan mencari tahu lebih dalam tentang jurusan pilihanmu", next: "end_good", feedback: "Menunjukkan riset dan keseriusan membuat orang tua lebih percaya pada pilihanmu.", type:"good" },
+          { label: "Berhenti membahas topik ini karena merasa sudah cukup", next: "end_mid", feedback: "Diskusi awal itu penting, tapi tindak lanjut membuat keputusan jadi lebih matang." , type:"mid"}
+        ]
+      },
+      a2b: {
+        tag: "Beberapa minggu kemudian",
+        text: "Kamu mulai merasa tidak nyaman menjalani pilihan yang bukan minatmu. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Memberanikan diri bicara jujur pada orang tua sebelum terlambat", next: "end_mid", feedback: "Belum terlambat untuk jujur — menyampaikan perasaanmu tetap bisa mengubah arah keputusan.", type:"mid" },
+          { label: "Tetap diam dan menjalani pilihan itu dengan berat hati", next: "end_low", feedback: "Memendam ketidaknyamanan dalam waktu lama bisa membuatmu makin sulit termotivasi." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Keputusan yang Matang",
+        text: "Kamu berhasil menyuarakan minatmu sekaligus menghargai kekhawatiran orang tua. Keputusan yang diambil bersama biasanya terasa lebih mantap untuk dijalani."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Langkah Awal yang Baik",
+        text: "Kamu sudah membuka percakapan penting. Prosesnya mungkin belum selesai, tapi keberanian untuk mulai bicara adalah langkah besar."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Belum Terlambat untuk Bicara",
+        text: "Menjalani pilihan yang bukan minatmu itu berat. Coba ajak guru BK untuk membantu menjembatani percakapan dengan orang tuamu."
+      }
+    }
+  },
+  gagal: {
+    icon: "🌧️",
+    title: "Menghadapi Kegagalan",
+    desc: "Nilai ujian mata pelajaran favoritmu jauh dari harapan.",
+    start: "b1",
+    nodes: {
+      b1: {
+        tag: "Setelah menerima hasil ujian",
+        text: "Kamu sangat ingin masuk jurusan tertentu, tapi nilai mata pelajaran pentingnya justru mengecewakan. Apa reaksimu?",
+        choices: [
+          { label: "Mencari tahu bagian mana yang masih lemah dan menyusun rencana belajar baru", next: "b2a", feedback: "Bagus! Mengevaluasi dan menyusun rencana adalah cara sehat menghadapi kegagalan.", type:"good" },
+          { label: "Langsung menyimpulkan bahwa cita-citamu tidak mungkin tercapai", next: "b2b", feedback: "Satu hasil ujian tidak menentukan seluruh masa depanmu — kesimpulan ini terlalu cepat.", type:"mid" }
+        ]
+      },
+      b2a: {
+        tag: "Dua minggu kemudian",
+        text: "Kamu sudah mulai belajar dengan cara baru, tapi progresnya terasa lambat. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Minta bantuan guru atau teman untuk bagian yang masih sulit", next: "end_good", feedback: "Meminta bantuan saat progres melambat menunjukkan kematangan, bukan kelemahan.", type:"good" },
+          { label: "Memaksakan belajar sendirian meski merasa makin frustrasi", next: "end_mid", feedback: "Berjuang sendirian terus-menerus bisa membuatmu kelelahan tanpa hasil maksimal." , type:"mid"}
+        ]
+      },
+      b2b: {
+        tag: "Beberapa hari setelah merasa putus asa",
+        text: "Rasa kecewa itu masih ada, tapi kamu mulai berpikir ulang tentang cita-citamu. Apa langkahmu?",
+        choices: [
+          { label: "Coba bicara dengan guru BK tentang perasaan dan langkah selanjutnya", next: "end_mid", feedback: "Bicara dengan guru BK membantu meluruskan pikiran dan menemukan langkah nyata." , type:"mid"},
+          { label: "Terus menyimpan kekecewaan tanpa mencoba lagi", next: "end_low", feedback: "Berhenti mencoba karena satu kegagalan bisa menutup banyak kemungkinan lain." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Bangkit dari Kegagalan",
+        text: "Kamu menunjukkan bahwa kegagalan bukan akhir, tapi bagian dari proses. Mencari bantuan dan terus mencoba adalah kunci menuju cita-citamu."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Proses yang Sedang Berjalan",
+        text: "Perjalanan menuju cita-cita memang tidak selalu mulus. Kamu sudah mulai bergerak ke arah yang lebih baik — teruskan langkah ini."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Satu Kegagalan Bukan Akhir",
+        text: "Wajar merasa kecewa, tapi satu hasil ujian tidak menentukan seluruh masa depanmu. Yuk coba bicara dengan guru BK untuk menemukan langkah selanjutnya."
+      }
+    }
+  },
+  minat: {
+    icon: "🔍",
+    title: "Belum Tahu Cita-Cita",
+    desc: "Teman-temanmu sudah punya cita-cita jelas, tapi kamu masih bingung.",
+    start: "c1",
+    nodes: {
+      c1: {
+        tag: "Saat mengobrol dengan teman-teman",
+        text: "Teman-temanmu bersemangat membicarakan cita-cita mereka, sementara kamu sendiri belum tahu apa yang benar-benar kamu inginkan. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Mulai mencatat kegiatan yang paling kamu nikmati akhir-akhir ini", next: "c2a", feedback: "Bagus! Mengenali apa yang kamu nikmati adalah langkah awal menemukan arah minat.", type:"good" },
+          { label: "Merasa minder dan berhenti memikirkan topik itu sama sekali", next: "c2b", feedback: "Belum tahu cita-cita di usia SMP itu wajar — menghindarinya tidak membantu menemukannya." , type:"mid"}
+        ]
+      },
+      c2a: {
+        tag: "Setelah mencatat beberapa minggu",
+        text: "Kamu mulai melihat pola: ada beberapa kegiatan yang selalu membuatmu bersemangat. Apa langkah selanjutnya?",
+        choices: [
+          { label: "Coba cari tahu lebih dalam atau ikut kegiatan terkait pola tersebut", next: "end_good", feedback: "Mengeksplorasi pola minat lewat kegiatan nyata membantumu makin mengenal dirimu.", type:"good" },
+          { label: "Menyimpan catatan itu tapi tidak melakukan apa-apa lagi", next: "end_mid", feedback: "Menyadari pola itu langkah bagus, tapi mencoba sesuatu yang nyata akan lebih membantu." , type:"mid"}
+        ]
+      },
+      c2b: {
+        tag: "Beberapa minggu kemudian",
+        text: "Perasaan minder itu masih ada setiap kali topik cita-cita muncul. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Bicara dengan guru BK tentang kebingunganmu", next: "end_mid", feedback: "Guru BK bisa membantumu mengenali minat lewat obrolan dan tes minat-bakat sederhana." , type:"mid"},
+          { label: "Terus menghindari topik itu setiap kali muncul", next: "end_low", feedback: "Menghindar terus-menerus membuat kebingungan itu tidak pernah terselesaikan." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Mulai Menemukan Arah",
+        text: "Belum tahu cita-cita di usia SMP itu wajar. Dengan mengenali apa yang kamu nikmati dan mencobanya, kamu perlahan menemukan arah yang cocok untukmu."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Proses Mengenal Diri",
+        text: "Menemukan cita-cita itu proses, bukan keputusan sekali jadi. Kamu sudah mulai bergerak — teruskan eksplorasi ini pelan-pelan."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Tidak Apa-Apa Belum Tahu",
+        text: "Belum tahu cita-cita bukan hal yang memalukan. Coba ajak bicara guru BK — mereka bisa membantumu mengenali minat dan potensimu."
+      }
+    }
+  }
+};
+
+const menuEl = document.getElementById('menu');
+const storyEl = document.getElementById('story');
+const storyCardEl = document.getElementById('storyCard');
+let currentScenarioKey = null;
+let currentNodeKey = null;
+
+Object.entries(SCENARIOS).forEach(([key, sc])=>{
+  const card = document.createElement('div');
+  card.className = 'scenario-card';
+  card.innerHTML = `
+    <div class="scenario-icon">${sc.icon}</div>
+    <div>
+      <div class="scenario-title">${sc.title}</div>
+      <div class="scenario-desc">${sc.desc}</div>
+    </div>`;
+  card.onclick = () => startScenario(key);
+  menuEl.appendChild(card);
+});
+
+function startScenario(key){
+  currentScenarioKey = key;
+  currentNodeKey = SCENARIOS[key].start;
+  menuEl.style.display = 'none';
+  storyEl.classList.add('visible');
+  renderNode();
+}
+
+function renderNode(){
+  const sc = SCENARIOS[currentScenarioKey];
+  const node = sc.nodes[currentNodeKey];
+  if(node.ending){
+    storyCardEl.innerHTML = `
+      <div class="ending-card">
+        <div class="ending-emoji">${node.emoji}</div>
+        <div class="ending-title">${node.title}</div>
+        <div class="ending-text">${node.text}</div>
+        <button class="btn" id="restartSc">Pilih Skenario Lain</button>
+      </div>`;
+    document.getElementById('restartSc').onclick = backToMenu;
+    return;
+  }
+  storyCardEl.innerHTML = `
+    <div class="scene-tag">${node.tag}</div>
+    <div class="scene-text">${node.text}</div>
+    <div class="choices" id="choicesBox"></div>
+    <div id="feedbackBox"></div>`;
+  const choicesBox = document.getElementById('choicesBox');
+  node.choices.forEach(choice=>{
+    const b = document.createElement('button');
+    b.className = 'choice-btn';
+    b.textContent = choice.label;
+    b.onclick = () => selectChoice(choice, choicesBox);
+    choicesBox.appendChild(b);
+  });
+}
+
+function selectChoice(choice, choicesBox){
+  choicesBox.querySelectorAll('.choice-btn').forEach(b=> b.disabled = true);
+  const fb = document.createElement('div');
+  fb.className = 'feedback ' + (choice.type === 'good' ? 'good' : 'mid');
+  fb.textContent = choice.feedback;
+  document.getElementById('feedbackBox').appendChild(fb);
+  setTimeout(()=>{
+    currentNodeKey = choice.next;
+    renderNode();
+  }, 1400);
+}
+
+function backToMenu(){
+  storyEl.classList.remove('visible');
+  menuEl.style.display = 'flex';
+  currentScenarioKey = null;
+  currentNodeKey = null;
+}
+
+document.getElementById('backLink').onclick = backToMenu;
+</script>
+</body>
+</html>

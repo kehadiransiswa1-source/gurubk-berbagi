@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kartu Refleksi Diri — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EC; --ink:#1F2E3D; --teal:#256B67; --teal-dark:#163F3D;
+    --coral:#F26B5E; --gold:#F2B441; --shadow:0 10px 24px rgba(31,46,61,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 10%, rgba(37,107,103,0.08), transparent 40%),
+               radial-gradient(circle at 85% 90%, rgba(242,107,94,0.08), transparent 40%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--coral);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--teal-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#5a6b78;max-width:480px;text-align:center;margin-bottom:26px;}
+
+  .categories{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:24px;}
+  .cat-btn{
+    padding:9px 16px;border-radius:999px;border:2px solid var(--teal);
+    background:#fff;color:var(--teal);font-family:'Baloo 2';font-weight:700;font-size:13px;
+    cursor:pointer;transition:.15s;
+  }
+  .cat-btn.active{background:var(--teal);color:#fff;}
+
+  .stage{position:relative;width:300px;height:400px;margin-bottom:22px;perspective:1400px;}
+  .card{
+    position:absolute;inset:0;border-radius:20px;cursor:pointer;
+    transform-style:preserve-3d;transition:transform .6s cubic-bezier(.4,.2,.2,1);
+    box-shadow:var(--shadow);
+  }
+  .card.flipped{transform:rotateY(180deg);}
+  .face{
+    position:absolute;inset:0;border-radius:20px;backface-visibility:hidden;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:26px;text-align:center;
+  }
+  .face.front{
+    background:linear-gradient(150deg,var(--teal),var(--teal-dark));
+    color:#fff;
+  }
+  .face.front .mark{font-size:52px;margin-bottom:10px;}
+  .face.front .hint{font-family:'Baloo 2';font-size:14px;letter-spacing:1px;opacity:.85;}
+  .face.back{
+    background:#fff;
+    transform:rotateY(180deg);
+    border:2px solid rgba(31,46,61,0.06);
+  }
+  .face.back .cat-tag{
+    font-family:'Baloo 2';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--coral);margin-bottom:14px;font-weight:700;
+  }
+  .face.back .q{font-size:18px;font-weight:800;line-height:1.5;color:var(--ink);}
+
+  .controls{display:flex;gap:12px;}
+  .btn{
+    padding:13px 22px;border:none;border-radius:12px;font-family:'Baloo 2';
+    font-weight:700;font-size:15px;cursor:pointer;
+  }
+  .btn.primary{background:var(--coral);color:#fff;box-shadow:0 6px 0 #c94a3f;}
+  .btn.primary:active{transform:translateY(4px);box-shadow:0 2px 0 #c94a3f;}
+  .btn.secondary{background:#fff;color:var(--teal);border:2px solid var(--teal);}
+  .counter{margin-top:16px;font-size:13px;color:#5a6b78;font-weight:700;}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Kartu Refleksi Diri</h1>
+<p class="subtitle">Pilih satu kategori, lalu ketuk kartu untuk membuka pertanyaan refleksi. Jawab dengan jujur — tidak ada jawaban yang salah.</p>
+
+<div class="categories" id="cats"></div>
+
+<div class="stage">
+  <div class="card" id="card">
+    <div class="face front">
+      <div class="mark">✦</div>
+      <div class="hint">KETUK UNTUK MEMBUKA</div>
+    </div>
+    <div class="face back">
+      <div class="cat-tag" id="catTag">Kategori</div>
+      <div class="q" id="qText">Pertanyaan akan muncul di sini.</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn secondary" id="shuffleBtn">Kocok Ulang</button>
+  <button class="btn primary" id="nextBtn">Kartu Berikutnya</button>
+</div>
+<div class="counter" id="counter"></div>
+
+<script>
+const DECKS = {
+  "Kenali Dirimu": [
+    "Sebutkan 3 kata yang menggambarkan dirimu, lalu jelaskan satu di antaranya.",
+    "Apa hobi atau kegiatan yang membuatmu paling bersemangat?",
+    "Sebutkan satu hal yang membuatmu berbeda dari teman-temanmu, dan kenapa itu berharga.",
+    "Apa nilai atau prinsip hidup yang paling kamu pegang?",
+    "Kalau kamu bisa memberi julukan untuk dirimu sendiri, apa julukannya dan kenapa?",
+    "Sebutkan satu kelemahan dirimu dan bagaimana kamu belajar menerimanya.",
+    "Apa hal yang paling ingin kamu pelajari tentang dirimu sendiri?"
+  ],
+  "Percaya Diri": [
+    "Ceritakan momen kamu berhasil mengatasi rasa takut atau ragu.",
+    "Apa yang kamu lakukan saat merasa tidak percaya diri di depan orang lain?",
+    "Sebutkan satu pencapaian kecil yang membuatmu bangga pada dirimu.",
+    "Apa hal baru yang ingin kamu coba, tapi kamu masih ragu melakukannya?",
+    "Kalau ada teman yang meremehkanmu, apa yang akan kamu katakan pada dirimu sendiri?",
+    "Sebutkan satu kelebihanmu yang jarang kamu tunjukkan ke orang lain.",
+    "Apa kalimat penyemangat yang ingin kamu dengar saat sedang tidak percaya diri?"
+  ],
+  "Cerita & Perjuangan": [
+    "Ceritakan pengalaman sulit yang pernah kamu lalui, dan apa yang kamu pelajari darinya.",
+    "Siapa orang yang paling mendukungmu selama ini? Ceritakan alasannya.",
+    "Apa mimpi atau cita-citamu, dan langkah apa yang sudah kamu mulai untuk mencapainya?",
+    "Ceritakan saat kamu membantu orang lain dan bagaimana perasaanmu setelahnya.",
+    "Apa tantangan terbesar yang sedang kamu hadapi sekarang?",
+    "Ceritakan satu kesalahan yang pernah kamu buat dan bagaimana kamu memperbaikinya.",
+    "Kalau kamu bisa memberi nasihat pada dirimu setahun lalu, apa yang akan kamu katakan?"
+  ]
+};
+
+let currentCategory = "Kenali Dirimu";
+let deckOrder = [];
+let deckPtr = 0;
+let flipped = false;
+
+const catsEl = document.getElementById('cats');
+Object.keys(DECKS).forEach(cat=>{
+  const b = document.createElement('button');
+  b.className = 'cat-btn' + (cat===currentCategory ? ' active':'');
+  b.textContent = cat;
+  b.onclick = ()=>{
+    currentCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    shuffleDeck();
+    resetCard();
+  };
+  catsEl.appendChild(b);
+});
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function shuffleDeck(){
+  deckOrder = shuffle(DECKS[currentCategory].map((_,i)=>i));
+  deckPtr = 0;
+  updateCounter();
+}
+function resetCard(){
+  flipped = false;
+  document.getElementById('card').classList.remove('flipped');
+}
+function updateCounter(){
+  document.getElementById('counter').textContent = `Kartu ${deckPtr+1} dari ${deckOrder.length} · ${currentCategory}`;
+}
+
+const cardEl = document.getElementById('card');
+cardEl.onclick = () => {
+  if(!flipped){
+    document.getElementById('catTag').textContent = currentCategory;
+    document.getElementById('qText').textContent = DECKS[currentCategory][deckOrder[deckPtr]];
+    cardEl.classList.add('flipped');
+    flipped = true;
+  }
+};
+
+document.getElementById('nextBtn').onclick = () => {
+  deckPtr = (deckPtr+1) % deckOrder.length;
+  if(deckPtr===0) deckOrder = shuffle(DECKS[currentCategory].map((_,i)=>i));
+  resetCard();
+  updateCounter();
+};
+document.getElementById('shuffleBtn').onclick = () => {
+  shuffleDeck();
+  resetCard();
+};
+
+shuffleDeck();
+updateCounter();
+</script>
+</body>
+</html>

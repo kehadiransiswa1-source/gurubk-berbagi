@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulasi Relasi Pertemanan — BK SMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F4FB; --ink:#1E2338; --blue:#3A4E8C; --blue-dark:#232F5C;
+    --amber:#E8A23A; --violet:#7C5CBF; --green:#3F8F5F; --red:#C0453A;
+    --shadow:0 10px 24px rgba(30,35,56,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;min-height:100vh;
+    background:radial-gradient(circle at 15% 10%, rgba(58,78,140,0.10), transparent 40%),
+               radial-gradient(circle at 85% 90%, rgba(124,92,191,0.10), transparent 40%),
+               var(--paper);
+    font-family:'Nunito',sans-serif;color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;padding:24px 14px 60px;
+  }
+  .eyebrow{font-family:'Baloo 2';font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--violet);font-weight:700;}
+  h1{font-family:'Baloo 2';font-weight:800;font-size:clamp(24px,4.5vw,36px);color:var(--blue-dark);margin:6px 0 4px;text-align:center;}
+  .subtitle{font-size:14px;color:#5a6178;max-width:520px;text-align:center;margin-bottom:24px;}
+
+  .wrap{max-width:520px;width:100%;}
+
+  .menu{display:flex;flex-direction:column;gap:14px;}
+  .scenario-card{
+    background:#fff;border-radius:18px;padding:20px 22px;box-shadow:var(--shadow);
+    border:1px solid rgba(30,35,56,0.06);cursor:pointer;display:flex;align-items:center;gap:16px;
+    transition:.15s;
+  }
+  .scenario-card:hover{transform:translateY(-2px);}
+  .scenario-icon{font-size:32px;flex-shrink:0;}
+  .scenario-title{font-family:'Baloo 2';font-weight:700;font-size:16px;color:var(--blue-dark);margin-bottom:3px;}
+  .scenario-desc{font-size:13px;color:#5a6178;}
+
+  .story{display:none;}
+  .story.visible{display:block;}
+  .back-link{
+    display:inline-block;margin-bottom:14px;font-family:'Baloo 2';font-weight:700;font-size:13px;
+    color:var(--blue);cursor:pointer;
+  }
+  .story-card{
+    background:#fff;border-radius:20px;padding:26px 24px;box-shadow:var(--shadow);
+    border:1px solid rgba(30,35,56,0.06);
+  }
+  .scene-tag{font-family:'Baloo 2';font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--violet);font-weight:700;margin-bottom:10px;}
+  .scene-text{font-size:16px;line-height:1.7;margin-bottom:20px;}
+  .choices{display:flex;flex-direction:column;gap:10px;}
+  .choice-btn{
+    text-align:left;padding:13px 16px;border-radius:12px;border:2px solid #dfe2f0;
+    background:#fff;font-family:'Nunito';font-weight:700;font-size:14px;cursor:pointer;transition:.15s;
+  }
+  .choice-btn:hover{border-color:var(--blue);background:rgba(58,78,140,0.05);}
+  .choice-btn:disabled{opacity:.55;cursor:default;}
+
+  .feedback{
+    margin-top:16px;padding:12px 14px;border-radius:12px;font-size:13px;line-height:1.5;font-weight:700;
+  }
+  .feedback.good{background:rgba(63,143,95,0.14);color:var(--green);}
+  .feedback.mid{background:rgba(232,162,58,0.2);color:#8a5c0f;}
+
+  .ending-card{text-align:center;}
+  .ending-emoji{font-size:48px;margin-bottom:10px;}
+  .ending-title{font-family:'Baloo 2';font-size:20px;color:var(--blue-dark);margin-bottom:10px;}
+  .ending-text{font-size:14px;color:#5a6178;line-height:1.6;margin-bottom:22px;}
+  .btn{
+    padding:12px 22px;border:none;border-radius:12px;font-family:'Baloo 2';font-weight:700;
+    font-size:14px;cursor:pointer;background:var(--violet);color:#fff;box-shadow:0 5px 0 #5c3f96;
+  }
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #5c3f96;}
+
+  .helpline{
+    margin-top:22px;background:#fff;border-radius:14px;padding:14px 16px;font-size:12px;
+    color:#5a6178;box-shadow:var(--shadow);border:1px solid rgba(30,35,56,0.06);
+  }
+  .helpline b{color:var(--blue-dark);}
+</style>
+</head>
+<body>
+
+<span class="eyebrow">Bimbingan &amp; Konseling · SMP</span>
+<h1>Simulasi Relasi Pertemanan</h1>
+<p class="subtitle">Pilih satu situasi tentang pertemanan dan perundungan (bullying), lalu ambil keputusan di setiap langkah cerita. Lihat bagaimana pilihanmu memengaruhi hasilnya.</p>
+
+<div class="wrap">
+  <div class="menu" id="menu"></div>
+
+  <div class="story" id="story">
+    <span class="back-link" id="backLink">← Kembali ke daftar skenario</span>
+    <div class="story-card" id="storyCard"></div>
+  </div>
+
+  <div class="helpline">
+    <b>Ingat:</b> kalau kamu atau temanmu sedang mengalami perundungan di dunia nyata, segera ceritakan pada guru BK, wali kelas, atau orang tua. Kamu tidak harus menghadapinya sendirian.
+  </div>
+</div>
+
+<script>
+const SCENARIOS = {
+  saksi: {
+    icon: "👀",
+    title: "Menjadi Saksi Perundungan",
+    desc: "Kamu melihat seorang teman diejek habis-habisan di kelas.",
+    start: "a1",
+    nodes: {
+      a1: {
+        tag: "Saat jam istirahat",
+        text: "Kamu melihat beberapa teman sekelas mengejek dan menertawakan satu siswa terus-menerus sampai dia terlihat menahan tangis. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Menghampiri dan mengajak siswa itu pergi dari situasi, lalu melapor ke guru", next: "a2a", feedback: "Langkah berani dan tepat — menjauhkan korban dari situasi lalu melibatkan orang dewasa.", type:"good" },
+          { label: "Ikut tertawa supaya tidak dianggap aneh oleh teman-teman lain", next: "a2b", feedback: "Ikut tertawa membuat pelaku merasa dibenarkan, dan menambah luka korban.", type:"mid" },
+          { label: "Diam saja dan pura-pura tidak melihat", next: "a2c", feedback: "Diam sering terasa 'aman', tapi korban jadi merasa tidak ada yang peduli.", type:"mid" }
+        ]
+      },
+      a2a: {
+        tag: "Setelah melapor",
+        text: "Guru menangani situasi itu dan berterima kasih atas keberanianmu. Siswa yang tadi diejek terlihat masih murung sendirian. Apa langkahmu selanjutnya?",
+        choices: [
+          { label: "Duduk di sampingnya dan menunjukkan kamu peduli", next: "end_good", feedback: "Kehadiranmu memberi rasa aman — dukungan sederhana ini sangat berarti.", type:"good" },
+          { label: "Merasa tugasmu selesai dan kembali ke aktivitasmu sendiri", next: "end_mid", feedback: "Melapor sudah baik, tapi dukungan lanjutan juga membantu korban pulih." , type:"mid"}
+        ]
+      },
+      a2b: {
+        tag: "Setelah ikut tertawa",
+        text: "Kamu merasa tidak nyaman dengan pilihanmu sendiri. Esok harinya, kamu bertemu siswa yang diejek itu sendirian di lorong. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Menghampiri, minta maaf, dan mengajaknya bicara", next: "end_mid", feedback: "Menyadari kesalahan dan meminta maaf adalah langkah dewasa yang penting." , type:"mid"},
+          { label: "Menghindar karena merasa canggung", next: "end_low", feedback: "Menghindar tidak memperbaiki rasa sakit yang sudah terjadi." , type:"mid"}
+        ]
+      },
+      a2c: {
+        tag: "Setelah diam saja",
+        text: "Kejadian itu terus terpikir olehmu sepanjang hari. Kamu merasa seharusnya berbuat sesuatu. Apa yang kamu lakukan sekarang?",
+        choices: [
+          { label: "Ceritakan yang kamu lihat pada guru BK meski terlambat", next: "end_mid", feedback: "Tidak pernah terlambat untuk berbuat baik — laporanmu tetap membantu ke depannya.", type:"mid" },
+          { label: "Membiarkannya berlalu dan berharap tidak terjadi lagi", next: "end_low", feedback: "Berharap saja tanpa tindakan jarang menghentikan pola perundungan." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Jadi Pelindung yang Baik",
+        text: "Kamu menunjukkan bahwa jadi saksi bukan berarti diam. Melindungi, melapor, dan tetap mendukung adalah sikap yang membuat lingkungan sekolah lebih aman untuk semua orang."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Langkah yang Bisa Terus Diperbaiki",
+        text: "Belum sempurna, tapi kamu belajar sesuatu yang penting hari ini. Setiap kali kita memilih peduli — meski terlambat — itu tetap berarti bagi orang lain."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Ini Bisa Jadi Titik Belajar",
+        text: "Menyaksikan perundungan itu tidak mudah, dan wajar merasa bingung harus berbuat apa. Coba diskusikan situasi seperti ini dengan guru BK agar kamu lebih siap di lain waktu."
+      }
+    }
+  },
+  korban: {
+    icon: "💭",
+    title: "Saat Kamu Diejek Terus-menerus",
+    desc: "Beberapa teman sekelas sering menjadikanmu bahan ejekan.",
+    start: "b1",
+    nodes: {
+      b1: {
+        tag: "Selama beberapa minggu terakhir",
+        text: "Beberapa temanmu terus-menerus mengejek caramu bicara di depan kelas. Kamu mulai malas masuk sekolah. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Ceritakan yang kamu alami pada orang tua atau guru BK", next: "b2a", feedback: "Berani bicara pada orang dewasa yang dipercaya adalah langkah paling tepat.", type:"good" },
+          { label: "Memendam sendiri dan berpura-pura semua baik-baik saja", next: "b2b", feedback: "Memendam sendiri membuat beban terasa makin berat dari waktu ke waktu.", type:"mid" }
+        ]
+      },
+      b2a: {
+        tag: "Setelah bercerita",
+        text: "Guru BK mendengarkan ceritamu dan berjanji membantu menyelesaikannya. Kamu merasa sedikit lega tapi masih was-was besok ke sekolah. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Mengingat bahwa masalah ini bukan salahmu, dan tetap dekat dengan teman yang mendukungmu", next: "end_good", feedback: "Mengenali nilai dirimu dan mencari dukungan sosial memperkuat rasa amanmu.", type:"good" },
+          { label: "Mulai menjauhi semua orang di sekolah supaya tidak diejek lagi", next: "end_mid", feedback: "Menjauhi semua orang bisa membuatmu makin kesepian, padahal tidak semua orang berniat jahat.", type:"mid" }
+        ]
+      },
+      b2b: {
+        tag: "Beberapa hari kemudian",
+        text: "Ejekan itu masih berlanjut dan kamu merasa makin lelah menyembunyikan perasaanmu. Apa langkahmu sekarang?",
+        choices: [
+          { label: "Akhirnya memberanikan diri bicara pada seseorang yang dipercaya", next: "end_mid", feedback: "Tidak pernah terlambat untuk minta bantuan — ini langkah penting menuju lebih baik.", type:"mid" },
+          { label: "Terus memendamnya sendirian", next: "end_low", feedback: "Menghadapi masalah besar sendirian sangat berat, dan kamu tidak harus melakukannya." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Berani Mencari Dukungan",
+        text: "Kamu menunjukkan keberanian besar dengan bicara dan mencari dukungan. Mengejek bukan sesuatu yang pantas kamu terima, dan kamu berhak merasa aman di sekolah."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Langkah Awal yang Penting",
+        text: "Prosesnya belum selesai, tapi kamu sudah mulai bergerak ke arah yang lebih baik. Terus cari orang dewasa yang bisa membantumu menyelesaikan ini."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Kamu Tidak Harus Sendirian",
+        text: "Memendam masalah seberat ini sendirian sangat melelahkan. Yuk, coba ceritakan pada guru BK, wali kelas, atau orang tua — mereka ada untuk membantumu."
+      }
+    }
+  },
+  daring: {
+    icon: "💬",
+    title: "Perundungan di Grup Chat",
+    desc: "Ada teman yang jadi bahan olok-olok di grup chat kelas.",
+    start: "c1",
+    nodes: {
+      c1: {
+        tag: "Malam hari di grup chat kelas",
+        text: "Kamu melihat beberapa teman mengirim pesan mengejek dan menyebarkan foto memalukan salah satu teman sekelas di grup chat. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Tidak ikut membalas, screenshot sebagai bukti, dan laporkan ke guru/orang tua", next: "c2a", feedback: "Menyimpan bukti dan melapor adalah cara efektif menghentikan perundungan daring.", type:"good" },
+          { label: "Ikut mengirim emoji tertawa di pesan tersebut", next: "c2b", feedback: "Bereaksi dengan emoji tertawa tetap dianggap ikut serta dalam perundungan tersebut.", type:"mid" },
+          { label: "Keluar dari grup chat tanpa melakukan apa pun lagi", next: "c2c", feedback: "Keluar dari grup membuatmu aman, tapi tidak membantu korban yang masih ada di sana." , type:"mid"}
+        ]
+      },
+      c2a: {
+        tag: "Keesokan harinya",
+        text: "Orang tua/guru menindaklanjuti laporanmu dan pesan-pesan itu dihapus. Siswa yang jadi korban berterima kasih diam-diam padamu. Apa yang kamu lakukan selanjutnya?",
+        choices: [
+          { label: "Tetap bersikap baik dan suportif padanya di sekolah", next: "end_good", feedback: "Dukungan yang konsisten membantu korban merasa lebih aman dan dipercaya lagi.", type:"good" },
+          { label: "Menganggap masalah selesai dan tidak membicarakannya lagi", next: "end_mid", feedback: "Masalah teknis mungkin selesai, tapi perasaan korban butuh waktu lebih untuk pulih." , type:"mid"}
+        ]
+      },
+      c2b: {
+        tag: "Setelah ikut mengejek",
+        text: "Kamu menyadari bahwa pesanmu ikut menyakiti temanmu. Apa yang kamu lakukan setelah menyadarinya?",
+        choices: [
+          { label: "Hapus pesanmu, minta maaf langsung padanya, dan tidak mengulanginya", next: "end_mid", feedback: "Mengakui kesalahan dan meminta maaf adalah langkah penting untuk memperbaiki keadaan.", type:"mid" },
+          { label: "Berpura-pura tidak terjadi apa-apa", next: "end_low", feedback: "Menghindari tanggung jawab bisa membuat hubungan pertemanan makin rusak." , type:"mid"}
+        ]
+      },
+      c2c: {
+        tag: "Setelah keluar grup",
+        text: "Kamu merasa lega tidak melihatnya lagi, tapi teringat temanmu yang masih jadi korban di grup itu. Apa yang kamu lakukan?",
+        choices: [
+          { label: "Hubungi dia secara pribadi untuk memastikan dia baik-baik saja", next: "end_mid", feedback: "Menjangkau korban secara pribadi tetap menunjukkan kepedulian, meski terlambat." , type:"mid"},
+          { label: "Tidak melakukan apa-apa lagi", next: "end_low", feedback: "Diam sepenuhnya membiarkan korban menghadapi situasi ini sendirian." , type:"mid"}
+        ]
+      },
+      end_good: {
+        ending: true, emoji: "🌟",
+        title: "Sikap yang Melindungi",
+        text: "Kamu menunjukkan bahwa menghadapi perundungan daring butuh bukti, keberanian melapor, dan dukungan berkelanjutan. Sikap ini membantu menciptakan ruang daring yang lebih aman."
+      },
+      end_mid: {
+        ending: true, emoji: "🙂",
+        title: "Menyadari dan Memperbaiki",
+        text: "Kamu sempat salah langkah, tapi menyadarinya dan berusaha memperbaiki adalah bagian penting dari belajar bersikap lebih baik ke depannya."
+      },
+      end_low: {
+        ending: true, emoji: "🌱",
+        title: "Yuk, Ambil Langkah Selanjutnya",
+        text: "Belum semua pilihan tadi membantu korban. Tidak apa-apa — sekarang kamu tahu bahwa melapor dan mendukung korban adalah langkah yang bisa kamu ambil lain kali."
+      }
+    }
+  }
+};
+
+const menuEl = document.getElementById('menu');
+const storyEl = document.getElementById('story');
+const storyCardEl = document.getElementById('storyCard');
+let currentScenarioKey = null;
+let currentNodeKey = null;
+
+Object.entries(SCENARIOS).forEach(([key, sc])=>{
+  const card = document.createElement('div');
+  card.className = 'scenario-card';
+  card.innerHTML = `
+    <div class="scenario-icon">${sc.icon}</div>
+    <div>
+      <div class="scenario-title">${sc.title}</div>
+      <div class="scenario-desc">${sc.desc}</div>
+    </div>`;
+  card.onclick = () => startScenario(key);
+  menuEl.appendChild(card);
+});
+
+function startScenario(key){
+  currentScenarioKey = key;
+  currentNodeKey = SCENARIOS[key].start;
+  menuEl.style.display = 'none';
+  storyEl.classList.add('visible');
+  renderNode();
+}
+
+function renderNode(){
+  const sc = SCENARIOS[currentScenarioKey];
+  const node = sc.nodes[currentNodeKey];
+  if(node.ending){
+    storyCardEl.innerHTML = `
+      <div class="ending-card">
+        <div class="ending-emoji">${node.emoji}</div>
+        <div class="ending-title">${node.title}</div>
+        <div class="ending-text">${node.text}</div>
+        <button class="btn" id="restartSc">Pilih Skenario Lain</button>
+      </div>`;
+    document.getElementById('restartSc').onclick = backToMenu;
+    return;
+  }
+  storyCardEl.innerHTML = `
+    <div class="scene-tag">${node.tag}</div>
+    <div class="scene-text">${node.text}</div>
+    <div class="choices" id="choicesBox"></div>
+    <div id="feedbackBox"></div>`;
+  const choicesBox = document.getElementById('choicesBox');
+  node.choices.forEach(choice=>{
+    const b = document.createElement('button');
+    b.className = 'choice-btn';
+    b.textContent = choice.label;
+    b.onclick = () => selectChoice(choice, choicesBox);
+    choicesBox.appendChild(b);
+  });
+}
+
+function selectChoice(choice, choicesBox){
+  choicesBox.querySelectorAll('.choice-btn').forEach(b=> b.disabled = true);
+  const fb = document.createElement('div');
+  fb.className = 'feedback ' + (choice.type === 'good' ? 'good' : 'mid');
+  fb.textContent = choice.feedback;
+  document.getElementById('feedbackBox').appendChild(fb);
+  setTimeout(()=>{
+    currentNodeKey = choice.next;
+    renderNode();
+  }, 1400);
+}
+
+function backToMenu(){
+  storyEl.classList.remove('visible');
+  menuEl.style.display = 'flex';
+  currentScenarioKey = null;
+  currentNodeKey = null;
+}
+
+document.getElementById('backLink').onclick = backToMenu;
+</script>
+</body>
+</html>

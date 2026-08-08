@@ -93,6 +93,18 @@
   .service-card h3{font-size:16px; margin-bottom:8px;}
   .service-card p{font-size:14px; color:#4a5468;}
 
+  /* GAME BK */
+  section.game-bk{background:var(--navy-deep); color:#fff;}
+  section.game-bk .section-head p{color:rgba(255,255,255,0.65);}
+  .game-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px;}
+  .game-card{background:linear-gradient(160deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:24px; text-decoration:none; color:#fff; display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, border-color .18s ease;}
+  .game-card:hover{transform:translateY(-3px); border-color:rgba(242,183,5,0.45);}
+  .game-icon{font-size:28px;}
+  .game-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--gold);}
+  .game-card h3{font-size:16.5px; font-family:'Sora', sans-serif;}
+  .game-card p{font-size:13.5px; color:rgba(255,255,255,0.62); flex-grow:1;}
+  .game-play{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--gold); display:inline-flex; align-items:center; gap:6px;}
+
   /* ARTIKEL */
   .article-list{display:flex; flex-direction:column; gap:14px;}
   details.article-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 26px; overflow:hidden;}
@@ -150,6 +162,7 @@
     <ul class="nav-links">
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#layanan">Layanan</a></li>
+      <li><a href="#game-bk">Game BK</a></li>
       <li><a href="#artikel">Artikel</a></li>
       <li><a href="#kontak">Kontak</a></li>
     </ul>
@@ -230,6 +243,46 @@
         <p>Aktivitas reflektif seperti kartu tantangan dan permainan edukatif seputar pengenalan diri dan kepercayaan diri.</p>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="game-bk" id="game-bk">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="color:var(--gold);">Belajar Sambil Bermain</div>
+      <h2>Game BK</h2>
+      <p>Permainan interaktif seputar pengenalan diri, percaya diri, relasi pertemanan, cita-cita, dan manajemen emosi. Mainkan langsung di browser, tidak perlu instal apa pun.</p>
+    </div>
+    <div class="game-grid reveal" id="gameGrid"></div>
+
+    <script>
+      // ====================================================================
+      // DAFTAR GAME BK
+      // Untuk menambah game baru, tambahkan satu object di array "games".
+      // ====================================================================
+      const games = [
+        { icon:"🐍", tag:"Papan & Dadu · Percaya Diri", title:"Ular Tangga Percaya Diri", desc:"Naik lewat Tangga Percaya Diri, hindari Jebakan Keraguan, dan jawab kotak refleksi diri.", href:"ular-tangga-bk.html" },
+        { icon:"🃏", tag:"Kartu Refleksi · Kenali Diri", title:"Kartu Refleksi Diri", desc:"Kocok dan buka kartu refleksi seputar kenali diri, percaya diri, dan cerita perjuangan.", href:"kartu-refleksi-diri.html" },
+        { icon:"❓", tag:"Kuis · Percaya Diri", title:"Kuis Percaya Diri", desc:"Delapan pertanyaan santai untuk mengecek pemahamanmu soal membangun rasa percaya diri.", href:"kuis-percaya-diri.html" },
+        { icon:"🎭", tag:"Simulasi · Percaya Diri", title:"Simulasi Skenario Percaya Diri", desc:"Ambil keputusan dalam skenario presentasi, kenalan teman baru, dan menerima kritik.", href:"simulasi-skenario-bk.html" },
+        { icon:"🤝", tag:"Simulasi · Anti-Bullying", title:"Simulasi Relasi Pertemanan", desc:"Skenario menjadi saksi, korban, dan perundungan daring — latihan merespons dengan tepat.", href:"simulasi-relasi-pertemanan.html" },
+        { icon:"🎯", tag:"Simulasi · Cita-Cita", title:"Simulasi Menuju Cita-Cita", desc:"Skenario memilih jurusan, menghadapi kegagalan, dan menemukan minat serta cita-cita.", href:"simulasi-cita-cita.html" },
+        { icon:"🌿", tag:"Simulasi · Manajemen Emosi", title:"Simulasi Manajemen Emosi", desc:"Skenario mengelola rasa marah, cemas menjelang ujian, dan kecewa akan hasil yang tak sesuai.", href:"simulasi-manajemen-emosi.html" }
+      ];
+
+      function renderGames(){
+        const container = document.getElementById('gameGrid');
+        container.innerHTML = games.map(g => `
+      <a href="${g.href}" class="game-card">
+        <span class="game-icon">${g.icon}</span>
+        <span class="game-tag">${g.tag}</span>
+        <h3>${g.title}</h3>
+        <p>${g.desc}</p>
+        <span class="game-play">Mainkan sekarang →</span>
+      </a>`).join('\n');
+      }
+      renderGames();
+    </script>
   </div>
 </section>
 
