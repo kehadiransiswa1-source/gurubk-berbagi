@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategi Sukses Menghadapi PPDB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#17332E;
+    --deep2:#0E211D;
+    --gold:#D9A544;
+    --paper:#F6F1E2;
+    --paper2:#EEE7D3;
+    --ink:#20261F;
+    --ink-soft:#4B5347;
+    --sage:#5E7A56;
+    --clay:#A85A33;
+    --indigo:#3D5A80;
+    --plum:#79495D;
+    --line:#D8CFB4;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;line-height:1.65;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;margin:0;color:var(--ink);}
+  .label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  .hero{background:linear-gradient(180deg,var(--deep) 0%,var(--deep2) 100%);color:var(--paper);padding:64px 0 40px;overflow:hidden;}
+  .hero .wrap{position:relative;}
+  .eyebrow{color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold);display:inline-block;}
+  .hero h1{font-size:clamp(32px,5.6vw,54px);line-height:1.1;max-width:700px;color:#FBF7EA;}
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .hero-sub{max-width:540px;margin-top:20px;color:#CFD8CB;font-size:17px;}
+  .track-illustration{margin-top:44px;}
+
+  .intro{padding:56px 0 8px;}
+  .intro p{font-size:19px;max-width:680px;color:var(--ink-soft);}
+  .intro p.lede{font-family:'Fraunces',serif;font-style:italic;font-size:23px;color:var(--ink);max-width:700px;}
+
+  .section-head{display:flex;align-items:baseline;gap:16px;margin:70px 0 28px;}
+  .section-head .label{color:var(--sage);white-space:nowrap;}
+  .section-head::after{content:"";flex:1;height:1px;background:var(--line);transform:translateY(-4px);}
+  .section-head h2{font-size:28px;}
+
+  .lane-card{background:var(--paper2);border:1px solid var(--line);border-radius:4px;padding:28px 32px;margin-bottom:22px;}
+  .lane-card .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:12px;}
+  .tag.zonasi{background:#E4EBE1;color:var(--sage);}
+  .tag.afirmasi{background:#DEE6EE;color:var(--indigo);}
+  .tag.prestasi{background:#F0DFCF;color:var(--clay);}
+  .tag.mutasi{background:#EBDFE4;color:var(--plum);}
+  .lane-card h3{font-size:21px;margin-bottom:8px;}
+  .lane-card p{color:var(--ink-soft);font-size:15px;margin:0 0 10px;}
+  .lane-card .pct-row{display:flex;align-items:center;gap:12px;margin-top:14px;}
+  .pct-bar{flex:1;height:8px;background:#DDD4B8;border-radius:4px;overflow:hidden;}
+  .pct-fill{height:100%;border-radius:4px;}
+  .pct-fill.zonasi{background:var(--sage);}
+  .pct-fill.afirmasi{background:var(--indigo);}
+  .pct-fill.prestasi{background:var(--clay);}
+  .pct-fill.mutasi{background:var(--plum);}
+  .pct-label{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);white-space:nowrap;}
+
+  .timeline{position:relative;padding-left:28px;margin-top:8px;}
+  .timeline::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .tl-item{position:relative;padding-bottom:30px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:"";position:absolute;left:-28px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--paper);}
+  .tl-item h3{font-size:16.5px;margin-bottom:5px;}
+  .tl-item p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:600px;}
+  .tl-item .when{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--sage);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px;}
+
+  .checklist{background:var(--paper2);border:1px solid var(--line);border-radius:4px;padding:28px 32px;}
+  .checklist ul{margin:0;padding:0;list-style:none;}
+  .checklist li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px;color:var(--ink-soft);}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li::before{content:"";flex:none;width:16px;height:16px;border:1.5px solid var(--sage);border-radius:3px;margin-top:2px;}
+
+  .pitfall{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);}
+  .pitfall:last-child{border-bottom:none;}
+  .pitfall .mark{font-family:'Fraunces',serif;font-style:italic;font-size:24px;color:var(--clay);}
+  .pitfall h3{font-size:16.5px;margin-bottom:5px;}
+  .pitfall p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .closing{background:var(--deep);color:#EAE4D2;padding:56px 0 60px;margin-top:80px;}
+  .closing .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  .closing h2{color:#FBF7EA;font-size:26px;line-height:1.3;}
+  .closing p{color:#C7CFC3;font-size:15.5px;margin-top:14px;}
+  .closing .quote-mark{font-family:'Fraunces',serif;font-size:70px;color:var(--gold);line-height:1;font-style:italic;}
+
+  footer{text-align:center;padding:26px 0 40px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.04em;color:var(--ink-soft);text-transform:uppercase;}
+
+  @media (max-width:640px){
+    .closing .wrap{grid-template-columns:1fr;}
+    .closing .quote-mark{display:none;}
+    .lane-card{padding:24px;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow label">Panduan Bimbingan Karir &middot; Kelas IX &middot; Lanjutan</div>
+    <h1>Strategi Sukses<br>Menghadapi <em>PPDB</em></h1>
+    <p class="hero-sub">Sudah tahu mau ke SMA, SMK, atau MA? Langkah berikutnya adalah memastikan kamu benar-benar diterima. Ini strategi jalur demi jalurnya.</p>
+
+    <div class="track-illustration">
+      <svg width="100%" viewBox="0 0 860 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi lintasan lari dengan empat jalur menuju garis finis bertuliskan diterima">
+        <defs>
+          <linearGradient id="skyGrad2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E4038"/>
+            <stop offset="100%" stop-color="#17332E"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="860" height="260" fill="url(#skyGrad2)"/>
+
+        <g stroke="#3A5A4F" stroke-width="1">
+          <line x1="60" y1="70" x2="800" y2="70"/>
+          <line x1="60" y1="115" x2="800" y2="115"/>
+          <line x1="60" y1="160" x2="800" y2="160"/>
+          <line x1="60" y1="205" x2="800" y2="205"/>
+        </g>
+
+        <line x1="770" y1="55" x2="770" y2="220" stroke="#D9A544" stroke-width="3"/>
+        <text x="781" y="60" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="500" fill="#D9A544">DITERIMA</text>
+
+        <g>
+          <circle cx="200" cy="70" r="8" fill="#5E7A56"/>
+          <text x="60" y="55" font-family="IBM Plex Mono, monospace" font-size="11" fill="#CFD8CB">ZONASI</text>
+        </g>
+        <g>
+          <circle cx="340" cy="115" r="8" fill="#3D5A80"/>
+          <text x="60" y="100" font-family="IBM Plex Mono, monospace" font-size="11" fill="#CFD8CB">AFIRMASI</text>
+        </g>
+        <g>
+          <circle cx="480" cy="160" r="8" fill="#A85A33"/>
+          <text x="60" y="145" font-family="IBM Plex Mono, monospace" font-size="11" fill="#CFD8CB">PRESTASI</text>
+        </g>
+        <g>
+          <circle cx="260" cy="205" r="8" fill="#79495D"/>
+          <text x="60" y="190" font-family="IBM Plex Mono, monospace" font-size="11" fill="#CFD8CB">MUTASI</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="lede">Diterima di sekolah tujuan bukan soal beruntung &mdash; itu hasil dari memahami jalur, menyiapkan dokumen, dan membuat pilihan cadangan sejak awal.</p>
+    <p>Penerimaan Peserta Didik Baru (PPDB) di Indonesia dibuka melalui beberapa jalur dengan aturan dan persentase kuota yang berbeda. Banyak siswa gagal bukan karena nilainya kurang, tapi karena tidak memahami jalur mana yang paling menguntungkan posisinya, atau tidak menyiapkan berkas tepat waktu. Bagian ini melengkapi artikel "Pilihan Sekolah setelah SMP" dengan langkah-langkah praktis menghadapi proses pendaftarannya.</p>
+  </div>
+</section>
+
+<section class="wrap">
+
+  <div class="section-head">
+    <span class="label">Bagian 01</span>
+    <h2>Empat jalur pendaftaran PPDB</h2>
+  </div>
+
+  <div class="lane-card">
+    <span class="tag zonasi">Kuota terbesar</span>
+    <h3>Jalur Zonasi</h3>
+    <p>Berdasarkan jarak tempat tinggal ke sekolah, dibuktikan dengan Kartu Keluarga. Ini jalur dengan kuota paling besar di kebanyakan daerah.</p>
+    <div class="pct-row"><span class="pct-label">Kuota umum</span><div class="pct-bar"><div class="pct-fill zonasi" style="width:50%"></div></div><span class="pct-label">&asymp; 50%</span></div>
+  </div>
+
+  <div class="lane-card">
+    <span class="tag afirmasi">Untuk yang membutuhkan</span>
+    <h3>Jalur Afirmasi</h3>
+    <p>Diperuntukkan bagi siswa dari keluarga tidak mampu (pemegang KIP/PKH) dan penyandang disabilitas, dibuktikan dengan dokumen resmi dari pemerintah.</p>
+    <div class="pct-row"><span class="pct-label">Kuota umum</span><div class="pct-bar"><div class="pct-fill afirmasi" style="width:15%"></div></div><span class="pct-label">&asymp; 15%</span></div>
+  </div>
+
+  <div class="lane-card">
+    <span class="tag prestasi">Berdasarkan capaian</span>
+    <h3>Jalur Prestasi</h3>
+    <p>Dinilai dari rata-rata nilai rapor lima semester terakhir dan/atau prestasi akademik &amp; non-akademik (lomba, olahraga, seni) berjenjang.</p>
+    <div class="pct-row"><span class="pct-label">Kuota umum</span><div class="pct-bar"><div class="pct-fill prestasi" style="width:20%"></div></div><span class="pct-label">&asymp; 20%</span></div>
+  </div>
+
+  <div class="lane-card">
+    <span class="tag mutasi">Kasus khusus</span>
+    <h3>Jalur Perpindahan Tugas Orang Tua/Wali</h3>
+    <p>Untuk anak dari orang tua/wali yang pindah tugas kerja, dibuktikan dengan surat resmi dari instansi/perusahaan. Kuotanya paling kecil dan sangat kondisional.</p>
+    <div class="pct-row"><span class="pct-label">Kuota umum</span><div class="pct-bar"><div class="pct-fill mutasi" style="width:5%"></div></div><span class="pct-label">&asymp; 5%</span></div>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--ink-soft);margin-top:-4px;">Catatan: persentase kuota di atas adalah gambaran umum nasional. Angka pasti berbeda-beda tiap provinsi/kota dan tiap tahun &mdash; selalu cek petunjuk teknis PPDB dinas pendidikan setempat.</p>
+
+  <div class="section-head">
+    <span class="label">Bagian 02</span>
+    <h2>Garis waktu yang perlu diperhatikan</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="when">3&ndash;4 bulan sebelum pendaftaran</span>
+      <h3>Mulai riset sekolah tujuan</h3>
+      <p>Kumpulkan data passing grade tahun lalu, kuota per jalur, dan jarak rumah ke sekolah untuk memperkirakan peluang di jalur zonasi.</p>
+    </div>
+    <div class="tl-item">
+      <span class="when">2 bulan sebelum pendaftaran</span>
+      <h3>Siapkan dan cek ulang dokumen</h3>
+      <p>Kartu Keluarga, akta lahir, rapor, sertifikat lomba, dan dokumen jalur afirmasi bila relevan. Pastikan nama dan data konsisten di semua berkas.</p>
+    </div>
+    <div class="tl-item">
+      <span class="when">Masa pendaftaran</span>
+      <h3>Tentukan urutan pilihan sekolah</h3>
+      <p>Pilihan 1 boleh ambisius, tapi pilihan 2 dan 3 harus realistis berdasarkan data passing grade dan jarak &mdash; ini jaring pengamanmu.</p>
+    </div>
+    <div class="tl-item">
+      <span class="when">Masa pengumuman</span>
+      <h3>Pantau hasil dan siapkan rencana B</h3>
+      <p>Jika belum diterima di pilihan utama, segera cek jalur/sekolah lain yang masih membuka kuota tambahan sebelum masa pendaftaran ulang berakhir.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 03</span>
+    <h2>Kesalahan yang paling sering terjadi</h2>
+  </div>
+
+  <div class="lane-card" style="padding:8px 32px;">
+    <div class="pitfall">
+      <span class="mark">1</span>
+      <div><h3>Hanya mendaftar di satu sekolah favorit</h3><p>Tanpa pilihan cadangan, siswa berisiko tidak tertampung di sekolah manapun bila tidak lolos di pilihan utama.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">2</span>
+      <div><h3>Menyiapkan dokumen di hari terakhir</h3><p>Dokumen yang belum lengkap atau salah format sering baru terlihat justru saat sistem pendaftaran sudah dibuka dan waktu mendesak.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">3</span>
+      <div><h3>Salah hitung jarak zonasi</h3><p>Menggunakan alamat KK yang belum diperbarui, sehingga jarak yang terhitung sistem berbeda dari alamat tinggal sebenarnya.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">4</span>
+      <div><h3>Tidak memantau hasil secara berkala</h3><p>Melewatkan jadwal pengumuman atau daftar ulang membuat kursi yang sudah didapat bisa hangus begitu saja.</p></div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 04</span>
+    <h2>Daftar periksa sebelum mendaftar</h2>
+  </div>
+
+  <div class="checklist">
+    <ul>
+      <li>Sudah tahu jalur PPDB mana yang paling sesuai dengan kondisiku (zonasi/afirmasi/prestasi/mutasi)</li>
+      <li>Sudah mengecek data passing grade dan kuota sekolah tujuan tahun sebelumnya</li>
+      <li>Kartu Keluarga dan akta lahir sudah difotokopi dan dipastikan datanya sesuai</li>
+      <li>Rapor lima semester dan sertifikat prestasi sudah dikumpulkan dan dilegalisir</li>
+      <li>Sudah menentukan pilihan 1, 2, dan 3 dengan mempertimbangkan peluang realistis</li>
+      <li>Sudah mencatat tanggal penting: pendaftaran, pengumuman, dan daftar ulang</li>
+      <li>Sudah berdiskusi dengan orang tua dan guru BK soal keputusan akhir</li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <div>
+      <h2>Persiapan yang matang mengubah kecemasan menjadi kepercayaan diri saat hari pengumuman tiba.</h2>
+      <p>Bawa hasil riset dan daftar periksamu ke ruang BK. Guru BK bisa membantu menghitung peluang di tiap jalur sebelum kamu benar-benar mendaftar.</p>
+    </div>
+    <div class="quote-mark">&rdquo;</div>
+  </div>
+</section>
+
+<footer>Ditulis untuk bimbingan karir siswa kelas IX &middot; Layanan Bimbingan dan Konseling</footer>
+
+</body>
+</html>

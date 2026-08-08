@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strategi dan Kesiapan Menghadapi Ujian SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#17332E;
+    --deep2:#0E211D;
+    --gold:#D9A544;
+    --paper:#F6F1E2;
+    --paper2:#EEE7D3;
+    --ink:#20261F;
+    --ink-soft:#4B5347;
+    --sage:#5E7A56;
+    --clay:#A85A33;
+    --indigo:#3D5A80;
+    --plum:#79495D;
+    --line:#D8CFB4;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Work Sans',sans-serif;line-height:1.65;}
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;margin:0;color:var(--ink);}
+  .label{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px;}
+
+  .hero{background:linear-gradient(180deg,var(--deep) 0%,var(--deep2) 100%);color:var(--paper);padding:64px 0 40px;overflow:hidden;}
+  .hero .wrap{position:relative;}
+  .eyebrow{color:var(--gold);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--gold);display:inline-block;}
+  .hero h1{font-size:clamp(30px,5.4vw,50px);line-height:1.1;max-width:720px;color:#FBF7EA;}
+  .hero h1 em{font-style:italic;color:var(--gold);}
+  .hero-sub{max-width:540px;margin-top:20px;color:#CFD8CB;font-size:17px;}
+  .clock-illustration{margin-top:44px;}
+
+  .intro{padding:56px 0 8px;}
+  .intro p{font-size:19px;max-width:680px;color:var(--ink-soft);}
+  .intro p.lede{font-family:'Fraunces',serif;font-style:italic;font-size:23px;color:var(--ink);max-width:700px;}
+
+  .section-head{display:flex;align-items:baseline;gap:16px;margin:70px 0 28px;}
+  .section-head .label{color:var(--sage);white-space:nowrap;}
+  .section-head::after{content:"";flex:1;height:1px;background:var(--line);transform:translateY(-4px);}
+  .section-head h2{font-size:28px;}
+
+  .exam-card{background:var(--paper2);border:1px solid var(--line);border-radius:4px;padding:28px 32px;margin-bottom:22px;display:grid;grid-template-columns:64px 1fr;gap:22px;}
+  .exam-card .icon-box{display:flex;align-items:flex-start;justify-content:center;padding-top:2px;}
+  .exam-card .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:3px 9px;border-radius:3px;margin-bottom:10px;}
+  .tag.us{background:#E4EBE1;color:var(--sage);}
+  .tag.anbk{background:#DEE6EE;color:var(--indigo);}
+  .exam-card h3{font-size:20px;margin-bottom:6px;}
+  .exam-card p{color:var(--ink-soft);font-size:15px;margin:0;}
+
+  .countdown{position:relative;padding-left:28px;margin-top:8px;}
+  .countdown::before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1px;background:var(--line);}
+  .cd-item{position:relative;padding-bottom:30px;}
+  .cd-item:last-child{padding-bottom:0;}
+  .cd-item::before{content:"";position:absolute;left:-28px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--gold);border:2px solid var(--paper);}
+  .cd-item h3{font-size:16.5px;margin-bottom:5px;}
+  .cd-item p{margin:0;color:var(--ink-soft);font-size:14.5px;max-width:620px;}
+  .cd-item .when{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--sage);text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px;}
+
+  .cols4{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .mini-card{background:var(--paper2);border:1px solid var(--line);border-radius:4px;padding:22px 24px;}
+  .mini-card h3{font-size:16.5px;margin-bottom:8px;}
+  .mini-card p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+  .mini-card .num-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.06em;display:block;margin-bottom:8px;}
+
+  .pitfall{display:grid;grid-template-columns:36px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);}
+  .pitfall:last-child{border-bottom:none;}
+  .pitfall .mark{font-family:'Fraunces',serif;font-style:italic;font-size:24px;color:var(--clay);}
+  .pitfall h3{font-size:16.5px;margin-bottom:5px;}
+  .pitfall p{margin:0;color:var(--ink-soft);font-size:14.5px;}
+
+  .checklist{background:var(--paper2);border:1px solid var(--line);border-radius:4px;padding:28px 32px;}
+  .checklist ul{margin:0;padding:0;list-style:none;}
+  .checklist li{display:flex;gap:12px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:15px;color:var(--ink-soft);}
+  .checklist li:last-child{border-bottom:none;}
+  .checklist li::before{content:"";flex:none;width:16px;height:16px;border:1.5px solid var(--sage);border-radius:3px;margin-top:2px;}
+
+  .closing{background:var(--deep);color:#EAE4D2;padding:56px 0 60px;margin-top:80px;}
+  .closing .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+  .closing h2{color:#FBF7EA;font-size:26px;line-height:1.3;}
+  .closing p{color:#C7CFC3;font-size:15.5px;margin-top:14px;}
+  .closing .quote-mark{font-family:'Fraunces',serif;font-size:70px;color:var(--gold);line-height:1;font-style:italic;}
+
+  footer{text-align:center;padding:26px 0 40px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.04em;color:var(--ink-soft);text-transform:uppercase;}
+
+  @media (max-width:640px){
+    .cols4{grid-template-columns:1fr;}
+    .exam-card{grid-template-columns:1fr;}
+    .exam-card .icon-box{justify-content:flex-start;}
+    .closing .wrap{grid-template-columns:1fr;}
+    .closing .quote-mark{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow label">Panduan Belajar &middot; Kelas IX &middot; Lanjutan</div>
+    <h1>Strategi dan Kesiapan<br>Menghadapi <em>Ujian SMP</em></h1>
+    <p class="hero-sub">Sebelum bicara soal sekolah tujuan dan PPDB, ada satu tahap yang harus dilewati dulu: ujian akhir di SMP. Ini cara menyiapkannya tanpa panik.</p>
+
+    <div class="clock-illustration">
+      <svg width="100%" viewBox="0 0 860 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi jam pasir dengan buku dan pensil melambangkan waktu belajar menjelang ujian">
+        <defs>
+          <linearGradient id="skyGrad3" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1E4038"/>
+            <stop offset="100%" stop-color="#17332E"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="860" height="260" fill="url(#skyGrad3)"/>
+
+        <g transform="translate(370,40)">
+          <path d="M0 0 L120 0 L120 8 L70 60 L120 112 L120 120 L0 120 L0 112 L50 60 L0 8 Z" fill="none" stroke="#D9A544" stroke-width="3" stroke-linejoin="round"/>
+          <path d="M14 12 L106 12 L66 58 L54 58 Z" fill="#D9A544" opacity="0.85"/>
+          <path d="M20 108 L100 108 L74 66 L46 66 Z" fill="#D9A544" opacity="0.35"/>
+        </g>
+
+        <g transform="translate(150,150)">
+          <rect x="0" y="0" width="70" height="52" rx="2" fill="none" stroke="#8FA07E" stroke-width="2.5"/>
+          <line x1="35" y1="0" x2="35" y2="52" stroke="#8FA07E" stroke-width="2"/>
+          <line x1="8" y1="12" x2="26" y2="9" stroke="#8FA07E" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="22" x2="26" y2="19" stroke="#8FA07E" stroke-width="2" stroke-linecap="round"/>
+          <line x1="8" y1="32" x2="26" y2="29" stroke="#8FA07E" stroke-width="2" stroke-linecap="round"/>
+          <line x1="44" y1="9" x2="62" y2="12" stroke="#8FA07E" stroke-width="2" stroke-linecap="round"/>
+          <line x1="44" y1="19" x2="62" y2="22" stroke="#8FA07E" stroke-width="2" stroke-linecap="round"/>
+        </g>
+
+        <g transform="translate(620,155)">
+          <line x1="0" y1="45" x2="34" y2="0" stroke="#CFB98A" stroke-width="8" stroke-linecap="round"/>
+          <path d="M28 8 L40 -2 L46 6 L34 16 Z" fill="#4B5347"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="intro">
+  <div class="wrap">
+    <p class="lede">Ujian bukan tentang siapa yang paling pintar, tapi siapa yang paling siap &mdash; siap materinya, siap waktunya, dan siap kondisi dirinya.</p>
+    <p>Menjelang akhir kelas IX, ada dua jenis penilaian besar yang akan dihadapi: Ujian Sekolah (US) yang menentukan kelulusan, dan Asesmen Nasional Berbasis Komputer (ANBK) yang mengukur literasi, numerasi, dan kondisi belajar di sekolah. Banyak siswa merasa cemas bukan karena tidak belajar, tapi karena tidak punya rencana yang jelas. Bagian ini membantu menyusun rencana itu, langkah demi langkah.</p>
+  </div>
+</section>
+
+<section class="wrap">
+
+  <div class="section-head">
+    <span class="label">Bagian 01</span>
+    <h2>Dua penilaian yang akan dihadapi</h2>
+  </div>
+
+  <div class="exam-card">
+    <div class="icon-box">
+      <svg width="52" height="52" viewBox="0 0 52 52" role="img" aria-label="Ikon dokumen bertanda centang">
+        <rect x="8" y="4" width="36" height="44" rx="3" fill="#E4EBE1" stroke="#5E7A56" stroke-width="2"/>
+        <path d="M16 16 L36 16" stroke="#5E7A56" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 24 L36 24" stroke="#5E7A56" stroke-width="2" stroke-linecap="round"/>
+        <path d="M16 32 L28 32" stroke="#5E7A56" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <span class="tag us">Menentukan kelulusan</span>
+      <h3>Ujian Sekolah (US)</h3>
+      <p>Diselenggarakan oleh sekolah untuk mengukur pencapaian seluruh mata pelajaran sesuai kurikulum, dan menjadi salah satu syarat kelulusan dari jenjang SMP. Materinya mencakup rangkuman pelajaran kelas VII hingga IX.</p>
+    </div>
+  </div>
+
+  <div class="exam-card">
+    <div class="icon-box">
+      <svg width="52" height="52" viewBox="0 0 52 52" role="img" aria-label="Ikon layar komputer dengan grafik">
+        <rect x="4" y="8" width="44" height="30" rx="2" fill="#DEE6EE" stroke="#3D5A80" stroke-width="2"/>
+        <path d="M14 30 L20 22 L26 27 L34 15" stroke="#3D5A80" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="20" y="40" width="12" height="4" rx="1" fill="#3D5A80"/>
+      </svg>
+    </div>
+    <div>
+      <span class="tag anbk">Bukan penentu kelulusan</span>
+      <h3>Asesmen Nasional Berbasis Komputer (ANBK)</h3>
+      <p>Terdiri dari Asesmen Kompetensi Minimum (literasi membaca dan numerasi) serta Survei Karakter dan Survei Lingkungan Belajar. Hasilnya untuk memotret dan memperbaiki kualitas sekolah, bukan untuk menilai individu siswa secara personal.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 02</span>
+    <h2>Menyusun waktu mundur (countdown)</h2>
+  </div>
+
+  <div class="countdown">
+    <div class="cd-item">
+      <span class="when">8&ndash;10 minggu sebelum ujian</span>
+      <h3>Petakan materi, bukan menghafal semua</h3>
+      <p>Buat daftar semua materi tiga tahun terakhir, lalu tandai mana yang sudah kuat dan mana yang masih lemah. Fokuskan waktu belajar pada bagian yang lemah.</p>
+    </div>
+    <div class="cd-item">
+      <span class="when">6&ndash;8 minggu sebelum ujian</span>
+      <h3>Susun jadwal belajar rutin dan realistis</h3>
+      <p>Belajar 45&ndash;60 menit lalu istirahat 10 menit lebih efektif daripada belajar berjam-jam tanpa henti. Sisakan waktu untuk istirahat dan kegiatan lain.</p>
+    </div>
+    <div class="cd-item">
+      <span class="when">3&ndash;5 minggu sebelum ujian</span>
+      <h3>Perbanyak latihan soal, bukan membaca ulang catatan</h3>
+      <p>Kerjakan soal-soal tahun sebelumnya atau contoh soal ANBK, lalu evaluasi kesalahan yang berulang untuk diperbaiki.</p>
+    </div>
+    <div class="cd-item">
+      <span class="when">1&ndash;2 minggu sebelum ujian</span>
+      <h3>Kurangi materi baru, perkuat yang sudah dikuasai</h3>
+      <p>Fokus mengulang ringkasan dan rumus penting. Jaga waktu tidur dan pastikan seluruh alat tulis serta kartu ujian sudah disiapkan.</p>
+    </div>
+    <div class="cd-item">
+      <span class="when">Malam sebelum dan hari ujian</span>
+      <h3>Tenangkan diri, jangan belajar materi baru</h3>
+      <p>Tidur cukup, sarapan, dan datang lebih awal. Baca soal dengan tenang, kerjakan yang paling dikuasai dahulu, sisakan waktu untuk memeriksa kembali.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 03</span>
+    <h2>Kesiapan yang sering dilupakan</h2>
+  </div>
+
+  <div class="cols4">
+    <div class="mini-card">
+      <span class="num-tag">FISIK</span>
+      <h3>Tidur dan makan teratur</h3>
+      <p>Otak yang kurang tidur menyimpan informasi lebih buruk dibanding otak yang cukup istirahat, sekalipun jam belajarnya lebih sedikit.</p>
+    </div>
+    <div class="mini-card">
+      <span class="num-tag">MENTAL</span>
+      <h3>Kelola kecemasan, jangan dihindari</h3>
+      <p>Sedikit gugup itu wajar. Latih napas dalam beberapa kali dan ingatkan diri bahwa persiapan sudah dilakukan sejak jauh sebelumnya.</p>
+    </div>
+    <div class="mini-card">
+      <span class="num-tag">TEKNIS</span>
+      <h3>Kenali format dan alat ujian</h3>
+      <p>Untuk ANBK, coba simulasi komputer terlebih dahulu agar tidak kebingungan dengan navigasi soal saat hari sesungguhnya tiba.</p>
+    </div>
+    <div class="mini-card">
+      <span class="num-tag">SOSIAL</span>
+      <h3>Belajar bersama tanpa saling membandingkan</h3>
+      <p>Diskusi kelompok membantu memahami materi, tapi jangan jadikan kecepatan belajar temanmu sebagai ukuran kecemasanmu sendiri.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 04</span>
+    <h2>Kesalahan yang paling sering terjadi</h2>
+  </div>
+
+  <div class="exam-card" style="grid-template-columns:1fr;padding:8px 32px;">
+    <div class="pitfall">
+      <span class="mark">1</span>
+      <div><h3>Belajar sistem kebut semalam</h3><p>Menumpuk seluruh materi tiga tahun dalam satu-dua malam terakhir justru membuat informasi tidak tersimpan dengan baik.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">2</span>
+      <div><h3>Hanya membaca ulang, tanpa latihan soal</h3><p>Merasa "sudah paham" saat membaca berbeda dengan benar-benar bisa mengerjakan soal dalam tekanan waktu ujian.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">3</span>
+      <div><h3>Mengabaikan mata pelajaran yang dianggap "mudah"</h3><p>Rasa percaya diri berlebih pada pelajaran tertentu sering membuat siswa lengah dan justru salah pada soal-soal dasar.</p></div>
+    </div>
+    <div class="pitfall">
+      <span class="mark">4</span>
+      <div><h3>Membandingkan progres belajar dengan teman</h3><p>Setiap siswa punya kecepatan dan cara belajar berbeda; membandingkan diri hanya menambah kecemasan tanpa manfaat.</p></div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <span class="label">Bagian 05</span>
+    <h2>Daftar periksa menjelang hari ujian</h2>
+  </div>
+
+  <div class="checklist">
+    <ul>
+      <li>Sudah punya jadwal belajar mingguan dan mengikutinya secara konsisten</li>
+      <li>Sudah mengerjakan minimal satu paket latihan soal untuk tiap mata pelajaran</li>
+      <li>Sudah mencoba simulasi komputer untuk ANBK, bukan hanya membaca contoh soal</li>
+      <li>Kartu ujian, alat tulis, dan perlengkapan lain sudah disiapkan sejak malam sebelumnya</li>
+      <li>Jam tidur sudah kembali teratur, minimal tujuh jam semalam sejak seminggu sebelum ujian</li>
+      <li>Sudah tahu lokasi dan waktu ujian dengan pasti, termasuk rencana jika terlambat</li>
+      <li>Sudah bicara dengan guru BK atau orang tua bila merasa cemas berlebihan</li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <div>
+      <h2>Ujian hanyalah satu titik di perjalanan panjang, bukan penentu seluruh nilai dirimu.</h2>
+      <p>Kerjakan yang bisa dikendalikan &mdash; jadwal, latihan, dan istirahat &mdash; lalu percayakan sisanya pada proses yang sudah kamu jalani.</p>
+    </div>
+    <div class="quote-mark">&rdquo;</div>
+  </div>
+</section>
+
+<footer>Ditulis untuk bimbingan belajar siswa kelas IX &middot; Layanan Bimbingan dan Konseling</footer>
+
+</body>
+</html>
