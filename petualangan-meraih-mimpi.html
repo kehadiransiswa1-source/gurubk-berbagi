@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mendaki Gunung Mimpi</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(180deg, #0b1050 0%, #2b1a6b 35%, #6c2b8f 65%, #ff7a59 100%);
+    overflow-x: hidden;
+    color: #2d1b4e;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    position: relative;
+    min-height: 100vh;
+  }
+  /* Twinkling stars background */
+  .star {
+    position: fixed;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 2.5s infinite ease-in-out;
+    pointer-events: none;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  /* Mountain silhouette */
+  .mountains {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 22vh;
+    background:
+      linear-gradient(135deg, transparent 48%, #24124f 49%) 0 100%/12% 100% repeat-x,
+      linear-gradient(45deg, transparent 48%, #341a63 49%) 0 100%/16% 100% repeat-x;
+    opacity: 0.9;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card {
+    background: rgba(255,255,255,0.97);
+    border-radius: 26px;
+    max-width: 500px;
+    width: 100%;
+    padding: 26px 22px;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.5);
+    position: relative;
+    z-index: 2;
+    animation: popIn 0.4s ease;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+    background: linear-gradient(90deg, #6c2b8f, #ff7a59, #ffb347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+  }
+  .subtitle { text-align: center; color: #777; font-size: 0.9em; margin-bottom: 18px; }
+
+  /* Mountain trail progress */
+  .trail-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    position: relative;
+    padding: 0 4px;
+  }
+  .trail-line {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    right: 4px;
+    height: 4px;
+    background: #eee0f7;
+    border-radius: 4px;
+    z-index: 0;
+    transform: translateY(-50%);
+  }
+  .trail-fill {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, #6c2b8f, #ff7a59);
+    border-radius: 4px;
+    z-index: 1;
+    transform: translateY(-50%);
+    transition: width 0.5s ease;
+  }
+  .trail-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #eee0f7;
+    border: 2px solid #d8c2ef;
+    z-index: 2;
+    font-size: 11px;
+    display: flex; align-items: center; justify-content: center;
+    color: #9b7fc7;
+    transition: all 0.3s ease;
+  }
+  .trail-dot.done { background: linear-gradient(135deg, #6c2b8f, #ff7a59); border-color: transparent; color: #fff; }
+  .trail-dot.current { background: #fff; border-color: #ff7a59; transform: scale(1.3); box-shadow: 0 0 0 4px rgba(255,122,89,0.25); }
+
+  .scene-emoji { font-size: 3.2em; text-align: center; margin-bottom: 10px; }
+  .scene-title { font-size: 1.15em; font-weight: 700; text-align: center; margin-bottom: 10px; color: #4a2a7a; }
+  .scene-text { font-size: 0.98em; line-height: 1.55; text-align: center; margin-bottom: 20px; color: #444; }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .opt-btn {
+    background: #f7f0ff;
+    border: 2px solid #e5d3f9;
+    border-radius: 14px;
+    padding: 13px 16px;
+    font-size: 0.95em;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #3a2555;
+  }
+  .opt-btn:hover:not(:disabled) { background: #ecdcfa; transform: translateY(-2px); }
+  .opt-btn:active:not(:disabled) { transform: scale(0.98); }
+  .opt-btn:disabled { cursor: default; opacity: 0.6; }
+  .opt-btn.correct-pick { border-color: #7bd88f; background: #e3f9e5; opacity: 1; }
+  .opt-btn.wrong-pick { border-color: #ff9b9e; background: #ffe9ea; opacity: 1; }
+  .feedback {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 14px;
+    font-size: 0.92em;
+    line-height: 1.5;
+    display: none;
+  }
+  .feedback.show { display: block; animation: popIn 0.3s ease; }
+  .feedback.good { background: #e3f9e5; color: #1e7d32; border: 2px solid #b7e8bc; }
+  .feedback.mid { background: #fff8e1; color: #8a6d00; border: 2px solid #ffe082; }
+  .feedback.low { background: #ffe9ea; color: #b3261e; border: 2px solid #ffc2c4; }
+  .next-btn {
+    margin-top: 14px;
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(90deg, #6c2b8f, #ff7a59);
+    color: #fff;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    display: none;
+  }
+  .next-btn.show { display: block; animation: popIn 0.25s ease; }
+  .start-screen, .end-screen { text-align: center; }
+  .start-screen .scene-emoji { font-size: 4em; }
+  .dream-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+  .dream-btn {
+    background: #f7f0ff;
+    border: 2px solid #e5d3f9;
+    border-radius: 14px;
+    padding: 16px 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #3a2555;
+    transition: all 0.2s ease;
+  }
+  .dream-btn:hover { background: #ecdcfa; transform: translateY(-2px); }
+  .dream-btn .emoji { font-size: 2em; display: block; margin-bottom: 6px; }
+  .badge { font-size: 4.2em; margin: 10px 0; animation: floatUp 2s ease-in-out infinite; }
+  @keyframes floatUp { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  .score-box {
+    background: linear-gradient(90deg, #6c2b8f, #ff7a59);
+    color: #fff;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 16px 0;
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+  .restart-btn {
+    margin-top: 10px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 14px;
+    background: #2d1b4e;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .hidden { display: none; }
+  .confetti {
+    position: fixed;
+    top: -10px;
+    font-size: 1.4em;
+    animation: fall linear forwards;
+    z-index: 5;
+    pointer-events: none;
+  }
+  @keyframes fall {
+    to { transform: translateY(105vh) rotate(360deg); opacity: 0.3; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mountains"></div>
+<div id="starsContainer"></div>
+
+<div class="card">
+
+  <!-- START SCREEN -->
+  <div id="startScreen" class="start-screen">
+    <div class="scene-emoji">⛰️✨</div>
+    <h1>Mendaki Gunung Mimpi</h1>
+    <p class="subtitle">Setiap langkah butuh keberanian</p>
+    <p class="scene-text">Pilih mimpi yang ingin kamu perjuangkan, lalu daki gunung berisi 10 tantangan menuju puncak. Setiap pilihanmu akan menguji seberapa besar keberanianmu!</p>
+    <div class="dream-grid">
+      <button class="dream-btn" onclick="startGame('Dokter')"><span class="emoji">🩺</span>Dokter</button>
+      <button class="dream-btn" onclick="startGame('Atlet')"><span class="emoji">🏅</span>Atlet</button>
+      <button class="dream-btn" onclick="startGame('Ilmuwan')"><span class="emoji">🔬</span>Ilmuwan</button>
+      <button class="dream-btn" onclick="startGame('Seniman')"><span class="emoji">🎨</span>Seniman</button>
+      <button class="dream-btn" onclick="startGame('Pengusaha')"><span class="emoji">💼</span>Pengusaha</button>
+      <button class="dream-btn" onclick="startGame('Penulis')"><span class="emoji">✍️</span>Penulis</button>
+      <button class="dream-btn" onclick="startGame('Pilot')"><span class="emoji">✈️</span>Pilot</button>
+      <button class="dream-btn" onclick="startGame('Musisi')"><span class="emoji">🎵</span>Musisi</button>
+    </div>
+  </div>
+
+  <!-- GAME SCREEN -->
+  <div id="gameScreen" class="hidden">
+    <div class="trail-wrap" id="trailWrap"></div>
+    <div class="scene-emoji" id="sceneEmoji"></div>
+    <div class="scene-title" id="sceneTitle"></div>
+    <div class="scene-text" id="sceneText"></div>
+    <div class="options" id="optionsWrap"></div>
+    <div class="feedback" id="feedbackBox"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextScene()">Lanjut Mendaki ⛰️</button>
+  </div>
+
+  <!-- END SCREEN -->
+  <div id="endScreen" class="end-screen hidden">
+    <div class="badge" id="badgeEmoji"></div>
+    <h1 id="badgeTitle"></h1>
+    <p class="scene-text" id="badgeMessage"></p>
+    <div class="score-box">Kekuatan Keberanian: <span id="finalScore"></span> / 100</div>
+    <button class="restart-btn" onclick="restartGame()">🔄 Daki Gunung Lagi</button>
+  </div>
+
+</div>
+
+<script>
+/* ---------- Twinkling stars background ---------- */
+function generateStars(count) {
+  const container = document.getElementById('starsContainer');
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 1;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.top = Math.random() * 70 + 'vh';
+    s.style.animationDelay = (Math.random() * 3) + 's';
+    container.appendChild(s);
+  }
+}
+generateStars(60);
+
+/* ---------- Game data ---------- */
+let dreamChoice = "";
+let score = 0;
+let currentIndex = 0;
+
+const scenes = [
+  {
+    emoji: "😅",
+    title: "Diejek Teman",
+    text: "Beberapa temanmu menertawakan cita-citamu menjadi seorang {DREAM} karena menurut mereka itu 'terlalu sulit' untukmu.",
+    options: [
+      { text: "Tetap percaya diri dan tersenyum, lalu terus belajar", points: 10, level: "good", feedback: "Keren! Ejekan orang lain tidak menentukan masa depanmu. Fokus pada mimpimu sendiri." },
+      { text: "Diam saja dan mulai ragu dengan mimpimu", points: 4, level: "mid", feedback: "Wajar merasa ragu, tapi ingat: keraguan orang lain bukan alasan untuk berhenti mencoba." },
+      { text: "Marah dan berhenti bercerita tentang mimpimu ke siapa pun", points: 1, level: "low", feedback: "Menutup diri bukan solusi. Cobalah cari teman atau guru yang mendukung mimpimu." }
+    ]
+  },
+  {
+    emoji: "📉",
+    title: "Nilai Ujian Jelek",
+    text: "Nilai ulanganmu turun dan kamu mulai berpikir mungkin kamu tidak cukup pintar untuk jadi {DREAM}.",
+    options: [
+      { text: "Evaluasi cara belajar dan minta bantuan guru", points: 10, level: "good", feedback: "Tepat sekali! Kegagalan kecil adalah kesempatan untuk belajar cara yang lebih baik." },
+      { text: "Belajar lebih giat tanpa tahu di mana letak kesalahan", points: 5, level: "mid", feedback: "Usahamu bagus, tapi akan lebih efektif jika kamu juga mencari tahu penyebab nilaimu turun." },
+      { text: "Menyerah dan berpikir mimpimu terlalu tinggi", points: 1, level: "low", feedback: "Satu nilai jelek tidak menentukan siapa dirimu. Bangkit lagi, ya!" }
+    ]
+  },
+  {
+    emoji: "👪",
+    title: "Orang Tua Ragu",
+    text: "Orang tuamu khawatir dan menyarankan kamu memilih cita-cita lain yang 'lebih pasti' daripada {DREAM}.",
+    options: [
+      { text: "Ajak bicara baik-baik dan tunjukkan rencana serta usahamu", points: 10, level: "good", feedback: "Komunikasi yang baik membantu orang tua memahami dan mendukung mimpimu." },
+      { text: "Menuruti saja tanpa membicarakannya", points: 4, level: "mid", feedback: "Mengalah boleh saja, tapi jangan lupa sampaikan juga apa yang kamu rasakan." },
+      { text: "Bertengkar dan menolak mendengarkan mereka", points: 2, level: "low", feedback: "Cobalah tetap tenang. Orang tua biasanya khawatir karena sayang, bukan karena tidak percaya padamu." }
+    ]
+  },
+  {
+    emoji: "🥲",
+    title: "Gagal di Percobaan Pertama",
+    text: "Kamu ikut lomba atau tes yang berkaitan dengan mimpimu menjadi {DREAM}, tapi hasilnya belum berhasil.",
+    options: [
+      { text: "Coba lagi dan cari tahu apa yang bisa diperbaiki", points: 10, level: "good", feedback: "Semangat pantang menyerah inilah yang membedakan orang yang berhasil meraih mimpinya!" },
+      { text: "Merasa sedih tapi tetap penasaran mencoba lagi nanti", points: 6, level: "mid", feedback: "Sedih itu wajar, yang penting kamu tidak berhenti berusaha." },
+      { text: "Memutuskan tidak akan pernah mencoba lagi", points: 1, level: "low", feedback: "Kegagalan pertama bukan akhir dari cerita. Banyak orang sukses gagal berkali-kali sebelum berhasil." }
+    ]
+  },
+  {
+    emoji: "🎤",
+    title: "Takut Tampil di Depan Umum",
+    text: "Kamu harus presentasi tentang mimpimu di depan kelas, tapi kamu sangat gugup dan takut salah.",
+    options: [
+      { text: "Latihan dulu di rumah dan tarik napas sebelum tampil", points: 10, level: "good", feedback: "Persiapan adalah kunci mengalahkan rasa takut. Kamu hebat!" },
+      { text: "Tampil apa adanya tanpa persiapan", points: 5, level: "mid", feedback: "Berani tampil itu bagus, tapi persiapan akan membuatmu lebih percaya diri." },
+      { text: "Izin tidak masuk sekolah supaya tidak perlu tampil", points: 1, level: "low", feedback: "Menghindar hanya menunda rasa takutmu. Yuk hadapi pelan-pelan!" }
+    ]
+  },
+  {
+    emoji: "⏰",
+    title: "Waktu Terbatas",
+    text: "Kamu punya banyak tugas sekolah dan waktu bermain, tapi juga ingin berlatih untuk mimpimu jadi {DREAM}.",
+    options: [
+      { text: "Membuat jadwal agar semua kegiatan seimbang", points: 10, level: "good", feedback: "Manajemen waktu yang baik adalah salah satu kunci meraih mimpi tanpa mengabaikan tanggung jawab lain." },
+      { text: "Fokus latihan mimpi saja dan menunda tugas sekolah", points: 4, level: "mid", feedback: "Semangatmu bagus, tapi sekolah juga penting untuk membuka jalan menuju mimpimu." },
+      { text: "Bingung dan akhirnya tidak melakukan keduanya", points: 1, level: "low", feedback: "Coba mulai dari langkah kecil dan buat daftar prioritas, ya." }
+    ]
+  },
+  {
+    emoji: "😔",
+    title: "Membandingkan Diri",
+    text: "Ada teman sekelas yang menurutmu jauh lebih berbakat dan cepat maju menuju cita-cita yang mirip dengan {DREAM}.",
+    options: [
+      { text: "Fokus pada perkembangan diri sendiri, bukan membandingkan", points: 10, level: "good", feedback: "Bagus! Setiap orang punya waktu dan proses masing-masing untuk berkembang." },
+      { text: "Merasa minder tapi tetap berusaha sedikit-sedikit", points: 6, level: "mid", feedback: "Rasa minder itu manusiawi, yang penting kamu tetap melangkah walau pelan." },
+      { text: "Berhenti mencoba karena merasa tidak akan pernah sehebat dia", points: 1, level: "low", feedback: "Perjalananmu tidak sama dengan orang lain. Bandingkan dirimu hari ini dengan dirimu kemarin." }
+    ]
+  },
+  {
+    emoji: "🥱",
+    title: "Lelah Menunggu Hasil",
+    text: "Kamu sudah berusaha cukup lama menuju mimpi jadi {DREAM}, tapi hasilnya belum terlihat dan kamu mulai lelah.",
+    options: [
+      { text: "Istirahat sejenak, lalu lanjutkan dengan semangat baru", points: 10, level: "good", feedback: "Istirahat bukan menyerah. Tubuh dan pikiran yang segar membantumu melangkah lebih jauh." },
+      { text: "Terus memaksakan diri tanpa jeda sampai kelelahan", points: 5, level: "mid", feedback: "Semangatmu luar biasa, tapi jangan lupa memberi waktu untuk dirimu beristirahat." },
+      { text: "Berhenti total karena merasa usahamu sia-sia", points: 1, level: "low", feedback: "Hasil besar sering butuh waktu. Jangan berhenti tepat sebelum keberhasilan datang." }
+    ]
+  },
+  {
+    emoji: "📱",
+    title: "Komentar di Media Sosial",
+    text: "Kamu membaca komentar di internet yang meragukan orang bisa sukses menjadi {DREAM} seperti yang kamu impikan.",
+    options: [
+      { text: "Mengabaikan komentar negatif dan mencari sumber yang mendukung", points: 10, level: "good", feedback: "Tepat! Tidak semua opini di internet perlu kamu percaya. Carilah lingkungan yang positif." },
+      { text: "Memikirkan komentar itu terus-menerus", points: 4, level: "mid", feedback: "Wajar terpikirkan, tapi coba jangan biarkan komentar orang asing memengaruhi mimpimu terlalu lama." },
+      { text: "Mempercayai komentar itu dan mulai membenci mimpimu sendiri", points: 1, level: "low", feedback: "Komentar orang yang tidak mengenalmu tidak menentukan kemampuanmu yang sebenarnya." }
+    ]
+  },
+  {
+    emoji: "🚀",
+    title: "Kesempatan Besar Datang",
+    text: "Ada kesempatan langka untuk maju satu langkah lebih dekat menjadi {DREAM}, tapi kamu merasa belum cukup siap.",
+    options: [
+      { text: "Beranikan diri mencoba sambil terus belajar di prosesnya", points: 10, level: "good", feedback: "Luar biasa! Kadang kesiapan itu datang justru setelah kita berani mencoba." },
+      { text: "Ragu-ragu lama sebelum akhirnya memutuskan ikut", points: 6, level: "mid", feedback: "Tidak apa-apa butuh waktu berpikir, yang penting akhirnya kamu tetap melangkah." },
+      { text: "Melewatkan kesempatan itu karena takut gagal", points: 1, level: "low", feedback: "Kesempatan tidak datang dua kali dengan bentuk yang sama. Beranikan diri lain kali, ya!" }
+    ]
+  }
+];
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+/* ---------- Trail (mountain path progress) ---------- */
+function renderTrail() {
+  const wrap = document.getElementById('trailWrap');
+  wrap.innerHTML = '<div class="trail-line"></div><div class="trail-fill" id="trailFill"></div>';
+  scenes.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'trail-dot';
+    dot.id = 'dot-' + i;
+    dot.textContent = i < currentIndex ? '✓' : (i + 1);
+    wrap.appendChild(dot);
+  });
+  updateTrail();
+}
+
+function updateTrail() {
+  const fillPct = (currentIndex / (scenes.length - 1)) * 100;
+  const fill = document.getElementById('trailFill');
+  if (fill) fill.style.width = fillPct + '%';
+  scenes.forEach((_, i) => {
+    const dot = document.getElementById('dot-' + i);
+    if (!dot) return;
+    dot.classList.remove('done', 'current');
+    if (i < currentIndex) { dot.classList.add('done'); dot.textContent = '✓'; }
+    else if (i === currentIndex) { dot.classList.add('current'); dot.textContent = (i + 1); }
+    else { dot.textContent = (i + 1); }
+  });
+}
+
+/* ---------- Game flow ---------- */
+function startGame(dream) {
+  dreamChoice = dream;
+  score = 0;
+  currentIndex = 0;
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('endScreen').classList.add('hidden');
+  document.getElementById('gameScreen').classList.remove('hidden');
+  renderTrail();
+  loadScene();
+}
+
+function loadScene() {
+  const scene = scenes[currentIndex];
+  updateTrail();
+  document.getElementById('sceneEmoji').textContent = scene.emoji;
+  document.getElementById('sceneTitle').textContent = 'Tantangan ' + (currentIndex + 1) + ': ' + scene.title;
+  document.getElementById('sceneText').textContent = scene.text.replace('{DREAM}', dreamChoice);
+
+  const optionsWrap = document.getElementById('optionsWrap');
+  optionsWrap.innerHTML = '';
+  const feedbackBox = document.getElementById('feedbackBox');
+  feedbackBox.className = 'feedback';
+  feedbackBox.textContent = '';
+  document.getElementById('nextBtn').classList.remove('show');
+
+  const shuffledOptions = shuffle([...scene.options]);
+
+  shuffledOptions.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => selectOption(opt, optionsWrap);
+    optionsWrap.appendChild(btn);
+  });
+}
+
+function selectOption(opt, optionsWrap) {
+  score += opt.points;
+  Array.from(optionsWrap.children).forEach(b => {
+    b.disabled = true;
+    if (b.textContent === opt.text) {
+      b.classList.add(opt.level === 'good' ? 'correct-pick' : (opt.level === 'low' ? 'wrong-pick' : ''));
+    }
+  });
+  const feedbackBox = document.getElementById('feedbackBox');
+  feedbackBox.className = 'feedback show ' + opt.level;
+  feedbackBox.textContent = opt.feedback;
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function nextScene() {
+  currentIndex++;
+  if (currentIndex < scenes.length) {
+    loadScene();
+  } else {
+    showEnd();
+  }
+}
+
+function launchConfetti() {
+  const emojis = ['🎉','⭐','✨','🏔️','🎊'];
+  for (let i = 0; i < 30; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.animationDuration = (2.5 + Math.random() * 2) + 's';
+    c.style.fontSize = (1 + Math.random() * 1.2) + 'em';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+
+function showEnd() {
+  document.getElementById('gameScreen').classList.add('hidden');
+  document.getElementById('endScreen').classList.remove('hidden');
+  document.getElementById('finalScore').textContent = score;
+
+  let badge, title, message;
+  if (score >= 85) {
+    badge = "🏆"; title = "Pendaki Puncak Mimpi!";
+    message = "Kamu berhasil mencapai puncak dengan keberanian luar biasa dalam menghadapi tantangan menuju mimpimu menjadi " + dreamChoice + ". Teruslah melangkah, mimpimu semakin dekat!";
+    launchConfetti();
+  } else if (score >= 55) {
+    badge = "🌟"; title = "Pendaki Pemberani";
+    message = "Kamu sudah punya keberanian yang baik dalam mendaki! Sedikit lagi latihan menghadapi rasa takut dan keraguan, kamu pasti bisa meraih mimpimu sebagai " + dreamChoice + ".";
+    launchConfetti();
+  } else {
+    badge = "🌱"; title = "Benih Keberanian";
+    message = "Setiap pendaki hebat pernah memulai dari langkah kecil di kaki gunung. Jangan takut mencoba lagi — mimpimu menjadi " + dreamChoice + " tetap bisa diraih dengan latihan dan semangat!";
+  }
+  document.getElementById('badgeEmoji').textContent = badge;
+  document.getElementById('badgeTitle').textContent = title;
+  document.getElementById('badgeMessage').textContent = message;
+}
+
+function restartGame() {
+  document.getElementById('endScreen').classList.add('hidden');
+  document.getElementById('startScreen').classList.remove('hidden');
+}
+</script>
+
+</body>
+</html>
