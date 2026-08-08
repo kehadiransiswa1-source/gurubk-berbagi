@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Petualangan: Kelola Waktu Bermainmu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --warn:#B9790A;
+    --warn-soft:#FBEDD3;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);
+    line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:620px;margin:0 auto;padding:28px 20px 90px;}
+  @media (max-width:600px){.page{padding:20px 14px 70px;}}
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 0 20px;margin-bottom:24px;border-bottom:1px solid var(--border);
+    font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink-muted);
+  }
+  .topbar span.dot{color:var(--accent);}
+
+  /* ---- HUD ---- */
+  .hud{display:none;align-items:center;gap:14px;margin-bottom:26px;}
+  .hud.active{display:flex;}
+  .hud-level{
+    font-family:var(--font-mono);font-size:12px;color:var(--ink-muted);white-space:nowrap;
+  }
+  .xp-track{flex:1;height:10px;background:var(--surface-alt);border-radius:20px;overflow:hidden;}
+  .xp-fill{height:100%;background:var(--accent);border-radius:20px;transition:width .5s cubic-bezier(.2,.7,.3,1);width:0%;}
+  .hud-score{font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:500;white-space:nowrap;}
+
+  /* ---- screens ---- */
+  .screen{display:none;}
+  .screen.active{display:block;animation:fade .35s ease both;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+  /* start screen */
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:36px;line-height:1.1;letter-spacing:-.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:28px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:18px;color:var(--ink-muted);line-height:1.5;margin:0 0 28px;}
+
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 22px 20px;margin-bottom:24px;}
+  .info-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start;}
+  .info-row:last-child{border-bottom:none;}
+  .info-num{font-family:var(--font-mono);font-size:12px;color:var(--accent);flex:none;width:20px;padding-top:2px;}
+  .info-row p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+  .info-row b{color:var(--ink);font-weight:600;}
+
+  button.btn{
+    font-family:var(--font-body);font-weight:600;font-size:15px;color:#fff;background:var(--accent);
+    border:none;border-radius:12px;padding:15px 24px;cursor:pointer;width:100%;
+    transition:transform .12s ease, opacity .12s ease;
+  }
+  button.btn:hover{opacity:.92;}
+  button.btn:active{transform:scale(.98);}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+
+  /* question screen */
+  .scenario-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px 22px 20px;margin-bottom:18px;}
+  .scenario-tag{
+    display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+    padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;
+  }
+  .scenario-text{font-family:var(--font-display);font-weight:500;font-size:19px;line-height:1.45;margin:0 0 6px;}
+  .question-text{font-size:15.5px;color:var(--ink-muted);margin:10px 0 0;}
+
+  .options{display:flex;flex-direction:column;gap:10px;margin-bottom:6px;}
+  .option{
+    text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;
+    padding:14px 16px;font-family:var(--font-body);font-size:15px;color:var(--ink);cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .option:hover:not(.locked){border-color:var(--accent);background:var(--accent-soft);}
+  .option.correct{border-color:var(--success);background:var(--success-soft);color:#0B6D62;font-weight:600;}
+  .option.incorrect{border-color:var(--danger);background:var(--danger-soft);color:#9B3B22;font-weight:600;}
+  .option.locked{cursor:default;opacity:.55;}
+  .option.locked:not(.correct):not(.incorrect){opacity:.4;}
+
+  .feedback{
+    display:none;border-radius:14px;padding:18px 20px;margin:16px 0 20px;
+  }
+  .feedback.show{display:block;animation:fade .3s ease both;}
+  .feedback.right{background:var(--success-soft);}
+  .feedback.wrong{background:var(--danger-soft);}
+  .feedback-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+  .feedback.right .feedback-label{color:var(--success);}
+  .feedback.wrong .feedback-label{color:var(--danger);}
+  .feedback p{margin:0;font-size:14.5px;color:var(--ink);}
+
+  /* end screen */
+  .result-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:30px 26px;text-align:center;margin-bottom:22px;}
+  .result-eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;}
+  .result-score{font-family:var(--font-display);font-weight:700;font-size:52px;color:var(--accent);margin:0 0 4px;}
+  .result-score span{font-size:20px;color:var(--ink-muted);font-weight:500;}
+  .result-tier{font-family:var(--font-display);font-weight:600;font-size:21px;margin:6px 0 12px;}
+  .result-desc{font-size:14.5px;color:var(--ink-muted);max-width:420px;margin:0 auto;}
+
+  .tips-card{background:var(--surface-alt);border-radius:16px;padding:20px 22px;margin-bottom:22px;}
+  .tips-card h4{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 12px;}
+  .tips-card ul{margin:0;padding-left:18px;}
+  .tips-card li{font-size:14.5px;margin-bottom:8px;}
+
+  footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:12.5px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling Digital</span>
+    <span>Kuis Petualangan</span>
+  </div>
+
+  <div class="hud" id="hud">
+    <span class="hud-level" id="hudLevel">Level 1/8</span>
+    <div class="xp-track"><div class="xp-fill" id="xpFill"></div></div>
+    <span class="hud-score" id="hudScore">0 XP</span>
+  </div>
+
+  <!-- START SCREEN -->
+  <div class="screen active" id="screenStart">
+    <p class="hero-eyebrow">Game Edukasi</p>
+    <h1 class="title">Kuis Petualangan: Kelola Waktu Bermainmu</h1>
+    <p class="dek">8 skenario, 8 keputusan. Uji seberapa paham kamu tentang kecanduan game online — dan pelajari cara menjaga keseimbangan antara dunia game dan dunia nyata.</p>
+
+    <div class="info-card">
+      <div class="info-row"><span class="info-num">01</span><p><b>8 skenario nyata</b> — situasi yang mungkin kamu atau temanmu pernah alami.</p></div>
+      <div class="info-row"><span class="info-num">02</span><p><b>Penjelasan di setiap jawaban</b> — bukan cuma benar/salah, tapi juga alasannya.</p></div>
+      <div class="info-row"><span class="info-num">03</span><p><b>Hasil akhir + tips</b> — rangkuman cara menjaga kebiasaan bermain tetap sehat.</p></div>
+    </div>
+
+    <button class="btn" onclick="startGame()">Mulai Petualangan</button>
+  </div>
+
+  <!-- QUESTION SCREEN -->
+  <div class="screen" id="screenQuestion">
+    <div class="scenario-card">
+      <span class="scenario-tag" id="qTag">Skenario</span>
+      <p class="scenario-text" id="qScenario"></p>
+      <p class="question-text" id="qQuestion"></p>
+    </div>
+    <div class="options" id="qOptions"></div>
+    <div class="feedback" id="qFeedback">
+      <div class="feedback-label" id="fLabel"></div>
+      <p id="fText"></p>
+    </div>
+    <button class="btn" id="nextBtn" style="display:none;" onclick="nextQuestion()">Lanjut</button>
+  </div>
+
+  <!-- END SCREEN -->
+  <div class="screen" id="screenEnd">
+    <div class="result-card">
+      <div class="result-eyebrow">Petualangan Selesai</div>
+      <p class="result-score" id="finalScore">0<span>/80 XP</span></p>
+      <p class="result-tier" id="finalTier"></p>
+      <p class="result-desc" id="finalDesc"></p>
+    </div>
+    <div class="tips-card">
+      <h4>3 Hal yang Perlu Diingat</h4>
+      <ul>
+        <li>Bermain game itu boleh dan wajar — yang penting kamu yang pegang kendali, bukan sebaliknya.</li>
+        <li>Kalau merasa sulit berhenti meski sudah tahu dampaknya, itu tanda untuk bicara ke orang dewasa yang kamu percaya.</li>
+        <li>Guru BK, wali kelas, dan orang tua ada untuk membantu — bukan untuk menghakimi.</li>
+      </ul>
+    </div>
+    <button class="btn" onclick="restartGame()">Main Lagi</button>
+  </div>
+
+  <footer>Dibuat untuk layanan bimbingan klasikal — topik kesehatan digital remaja.</footer>
+</div>
+
+<script>
+const questions = [
+  {
+    tag: "Skenario 1 dari 8",
+    scenario: "Rian biasa main game 1 jam sehari. Minggu ini dia mulai main sampai 5–6 jam, bahkan begadang, tapi merasa itu masih 'biasa saja'.",
+    question: "Apa yang sebenarnya terjadi pada kebiasaan Rian?",
+    options: [
+      "Wajar, karena dia sedang libur sekolah",
+      "Tanda awal waktu bermain mulai tidak terkendali",
+      "Tidak masalah selama dia masih bisa tidur",
+      "Justru bagus, artinya dia jago main game"
+    ],
+    correct: 1,
+    explain: "Peningkatan waktu bermain yang drastis dan mulai mengorbankan waktu tidur adalah tanda awal hilangnya kendali — salah satu ciri inti kecanduan game menurut WHO."
+  },
+  {
+    tag: "Skenario 2 dari 8",
+    scenario: "Saat WiFi di rumah Dinda mati mendadak, dia langsung marah besar, membanting HP, dan sulit tenang selama berjam-jam.",
+    question: "Reaksi Dinda ini paling menggambarkan ciri kecanduan game yang mana?",
+    options: [
+      "Hilangnya kendali emosi ketika akses game terganggu",
+      "Wajar karena semua orang kesal saat WiFi mati",
+      "Tanda dia sangat menyukai game itu",
+      "Tidak ada hubungannya dengan kecanduan"
+    ],
+    correct: 0,
+    explain: "Marah berlebihan dan sulit tenang saat tidak bisa mengakses game menunjukkan game sudah menjadi kebutuhan emosional, bukan sekadar hiburan biasa."
+  },
+  {
+    tag: "Skenario 3 dari 8",
+    scenario: "Bayu sering begadang main game sampai jam 2 pagi, lalu mengantuk berat dan sulit fokus saat pelajaran matematika keesokan harinya.",
+    question: "Ini adalah contoh dampak kecanduan game di bidang apa?",
+    options: [
+      "Hanya dampak fisik saja",
+      "Dampak fisik sekaligus akademik",
+      "Tidak berdampak apa-apa selama nilainya masih aman",
+      "Dampak sosial semata"
+    ],
+    correct: 1,
+    explain: "Begadang merusak kualitas tidur (dampak fisik), yang kemudian menurunkan konsentrasi belajar (dampak akademik) — dua dampak ini sering muncul bersamaan."
+  },
+  {
+    tag: "Skenario 4 dari 8",
+    scenario: "Sejak kecanduan game, Sinta jadi jarang ngobrol dengan sahabatnya di sekolah dan lebih memilih menyendiri main game saat istirahat.",
+    question: "Apa dampak yang paling terlihat dari perubahan perilaku Sinta?",
+    options: [
+      "Dampak akademik",
+      "Dampak fisik",
+      "Dampak sosial — menarik diri dari pertemanan nyata",
+      "Tidak ada dampak, itu pilihan pribadi"
+    ],
+    correct: 2,
+    explain: "Menarik diri dari interaksi sosial nyata demi bermain game sendirian adalah dampak sosial yang umum terjadi pada kecanduan game."
+  },
+  {
+    tag: "Skenario 5 dari 8",
+    scenario: "Sebuah game memberi 'hadiah harian' yang hilang jika pemain tidak login setiap hari, ditambah event spesial yang hanya muncul beberapa jam.",
+    question: "Mengapa fitur seperti ini dianggap sebagai salah satu penyebab kecanduan?",
+    options: [
+      "Karena game jadi lebih sulit dimainkan",
+      "Karena dirancang untuk membuat pemain terus kembali dan takut ketinggalan",
+      "Karena grafisnya jadi lebih bagus",
+      "Fitur ini tidak berpengaruh sama sekali"
+    ],
+    correct: 1,
+    explain: "Sistem hadiah harian dan event terbatas waktu sengaja dirancang memicu rasa 'takut ketinggalan' (FOMO) agar pemain terus login — ini faktor desain game, bukan cuma soal kemauan pemain."
+  },
+  {
+    tag: "Skenario 6 dari 8",
+    scenario: "Fajar merasa kebiasaan main gamenya sudah berlebihan dan ingin menguranginya.",
+    question: "Langkah paling tepat yang bisa Fajar lakukan?",
+    options: [
+      "Berhenti total mendadak tanpa rencana apapun",
+      "Membuat jadwal bermain dengan batas waktu jelas dan mencari kegiatan pengganti",
+      "Tetap bermain seperti biasa, nanti juga berkurang sendiri",
+      "Menyembunyikan kebiasaan ini dari orang tua"
+    ],
+    correct: 1,
+    explain: "Membuat batas waktu yang realistis dan mengisi waktu dengan kegiatan lain jauh lebih efektif dan berkelanjutan dibanding berhenti mendadak tanpa rencana."
+  },
+  {
+    tag: "Skenario 7 dari 8",
+    scenario: "Meski sudah berkali-kali dinasihati dan mencoba sendiri, Andre tetap tidak bisa mengurangi waktu bermainnya, nilainya terus menurun, dan ia mulai bolos sekolah.",
+    question: "Apa langkah paling tepat pada situasi Andre ini?",
+    options: [
+      "Dibiarkan saja, nanti juga sadar sendiri",
+      "Cukup disita HP-nya tanpa komunikasi lebih lanjut",
+      "Melibatkan guru BK, orang tua, atau tenaga profesional untuk membantu",
+      "Menyalahkan Andre karena dianggap tidak punya kemauan"
+    ],
+    correct: 2,
+    explain: "Ketika sudah berulang kali gagal mengurangi sendiri dan dampaknya nyata (nilai turun, bolos), inilah saatnya melibatkan bantuan profesional — bukan tanda kegagalan, tapi langkah yang tepat."
+  },
+  {
+    tag: "Skenario 8 dari 8",
+    scenario: "Kelas akan membuat kesepakatan bersama tentang penggunaan gadget yang sehat, dipandu oleh guru BK.",
+    question: "Manakah sikap yang paling mendukung kebiasaan bermain game yang sehat?",
+    options: [
+      "Melarang semua siswa bermain game tanpa pengecualian",
+      "Menyeimbangkan waktu bermain dengan tidur, belajar, dan interaksi sosial nyata",
+      "Membiarkan setiap siswa bermain sebebas-bebasnya tanpa batas",
+      "Menganggap topik ini tidak penting untuk dibahas"
+    ],
+    correct: 1,
+    explain: "Bermain game bukan hal yang harus dihindari sepenuhnya — kuncinya adalah keseimbangan antara dunia game dan kebutuhan penting lain seperti tidur, belajar, dan hubungan sosial nyata."
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function startGame(){
+  current = 0; score = 0;
+  document.getElementById('hud').classList.add('active');
+  showScreen('screenQuestion');
+  renderQuestion();
+}
+
+function updateHud(){
+  document.getElementById('hudLevel').textContent = `Level ${current+1}/${questions.length}`;
+  document.getElementById('hudScore').textContent = `${score} XP`;
+  document.getElementById('xpFill').style.width = `${(score/80)*100}%`;
+}
+
+function renderQuestion(){
+  answered = false;
+  const q = questions[current];
+  updateHud();
+  document.getElementById('qTag').textContent = q.tag;
+  document.getElementById('qScenario').textContent = q.scenario;
+  document.getElementById('qQuestion').textContent = q.question;
+  const optsEl = document.getElementById('qOptions');
+  optsEl.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.onclick = () => selectOption(i);
+    optsEl.appendChild(btn);
+  });
+  document.getElementById('qFeedback').classList.remove('show', 'right', 'wrong');
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+function selectOption(i){
+  if(answered) return;
+  answered = true;
+  const q = questions[current];
+  const opts = document.querySelectorAll('.option');
+  opts.forEach((btn, idx) => {
+    btn.classList.add('locked');
+    if(idx === q.correct) btn.classList.add('correct');
+    if(idx === i && i !== q.correct) btn.classList.add('incorrect');
+  });
+  const isRight = i === q.correct;
+  if(isRight) score += 10;
+  updateHud();
+  const fb = document.getElementById('qFeedback');
+  fb.classList.add('show', isRight ? 'right' : 'wrong');
+  document.getElementById('fLabel').textContent = isRight ? 'Tepat sekali' : 'Belum tepat';
+  document.getElementById('fText').textContent = q.explain;
+  document.getElementById('nextBtn').style.display = 'block';
+  document.getElementById('nextBtn').textContent = current === questions.length - 1 ? 'Lihat Hasil' : 'Lanjut';
+}
+
+function nextQuestion(){
+  current++;
+  if(current >= questions.length){
+    endGame();
+  } else {
+    renderQuestion();
+  }
+}
+
+function endGame(){
+  document.getElementById('hud').classList.remove('active');
+  showScreen('screenEnd');
+  document.getElementById('finalScore').innerHTML = `${score}<span>/80 XP</span>`;
+  let tier, desc;
+  if(score >= 70){
+    tier = "Ahli Kesehatan Digital";
+    desc = "Kamu sangat paham tanda-tanda, dampak, dan cara menjaga kebiasaan bermain game tetap sehat. Bagikan pemahaman ini ke teman-temanmu.";
+  } else if(score >= 40){
+    tier = "Sudah Paham Dasarnya";
+    desc = "Kamu punya pemahaman yang cukup baik, tapi masih ada beberapa hal yang perlu diperdalam. Baca lagi bagian yang tadi kamu jawab keliru.";
+  } else {
+    tier = "Yuk Belajar Lebih Dalam";
+    desc = "Masih banyak hal penting yang perlu kamu pahami tentang kecanduan game online. Coba mainkan lagi dan perhatikan penjelasan di setiap jawaban.";
+  }
+  document.getElementById('finalTier').textContent = tier;
+  document.getElementById('finalDesc').textContent = desc;
+}
+
+function restartGame(){
+  showScreen('screenStart');
+}
+</script>
+</body>
+</html>
