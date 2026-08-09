@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayo Hindari Toxic Circle — Materi & Tugas Kelas 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  .rate-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .rate-row:last-child{border-bottom:none;}
+  .rate-row p{margin:0;font-size:14.5px;flex:1;}
+  .rate-stars{display:flex;gap:4px;flex:none;}
+  .star{width:20px;height:20px;cursor:pointer;color:var(--border);font-size:18px;user-select:none;}
+  .star.on{color:var(--accent);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 9</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Ayo Hindari Toxic Circle</h1>
+    <p class="dek">Lingkungan pertemanan sangat memengaruhi cara berpikir dan kebiasaanmu — kenali tandanya sebelum kamu ikut terseret ke pola yang merugikan diri sendiri.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Materi Ini Penting Buat Kamu?</h2>
+    <p>Pertemanan memberi dukungan dan kebahagiaan, tapi tidak semua lingkaran pertemanan membawa pengaruh baik. Toxic circle adalah lingkaran pertemanan yang justru membuatmu merasa tertekan, dimanfaatkan, atau terdorong melakukan hal-hal yang merugikan diri sendiri. Mengenali tandanya sejak dini membantumu memilih lingkungan pertemanan yang lebih sehat.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Anggapan Keliru vs Fakta tentang Toxic Circle</h2>
+    <p>Yuk luruskan anggapan keliru seputar pertemanan yang tidak sehat.</p>
+    <table class="cmp">
+      <tr><th class="dangkal">Anggapan Keliru</th><th class="mendalam">Fakta Sebenarnya</th></tr>
+      <tr><td>Teman yang sering menyindir atau merendahkan hanya bercanda</td><td>Sindiran atau ejekan yang terus-menerus bisa menjadi bentuk toxic meski dibungkus candaan</td></tr>
+      <tr><td>Ikut-ikutan kebiasaan teman adalah bentuk kesetiaan pertemanan</td><td>Kesetiaan sejati tidak menuntutmu melakukan hal yang bertentangan dengan nilai dan keselamatanmu</td></tr>
+      <tr><td>Meninggalkan lingkaran pertemanan lama berarti tidak setia kawan</td><td>Memilih lingkungan yang lebih sehat adalah bentuk sayang pada diri sendiri, bukan pengkhianatan</td></tr>
+      <tr><td>Semakin banyak teman, semakin baik pertemanan itu</td><td>Kualitas hubungan pertemanan jauh lebih penting daripada jumlah teman yang dimiliki</td></tr>
+    </table>
+
+    <p class="pull">Kamu berhak memilih lingkaran pertemanan yang membuatmu tumbuh, bukan yang membuatmu terus merasa kecil.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Langkah Mengenali dan Menghindari Toxic Circle</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Mengenali Ciri Pertemanan yang Tidak Sehat</h4><p>Waspadai teman yang sering merendahkan, memanfaatkan, atau memaksa melakukan hal negatif.</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Mendengarkan Perasaanmu Sendiri</h4><p>Perhatikan jika kamu sering merasa cemas, tertekan, atau tidak nyaman setelah bersama kelompok tertentu.</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Berani Menjaga Jarak</h4><p>Kurangi waktu bersama kelompok yang membawa pengaruh buruk tanpa harus bermusuhan.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Membangun Pertemanan yang Saling Mendukung</h4><p>Cari dan pelihara hubungan dengan teman yang mendukung tumbuh kembangmu.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Berbicara pada Orang Dewasa Terpercaya</h4><p>Ceritakan kekhawatiranmu tentang lingkungan pertemanan pada Guru BK atau orang tua.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Kebiasaan yang Melindungiku dari Toxic Circle</h2>
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Aku mengenali tanda-tanda pertemanan yang tidak sehat.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Aku memperhatikan perasaanku setelah menghabiskan waktu dengan kelompok tertentu.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Aku berani menjaga jarak dari pengaruh negatif tanpa harus bermusuhan.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Aku membangun hubungan dengan teman yang saling mendukung.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Aku berbicara pada orang dewasa terpercaya jika merasa tertekan oleh lingkaran pertemanan.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Menilai Kesehatan Lingkaran Pertemananku</h3>
+    <p>Beri bintang sesuai seberapa kuat kamu sudah menerapkan tiap langkah di atas (1 = belum, 5 = sudah kuat).</p>
+    <div class="rate-card" id="rateCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Pertanyaan yang Ingin Aku Tanyakan</h3>
+    <p>Tuliskan situasi pertemanan yang membingungkan atau mengganggumu dan yang ingin kamu tanyakan pada Guru BK.</p>
+    <input class="field" id="t2type" placeholder="Topik pertanyaanmu" style="margin-bottom:10px;">
+    <textarea id="t2text" rows="6" placeholder="Tuliskan pertanyaanmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Ciri Teman yang Membuatku Nyaman dan Tidak Nyaman</h3>
+    <p>Tuliskan ciri-ciri teman yang membuatmu merasa didukung, dan ciri-ciri teman yang membuatmu merasa tertekan.</p>
+    <textarea id="t3text" rows="6" placeholder="Tuliskan ciri-cirinya di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Seminggu Membangun Pertemanan Sehat</h3>
+    <p>Pilih satu langkah yang ingin kamu latih untuk membangun pertemanan yang lebih sehat minggu ini, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Langkah membangun pertemanan sehat minggu ini" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Kegiatan yang Dilakukan</th><th>Hasil yang Dirasakan</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 9 · Topik: Ayo Hindari Toxic Circle</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = days.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Kegiatan yang dilakukan..."></textarea></td>
+      <td><textarea id="hasil-${i}" placeholder="Hasil yang dirasakan..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const principles = ["Mengenali Ciri Pertemanan yang Tidak Sehat", "Mendengarkan Perasaanmu Sendiri", "Berani Menjaga Jarak", "Membangun Pertemanan yang Saling Mendukung", "Berbicara pada Orang Dewasa Terpercaya"];
+  const rateCard = document.getElementById('rateCard');
+  rateCard.innerHTML = principles.map((name,i) => `
+    <div class="rate-row">
+      <p>${name}</p>
+      <div class="rate-stars" data-idx="${i}">
+        ${[1,2,3,4,5].map(n => `<span class="star" data-val="${n}" onclick="setStar(${i},${n})">★</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setStar(idx, val){
+    const row = rateCard.querySelector(`.rate-stars[data-idx="${idx}"]`);
+    row.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      ratings: principles.map((n,i) => parseInt(rateCard.querySelector(`.rate-stars[data-idx="${i}"]`).dataset.value || 0)),
+      t2type: document.getElementById('t2type').value,
+      t2text: document.getElementById('t2text').value,
+      t3text: (document.getElementById('t3text') ? document.getElementById('t3text').value : ''),
+      t4type: document.getElementById('t4type').value,
+      plan: days.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        hasil: document.getElementById(`hasil-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('bk9-toxic-circle', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('bk9-toxic-circle');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      (s.ratings || []).forEach((val,i) => { if(val) setStar(i, val); });
+      document.getElementById('t2type').value = s.t2type || '';
+      document.getElementById('t2text').value = s.t2text || '';
+      if(document.getElementById('t3text')) document.getElementById('t3text').value = s.t3text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`hasil-${i}`)) document.getElementById(`hasil-${i}`).value = p.hasil || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>
