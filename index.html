@@ -93,6 +93,21 @@
   .service-card h3{font-size:16px; margin-bottom:8px;}
   .service-card p{font-size:14px; color:#4a5468;}
 
+  /* LAYANAN KLASIKAL */
+  section.layanan-klasikal{background:#fff;}
+  .klasikal-group{margin-bottom:44px;}
+  .klasikal-group:last-child{margin-bottom:0;}
+  .klasikal-group-title{font-family:'Sora', sans-serif; font-weight:700; font-size:19px; margin-bottom:18px; color:var(--navy); display:flex; align-items:center; gap:10px;}
+  .klasikal-group-title .count{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--teal); background:rgba(42,157,143,0.1); padding:3px 10px; border-radius:999px; font-weight:500;}
+  .klasikal-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:20px;}
+  .klasikal-card{background:var(--cloud); border:1px solid var(--line); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, border-color .18s ease;}
+  .klasikal-card:hover{transform:translateY(-3px); border-color:var(--teal);}
+  .klasikal-icon{font-size:26px;}
+  .klasikal-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--teal);}
+  .klasikal-card h4{font-size:16px; font-family:'Sora', sans-serif;}
+  .klasikal-card p{font-size:13.5px; color:#4a5468; flex-grow:1;}
+  .klasikal-open{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--coral); display:inline-flex; align-items:center; gap:6px;}
+
   /* GAME BK */
   section.game-bk{background:var(--navy-deep); color:#fff;}
   section.game-bk .section-head p{color:rgba(255,255,255,0.65);}
@@ -162,6 +177,7 @@
     <ul class="nav-links">
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#layanan">Layanan</a></li>
+      <li><a href="#layanan-klasikal">Layanan Klasikal</a></li>
       <li><a href="#game-bk">Game BK</a></li>
       <li><a href="#artikel">Artikel</a></li>
       <li><a href="#kontak">Kontak</a></li>
@@ -241,6 +257,62 @@
         <span class="service-icon">🎲</span>
         <h3>Kelas &amp; Media Edukasi</h3>
         <p>Aktivitas reflektif seperti kartu tantangan dan permainan edukatif seputar pengenalan diri dan kepercayaan diri.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="layanan-klasikal" id="layanan-klasikal">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow dark">Materi & Tugas</div>
+      <h2>Layanan Klasikal</h2>
+      <p>Materi bimbingan klasikal per jenjang kelas, lengkap dengan tugas interaktif yang bisa langsung dikerjakan dan disimpan di perangkat siswa.</p>
+    </div>
+
+    <div class="klasikal-group reveal">
+      <div class="klasikal-group-title">Layanan Klasikal Kelas 7 <span class="count">1 materi</span></div>
+      <div class="klasikal-grid">
+        <a href="strategi-belajar-mendalam-kelas7.html" class="klasikal-card">
+          <span class="klasikal-icon">📘</span>
+          <span class="klasikal-tag">Bimbingan Belajar · Kelas 7</span>
+          <h4>Strategi Belajar Mendalam</h4>
+          <p>Mengenal perbedaan belajar dangkal dan belajar mendalam, enam teknik belajar efektif, serta latihan Teknik Feynman dan peta konsep.</p>
+          <span class="klasikal-open">Buka materi →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="klasikal-group reveal">
+      <div class="klasikal-group-title">Layanan Klasikal Kelas 8 <span class="count">1 materi</span></div>
+      <div class="klasikal-grid">
+        <a href="mengenal-kecerdasan-majemuk-kelas8.html" class="klasikal-card">
+          <span class="klasikal-icon">🧩</span>
+          <span class="klasikal-tag">Bimbingan Pribadi · Kelas 8</span>
+          <h4>Mengenal Kecerdasan Majemuk</h4>
+          <p>Mengenal delapan jenis kecerdasan menurut Howard Gardner, menilai kecerdasan menonjol pada diri sendiri, dan menyusun rencana melatihnya.</p>
+          <span class="klasikal-open">Buka materi →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="klasikal-group reveal">
+      <div class="klasikal-group-title">Layanan Klasikal Kelas 9 <span class="count">2 materi</span></div>
+      <div class="klasikal-grid">
+        <a href="katakan-tidak-pada-kekerasan-kelas9.html" class="klasikal-card">
+          <span class="klasikal-icon">🛡️</span>
+          <span class="klasikal-tag">Bimbingan Sosial · Kelas 9</span>
+          <h4>Katakan Tidak Pada Kekerasan</h4>
+          <p>Mengenali batas bercanda dan kekerasan, lima bentuk kekerasan, langkah bersikap tegas, hingga jurnal sikap selama seminggu.</p>
+          <span class="klasikal-open">Buka materi →</span>
+        </a>
+        <a href="menjaga-kesehatan-mental-self-love-kelas9.html" class="klasikal-card">
+          <span class="klasikal-icon">💛</span>
+          <span class="klasikal-tag">Bimbingan Pribadi · Kelas 9</span>
+          <h4>Menjaga Kesehatan Mental dengan Self Love</h4>
+          <p>Memahami self love yang sehat, enam cara mempraktikkannya, mengenali tanda kesehatan mental, serta pelacak suasana hati mingguan.</p>
+          <span class="klasikal-open">Buka materi →</span>
+        </a>
       </div>
     </div>
   </div>

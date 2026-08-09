@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menjaga Kesehatan Mental dengan Self Love — Materi & Tugas Kelas 9</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  /* technique cards */
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  /* habit checklist */
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  /* help/contact card */
+  .help-card{background:var(--success-soft);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 30px;}
+  .help-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 10px;color:var(--success);}
+  .help-card ul{margin:0;padding-left:20px;}
+  .help-card li{font-size:14.5px;margin-bottom:6px;color:var(--ink);}
+
+  /* task section */
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  /* mood tracker */
+  .mood-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .mood-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .mood-row:last-child{border-bottom:none;}
+  .mood-row p{margin:0;font-size:14px;font-weight:600;flex:none;width:78px;}
+  .mood-opts{display:flex;gap:6px;flex-wrap:wrap;flex:1;}
+  .mood-opt{font-size:20px;padding:4px 7px;border-radius:8px;cursor:pointer;border:1.5px solid transparent;filter:grayscale(1);opacity:.5;}
+  .mood-opt.on{border-color:var(--accent);filter:grayscale(0);opacity:1;background:var(--accent-soft);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 9</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Menjaga Kesehatan Mental dengan Self Love</h1>
+    <p class="dek">Mencintai diri sendiri bukan berarti egois. Ini tentang belajar menerima, merawat, dan menghargai dirimu apa adanya — supaya kamu punya kekuatan untuk menghadapi hari-hari yang berat.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Materi Ini Penting Buat Kamu?</h2>
+    <p>Di usia remaja seperti sekarang, kamu mungkin sering merasakan tekanan — tuntutan nilai, ekspektasi orang tua, hubungan pertemanan yang naik turun, atau rasa insecure saat membandingkan diri dengan orang lain di media sosial. Semua itu wajar dirasakan, tapi kalau dibiarkan terus tanpa dikelola, bisa membuat kesehatan mentalmu terganggu. Materi ini akan mengajakmu mengenal apa itu kesehatan mental, apa itu self love yang sebenarnya, dan cara-cara sederhana merawat dirimu sendiri.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Self Love yang Sering Disalahpahami</h2>
+    <p><strong>Self love</strong> (mencintai diri sendiri) adalah sikap menerima diri apa adanya, menghargai perasaan dan kebutuhanmu, serta memperlakukan dirimu dengan baik — sama seperti kamu memperlakukan orang yang kamu sayangi. Ini berbeda jauh dari sikap egois atau merasa paling benar sendiri.</p>
+
+    <table class="cmp">
+      <tr><th class="dangkal">Bukan Self Love</th><th class="mendalam">Self Love yang Sehat</th></tr>
+      <tr><td>Merasa paling benar dan tidak mau dikritik</td><td>Menerima kritik tanpa merasa harga dirimu jatuh</td></tr>
+      <tr><td>Mengabaikan perasaan dan kebutuhan orang lain</td><td>Tetap peduli pada orang lain sambil menjaga dirimu</td></tr>
+      <tr><td>Memanjakan diri tanpa batas (misalnya menghindari tanggung jawab)</td><td>Merawat diri sambil tetap bertanggung jawab</td></tr>
+      <tr><td>Berpura-pura selalu baik-baik saja</td><td>Jujur mengakui saat sedang tidak baik-baik saja</td></tr>
+    </table>
+
+    <p class="pull">Kamu tidak bisa menuangkan air dari gelas yang kosong. Merawat dirimu sendiri bukan pilihan terakhir, tapi langkah pertama.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Enam Cara Mempraktikkan Self Love</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Berbicara Baik pada Diri Sendiri</h4><p>Ganti kalimat "aku bodoh" atau "aku selalu gagal" dengan kalimat yang lebih adil, seperti "aku sedang belajar" atau "aku boleh membuat kesalahan".</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Menerima Perasaan, Bukan Menekannya</h4><p>Kalau sedang sedih, kecewa, atau marah, izinkan dirimu merasakannya dulu, tanpa buru-buru menyalahkan diri sendiri karena merasa begitu.</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Menjaga Tubuh dengan Baik</h4><p>Tidur cukup, makan teratur, dan bergerak aktif — tubuh yang sehat mendukung suasana hati yang lebih stabil.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Berhenti Membandingkan Diri</h4><p>Media sosial hanya menampilkan sisi terbaik orang lain. Fokus pada perkembangan dirimu sendiri, bukan pada pencapaian orang lain.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Menetapkan Batasan (Boundaries)</h4><p>Berani berkata tidak pada hal yang membuatmu tidak nyaman atau kelelahan, tanpa merasa bersalah.</p></div>
+      <div class="tech-card"><span class="tech-num">06</span><h4>Meluangkan Waktu untuk Diri Sendiri</h4><p>Lakukan hal yang kamu sukai secara rutin — membaca, menggambar, mendengarkan musik, atau sekadar diam menenangkan pikiran.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Mengenali Tanda Kesehatan Mental yang Perlu Diperhatikan</h2>
+    <p>Sesekali merasa sedih, cemas, atau lelah secara emosional adalah hal yang wajar. Namun, ada baiknya kamu lebih waspada dan mau bercerita kepada orang dewasa yang kamu percaya kalau kamu mengalami hal-hal berikut secara terus-menerus: kehilangan minat pada hal yang biasanya kamu sukai, sulit tidur atau justru ingin tidur terus, menarik diri dari teman dan keluarga dalam waktu lama, atau merasa tidak berharga secara berkepanjangan. Mengenali tanda-tanda ini bukan untuk membuatmu khawatir berlebihan, tapi supaya kamu tahu kapan saatnya mencari bantuan.</p>
+
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Meluangkan waktu setiap hari untuk melakukan hal yang membuatku senang.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Berbicara pada diri sendiri dengan lebih lembut, terutama saat membuat kesalahan.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Mengenali dan menuliskan perasaanku, bukan memendamnya sendiri.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Berani bercerita kepada orang yang kupercaya saat sedang merasa berat.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Membatasi waktu bermain media sosial saat merasa mulai membandingkan diri.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+    <div class="help-card">
+      <h4>Kamu Tidak Sendirian</h4>
+      <ul>
+        <li>Ceritakan pada Guru BK, wali kelas, atau orang dewasa yang kamu percaya — kamu tidak perlu menghadapinya sendirian.</li>
+        <li>Tidak ada yang salah dengan meminta bantuan; itu justru tanda kamu peduli pada dirimu sendiri.</li>
+        <li>Kalau kamu merasa sangat berat atau butuh bantuan segera, segera cari orang dewasa terdekat untuk mendampingimu.</li>
+      </ul>
+    </div>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Surat untuk Diri Sendiri</h3>
+    <p>Tuliskan sepucuk surat singkat untuk dirimu sendiri, berisi apresiasi terhadap hal-hal baik yang sudah kamu lakukan selama ini, dan kalimat penyemangat untuk dirimu saat menghadapi hari yang berat (minimal 5 kalimat).</p>
+    <textarea id="t1text" rows="6" placeholder="Tuliskan suratmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Melacak Suasana Hati Seminggu</h3>
+    <p>Setiap hari selama seminggu, tandai suasana hatimu dengan memilih satu emoji yang paling mewakili perasaanmu hari itu.</p>
+    <div class="mood-card" id="moodCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Poster "Cara Aku Mencintai Diriku"</h3>
+    <p>Buat satu poster atau ilustrasi sederhana berisi minimal 5 cara yang akan kamu lakukan untuk mempraktikkan self love dalam kehidupan sehari-hari. Boleh digambar tangan di kertas lalu difoto, atau dibuat digital.</p>
+    <div class="draw-box">Gambar postermu di kertas, lalu tempel/lampirkan fotonya saat mengumpulkan</div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Merawat Diri Seminggu</h3>
+    <p>Pilih satu kegiatan self care yang ingin kamu rutinkan minggu ini, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Kegiatan self care yang ingin kamu rutinkan" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Kegiatan Merawat Diri</th><th>Perasaan Setelahnya</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 9 · Topik: Menjaga Kesehatan Mental dengan Self Love</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"];
+  const planDays = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = planDays.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Kegiatan..."></textarea></td>
+      <td><textarea id="perasaan-${i}" placeholder="Perasaan..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const moods = ["😄","🙂","😐","😔","😢"];
+  const moodCard = document.getElementById('moodCard');
+  moodCard.innerHTML = days.map((d,i) => `
+    <div class="mood-row">
+      <p>${d}</p>
+      <div class="mood-opts" data-idx="${i}">
+        ${moods.map(m => `<span class="mood-opt" data-val="${m}" onclick="setMood(${i},'${m}')">${m}</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setMood(idx, val){
+    const row = moodCard.querySelector(`.mood-opts[data-idx="${idx}"]`);
+    row.querySelectorAll('.mood-opt').forEach(s => {
+      s.classList.toggle('on', s.dataset.val === val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      t1text: document.getElementById('t1text').value,
+      moods: days.map((d,i) => moodCard.querySelector(`.mood-opts[data-idx="${i}"]`).dataset.value || ''),
+      t4type: document.getElementById('t4type').value,
+      plan: planDays.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        perasaan: document.getElementById(`perasaan-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('self-love-kesehatan-mental-kelas9', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('self-love-kesehatan-mental-kelas9');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      document.getElementById('t1text').value = s.t1text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.moods || []).forEach((val,i) => { if(val) setMood(i, val); });
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`perasaan-${i}`)) document.getElementById(`perasaan-${i}`).value = p.perasaan || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>
