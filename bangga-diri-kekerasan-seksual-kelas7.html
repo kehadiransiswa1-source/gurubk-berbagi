@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bangga Jadi Diriku, Berani Menjaga Diriku — Materi & Tugas Kelas 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  /* technique cards */
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  /* habit checklist */
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  /* help box */
+  .help-box{background:var(--surface);border:1.5px solid var(--accent);border-radius:14px;padding:20px 22px;margin:28px 0;}
+  .help-box .h2-eyebrow{margin-bottom:6px;}
+  .help-box h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:0 0 8px;}
+  .help-box p{margin:0 0 6px;font-size:14.5px;color:var(--ink-muted);}
+  .help-box p:last-child{margin-bottom:0;}
+  .help-box strong{color:var(--ink);}
+
+  /* task section */
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  /* self-assessment rating grid */
+  .rate-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .rate-row:last-child{border-bottom:none;}
+  .rate-row p{margin:0;font-size:14.5px;flex:1;}
+  .rate-stars{display:flex;gap:4px;flex:none;}
+  .star{width:20px;height:20px;cursor:pointer;color:var(--border);font-size:18px;user-select:none;}
+  .star.on{color:var(--accent);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 7</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Bangga Jadi Diriku, Berani Menjaga Diriku</h1>
+    <p class="dek">Menghargai diri sendiri apa adanya dan mengetahui hak atas tubuhmu sendiri adalah dua hal yang saling berkaitan. Semakin kamu bangga dan mengenal dirimu, semakin kamu berani menjaga diri dari hal-hal yang tidak seharusnya terjadi.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Materi Ini Penting Buat Kamu?</h2>
+    <p>Masa remaja adalah masa banyak perubahan — tubuh berubah, perasaan berubah, dan kamu mulai lebih sadar tentang siapa dirimu. <strong>Bangga menjadi diri sendiri</strong> berarti menerima dan menghargai dirimu apa adanya, tanpa harus sama dengan orang lain. Bersamaan dengan itu, penting juga bagimu memahami bahwa <strong>tubuhmu sepenuhnya milikmu</strong>, dan kamu berhak menolak, menjauh, serta bercerita pada orang dewasa yang dipercaya jika ada perlakuan yang membuatmu tidak nyaman, termasuk kekerasan seksual. Materi ini membantumu tumbuh percaya diri sekaligus tahu cara melindungi dirimu.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Cara Keliru vs Cara Tepat Menyikapi Diri Sendiri</h2>
+    <p>Kenali dulu sikap yang sering keliru diambil terkait rasa percaya diri dan menjaga diri.</p>
+
+    <table class="cmp">
+      <tr><th class="dangkal">Cara Keliru</th><th class="mendalam">Cara Tepat</th></tr>
+      <tr><td>Minder atau malu karena merasa berbeda dari teman-teman</td><td>Menerima keunikan diri dan menyadari setiap orang punya kelebihan masing-masing</td></tr>
+      <tr><td>Membiarkan orang lain menyentuh tubuhku karena sungkan menolak</td><td>Berani berkata "tidak" dan menjauh saat ada sentuhan yang tidak nyaman</td></tr>
+      <tr><td>Menyimpan sendiri kejadian yang membuat takut atau bingung karena diminta merahasiakannya</td><td>Menceritakan pada orang tua, guru, atau orang dewasa terpercaya, walau diminta diam</td></tr>
+      <tr><td>Menyalahkan diri sendiri jika mengalami perlakuan yang tidak menyenangkan</td><td>Menyadari itu bukan salahku dan aku berhak mendapat bantuan</td></tr>
+    </table>
+
+    <p class="pull">Tubuhmu adalah milikmu sepenuhnya — kamu berhak menjaga, mencintai, dan mengatakan tidak.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Langkah-Langkah Bangga dan Menjaga Diri</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Mengenal Kelebihan dan Keunikan Diri</h4><p>Sadari bahwa setiap orang punya kelebihan berbeda — kamu tidak perlu sama dengan orang lain untuk bisa bangga pada dirimu.</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Menerima Perubahan Tubuh di Masa Puber</h4><p>Pahami bahwa perubahan tubuh saat remaja adalah hal wajar yang dialami semua orang, bukan sesuatu yang perlu membuat malu.</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Memahami Bagian Tubuh yang Bersifat Pribadi</h4><p>Kenali bahwa ada bagian tubuh yang bersifat pribadi dan tidak boleh disentuh, dilihat, atau difoto oleh orang lain tanpa izinmu.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Mengenali Perlakuan yang Membuat Tidak Nyaman</h4><p>Percaya pada perasaanmu — jika ada perkataan, sentuhan, atau ajakan yang membuatmu tidak nyaman atau takut, itu tandanya kamu perlu menjauh dan bercerita.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Berani Berkata "Tidak" dan Menjauh</h4><p>Kamu berhak menolak dengan tegas siapa pun, termasuk orang yang dikenal, jika perlakuannya membuatmu tidak nyaman.</p></div>
+      <div class="tech-card"><span class="tech-num">06</span><h4>Tidak Menyimpan Rahasia yang Membuat Takut</h4><p>Jika seseorang meminta kamu merahasiakan sesuatu yang membuatmu takut, bingung, atau tidak nyaman, itu bukan rahasia yang harus disimpan — segera ceritakan pada orang dewasa terpercaya.</p></div>
+      <div class="tech-card"><span class="tech-num">07</span><h4>Memiliki Orang Dewasa Terpercaya untuk Bercerita</h4><p>Kenali siapa saja orang dewasa yang bisa kamu percaya, misalnya orang tua, Guru BK, atau wali kelas, untuk tempat bercerita kapan pun dibutuhkan.</p></div>
+      <div class="tech-card"><span class="tech-num">08</span><h4>Menyadari Bahwa Kekerasan Bukan Salah Korban</h4><p>Jika kamu atau temanmu pernah mengalami kekerasan seksual, itu bukan kesalahan korban — pelakulah yang sepenuhnya bersalah, dan korban berhak mendapat dukungan.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Kebiasaan yang Membantu Percaya Diri dan Menjaga Diri</h2>
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Bercermin dan menyebutkan satu hal baik tentang diriku setiap hari.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menjaga privasi bagian tubuhku dan menghormati privasi orang lain.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menolak dengan tegas jika ada perlakuan yang membuatku tidak nyaman.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Bercerita pada orang tua atau Guru BK jika ada hal yang mengganggu perasaanku.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Tidak membanding-bandingkan diriku dengan orang lain.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+    <div class="help-box">
+      <span class="h2-eyebrow">Jika Kamu atau Temanmu Butuh Bantuan</span>
+      <h3>Jangan Ragu untuk Bercerita</h3>
+      <p>Segera ceritakan pada orang tua, Guru BK, wali kelas, atau orang dewasa yang kamu percaya di sekolah maupun di rumah.</p>
+      <p>Kamu juga bisa menghubungi layanan resmi pemerintah <strong>SAPA 129</strong> milik Kementerian PPPA melalui telepon <strong>129</strong> atau WhatsApp <strong>08111-129-129</strong>.</p>
+      <p>Mengalami kekerasan seksual bukan salahmu, dan meminta bantuan adalah langkah yang berani, bukan sesuatu yang memalukan.</p>
+    </div>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Menilai Sejauh Mana Aku Bangga dan Menjaga Diri</h3>
+    <p>Beri bintang pada tiap kebiasaan sesuai seberapa sering kamu sudah melakukannya (1 bintang = belum pernah/jarang, 5 bintang = sudah sangat rutin). Jawab sejujur-jujurnya, tidak ada jawaban yang salah.</p>
+    <div class="rate-card" id="rateCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Cerita tentang Diriku</h3>
+    <p>Ceritakan satu hal yang kamu banggakan dari dirimu sendiri, dan satu situasi ketika kamu berhasil (atau ingin) berkata "tidak" pada sesuatu yang membuatmu tidak nyaman.</p>
+    <input class="field" id="t2type" placeholder="Hal yang kamu banggakan dari dirimu" style="margin-bottom:10px;">
+    <textarea id="t2text" rows="6" placeholder="Tuliskan cerita/pengalamanmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Poster "Aku Bangga Jadi Diriku"</h3>
+    <p>Buat satu poster sederhana berisi pesan bangga menjadi diri sendiri, atau ajakan menjaga diri dari kekerasan seksual. Boleh digambar tangan di kertas lalu difoto, atau dibuat digital.</p>
+    <div class="draw-box">Gambar postermu di kertas, lalu tempel/lampirkan fotonya saat mengumpulkan</div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Percaya Diri dan Menjaga Diri Seminggu</h3>
+    <p>Pilih satu kebiasaan yang ingin kamu latih lebih serius minggu ini untuk lebih percaya diri dan menjaga diri, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Kebiasaan yang ingin kamu latih minggu ini" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Kegiatan yang Dilakukan</th><th>Hasil yang Dirasakan</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 7 · Topik: Bangga Jadi Diriku, Berani Menjaga Diriku</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = days.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Kegiatan yang dilakukan..."></textarea></td>
+      <td><textarea id="hasil-${i}" placeholder="Hasil yang dirasakan..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const principles = [
+    "Mengenal Kelebihan dan Keunikan Diri",
+    "Menerima Perubahan Tubuh di Masa Puber",
+    "Memahami Bagian Tubuh yang Bersifat Pribadi",
+    "Mengenali Perlakuan yang Membuat Tidak Nyaman",
+    "Berani Berkata \"Tidak\" dan Menjauh",
+    "Tidak Menyimpan Rahasia yang Membuat Takut",
+    "Memiliki Orang Dewasa Terpercaya untuk Bercerita",
+    "Menyadari Bahwa Kekerasan Bukan Salah Korban"
+  ];
+  const rateCard = document.getElementById('rateCard');
+  rateCard.innerHTML = principles.map((name,i) => `
+    <div class="rate-row">
+      <p>${name}</p>
+      <div class="rate-stars" data-idx="${i}">
+        ${[1,2,3,4,5].map(n => `<span class="star" data-val="${n}" onclick="setStar(${i},${n})">★</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setStar(idx, val){
+    const row = rateCard.querySelector(`.rate-stars[data-idx="${idx}"]`);
+    row.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      ratings: principles.map((n,i) => parseInt(rateCard.querySelector(`.rate-stars[data-idx="${i}"]`).dataset.value || 0)),
+      t2type: document.getElementById('t2type').value,
+      t2text: document.getElementById('t2text').value,
+      t4type: document.getElementById('t4type').value,
+      plan: days.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        hasil: document.getElementById(`hasil-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('bangga-diri-kekerasan-seksual-kelas7', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('bangga-diri-kekerasan-seksual-kelas7');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      (s.ratings || []).forEach((val,i) => { if(val) setStar(i, val); });
+      document.getElementById('t2type').value = s.t2type || '';
+      document.getElementById('t2text').value = s.t2text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`hasil-${i}`)) document.getElementById(`hasil-${i}`).value = p.hasil || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>

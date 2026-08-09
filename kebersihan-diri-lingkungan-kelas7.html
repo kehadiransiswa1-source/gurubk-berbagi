@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menjaga Kebersihan Diri dan Lingkungan — Materi & Tugas Kelas 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  /* technique cards */
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  /* habit checklist */
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  /* task section */
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  /* self-assessment rating grid */
+  .rate-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .rate-row:last-child{border-bottom:none;}
+  .rate-row p{margin:0;font-size:14.5px;flex:1;}
+  .rate-stars{display:flex;gap:4px;flex:none;}
+  .star{width:20px;height:20px;cursor:pointer;color:var(--border);font-size:18px;user-select:none;}
+  .star.on{color:var(--accent);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 7</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Menjaga Kebersihan Diri dan Lingkungan</h1>
+    <p class="dek">Kebersihan diri dan lingkungan bukan hanya soal terlihat rapi, tapi juga soal menjaga kesehatan dan menghargai orang-orang di sekitarmu. Kebiasaan kecil yang kamu lakukan setiap hari bisa berdampak besar bagi dirimu dan lingkunganmu.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Kebersihan Diri dan Lingkungan Itu Penting?</h2>
+    <p>Di usia remaja, tubuhmu mulai mengalami banyak perubahan yang membuat kebutuhan menjaga kebersihan diri semakin penting, misalnya keringat yang lebih banyak atau kulit yang lebih mudah berjerawat. Selain kebersihan diri, kebersihan <strong>lingkungan</strong> di sekitarmu — kelas, rumah, dan tempat umum — juga memengaruhi kenyamanan dan kesehatan bersama. Kebiasaan menjaga kebersihan yang dilakukan sejak sekarang akan membentuk karaktermu sebagai pribadi yang disiplin dan peduli.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Cara Keliru vs Cara Tepat Menjaga Kebersihan</h2>
+    <p>Yuk kenali kebiasaan yang sering dianggap sepele padahal berdampak pada kesehatan dan kenyamanan bersama.</p>
+
+    <table class="cmp">
+      <tr><th class="dangkal">Cara Keliru</th><th class="mendalam">Cara Tepat</th></tr>
+      <tr><td>Mandi dan gosok gigi asal-asalan atau kadang dilewati</td><td>Mandi dan gosok gigi secara rutin dan menyeluruh, minimal dua kali sehari</td></tr>
+      <tr><td>Membuang sampah sembarangan karena merasa "nanti ada yang bersihkan"</td><td>Membuang sampah pada tempatnya sebagai bentuk tanggung jawab bersama</td></tr>
+      <tr><td>Memakai baju dan barang pribadi tanpa pernah dicuci atau dirapikan</td><td>Mencuci dan merapikan pakaian serta barang pribadi secara teratur</td></tr>
+      <tr><td>Menganggap kebersihan kelas hanya tugas petugas piket</td><td>Ikut menjaga kebersihan kelas sebagai tanggung jawab semua siswa</td></tr>
+    </table>
+
+    <p class="pull">Kebersihan yang dijaga setiap hari terlihat sederhana, tapi itulah yang membuat tubuh sehat dan lingkungan nyaman untuk semua orang.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Langkah-Langkah Menjaga Kebersihan Diri dan Lingkungan</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Mandi dan Membersihkan Tubuh Secara Rutin</h4><p>Mandi minimal dua kali sehari untuk menjaga tubuh tetap bersih dan segar, terutama setelah beraktivitas.</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Merawat Kebersihan Gigi dan Mulut</h4><p>Menggosok gigi setelah makan dan sebelum tidur membantu mencegah bau mulut dan masalah gigi.</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Mencuci Tangan pada Waktu yang Tepat</h4><p>Cuci tangan sebelum makan, setelah dari toilet, dan setelah beraktivitas di luar untuk mencegah penyebaran kuman.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Menjaga Kerapian Pakaian dan Barang Pribadi</h4><p>Gunakan pakaian yang bersih dan simpan barang pribadi dengan rapi agar nyaman digunakan.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Membuang Sampah pada Tempatnya</h4><p>Biasakan membuang sampah sesuai jenisnya agar lingkungan tetap bersih dan tertata.</p></div>
+      <div class="tech-card"><span class="tech-num">06</span><h4>Ikut Menjaga Kebersihan Kelas dan Sekolah</h4><p>Berperan aktif dalam piket dan menjaga kerapian ruang belajar, bukan hanya mengandalkan orang lain.</p></div>
+      <div class="tech-card"><span class="tech-num">07</span><h4>Menjaga Kebersihan Lingkungan Rumah</h4><p>Bantu keluarga merapikan dan membersihkan rumah sebagai bagian dari tanggung jawabmu.</p></div>
+      <div class="tech-card"><span class="tech-num">08</span><h4>Mengajak Teman Peduli Kebersihan Bersama</h4><p>Saling mengingatkan teman untuk menjaga kebersihan membuat kebiasaan baik ini semakin kuat.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Kebiasaan yang Membantu Menjaga Kebersihan Diri dan Lingkungan</h2>
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Mandi dan menggosok gigi secara rutin setiap hari.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Mencuci tangan sebelum makan dan setelah beraktivitas.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Membuang sampah pada tempatnya, di rumah maupun di sekolah.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Ikut serta merapikan dan membersihkan kelas saat piket.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Merapikan barang pribadi dan pakaianku secara teratur.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Menilai Sejauh Mana Aku Menjaga Kebersihan</h3>
+    <p>Beri bintang pada tiap langkah menjaga kebersihan sesuai seberapa sering kamu sudah melakukannya (1 bintang = belum pernah/jarang, 5 bintang = sudah sangat rutin). Jawab sejujur-jujurnya, tidak ada jawaban yang salah.</p>
+    <div class="rate-card" id="rateCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Cerita tentang Kebiasaan Kebersihanku</h3>
+    <p>Pilih satu kebiasaan menjaga kebersihan diri atau lingkungan yang sudah kamu lakukan. Ceritakan bagaimana kamu melakukannya dan manfaat apa yang kamu rasakan.</p>
+    <input class="field" id="t2type" placeholder="Kebiasaan kebersihan yang kamu ceritakan" style="margin-bottom:10px;">
+    <textarea id="t2text" rows="6" placeholder="Tuliskan cerita/pengalamanmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Poster Ajakan Menjaga Kebersihan</h3>
+    <p>Buat satu poster sederhana berisi ajakan menjaga kebersihan diri atau lingkungan yang bisa ditempel di kelas. Boleh digambar tangan di kertas lalu difoto, atau dibuat digital.</p>
+    <div class="draw-box">Gambar posterrmu di kertas, lalu tempel/lampirkan fotonya saat mengumpulkan</div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Membiasakan Diri Menjaga Kebersihan Seminggu</h3>
+    <p>Pilih satu kebiasaan kebersihan yang ingin kamu latih lebih serius minggu ini, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Kebiasaan kebersihan yang ingin kamu latih minggu ini" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Kegiatan yang Dilakukan</th><th>Hasil yang Dirasakan</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 7 · Topik: Menjaga Kebersihan Diri dan Lingkungan</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = days.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Kegiatan yang dilakukan..."></textarea></td>
+      <td><textarea id="hasil-${i}" placeholder="Hasil yang dirasakan..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const principles = [
+    "Mandi dan Membersihkan Tubuh Secara Rutin",
+    "Merawat Kebersihan Gigi dan Mulut",
+    "Mencuci Tangan pada Waktu yang Tepat",
+    "Menjaga Kerapian Pakaian dan Barang Pribadi",
+    "Membuang Sampah pada Tempatnya",
+    "Ikut Menjaga Kebersihan Kelas dan Sekolah",
+    "Menjaga Kebersihan Lingkungan Rumah",
+    "Mengajak Teman Peduli Kebersihan Bersama"
+  ];
+  const rateCard = document.getElementById('rateCard');
+  rateCard.innerHTML = principles.map((name,i) => `
+    <div class="rate-row">
+      <p>${name}</p>
+      <div class="rate-stars" data-idx="${i}">
+        ${[1,2,3,4,5].map(n => `<span class="star" data-val="${n}" onclick="setStar(${i},${n})">★</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setStar(idx, val){
+    const row = rateCard.querySelector(`.rate-stars[data-idx="${idx}"]`);
+    row.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      ratings: principles.map((n,i) => parseInt(rateCard.querySelector(`.rate-stars[data-idx="${i}"]`).dataset.value || 0)),
+      t2type: document.getElementById('t2type').value,
+      t2text: document.getElementById('t2text').value,
+      t4type: document.getElementById('t4type').value,
+      plan: days.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        hasil: document.getElementById(`hasil-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('kebersihan-diri-lingkungan-kelas7', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('kebersihan-diri-lingkungan-kelas7');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      (s.ratings || []).forEach((val,i) => { if(val) setStar(i, val); });
+      document.getElementById('t2type').value = s.t2type || '';
+      document.getElementById('t2text').value = s.t2text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`hasil-${i}`)) document.getElementById(`hasil-${i}`).value = p.hasil || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>
