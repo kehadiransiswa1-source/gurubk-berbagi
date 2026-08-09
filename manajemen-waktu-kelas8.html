@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manajemen Waktu — Materi & Tugas Kelas 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  /* technique cards */
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  /* habit checklist */
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  /* task section */
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  /* self-assessment rating grid */
+  .rate-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .rate-row:last-child{border-bottom:none;}
+  .rate-row p{margin:0;font-size:14.5px;flex:1;}
+  .rate-stars{display:flex;gap:4px;flex:none;}
+  .star{width:20px;height:20px;cursor:pointer;color:var(--border);font-size:18px;user-select:none;}
+  .star.on{color:var(--accent);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 8</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Manajemen Waktu</h1>
+    <p class="dek">Tugas sekolah, les, hobi, main, dan istirahat sering terasa berebut jam yang sama. Manajemen waktu bukan soal jadi sibuk terus, tapi soal tahu mana yang perlu dikerjakan dulu supaya semuanya tetap berjalan tanpa harus terburu-buru di menit terakhir.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Materi Ini Penting Buat Kamu?</h2>
+    <p>Di kelas 8, jumlah tugas dan kegiatan biasanya makin bertambah — mata pelajaran lebih banyak, ada ekstrakurikuler, mungkin juga les tambahan, belum lagi waktu untuk main game, nonton, atau sekadar istirahat. Kalau tidak diatur, semuanya bisa terasa menumpuk dan bikin stres. <strong>Manajemen waktu</strong> adalah kemampuan mengatur kapan melakukan apa, sehingga kamu tetap bisa mengerjakan tugas dengan baik <em>dan</em> punya waktu untuk hal-hal yang kamu suka. Ini juga kebiasaan yang akan sangat berguna sampai kamu SMA, kuliah, dan bekerja nanti.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Mengenali Kebiasaan Mengatur Waktu</h2>
+    <p>Coba jujur pada diri sendiri: apakah caramu mengatur waktu selama ini lebih sering membuatmu tenang, atau justru membuatmu panik mendekati deadline? Kenali dulu bedanya.</p>
+
+    <table class="cmp">
+      <tr><th class="dangkal">Manajemen Waktu yang Buruk</th><th class="mendalam">Manajemen Waktu yang Baik</th></tr>
+      <tr><td>Menunda tugas sampai mendekati deadline (SKS — Sistem Kebut Semalam)</td><td>Mengerjakan tugas sedikit demi sedikit sejak jauh-jauh hari</td></tr>
+      <tr><td>Memulai hari tanpa tahu apa saja yang harus dikerjakan</td><td>Membuat daftar dan urutan prioritas sebelum mulai beraktivitas</td></tr>
+      <tr><td>Terus tergoda main HP saat seharusnya belajar atau mengerjakan tugas</td><td>Menyisihkan waktu khusus untuk hiburan, terpisah dari waktu belajar</td></tr>
+      <tr><td>Tidak sadar berapa banyak waktu terbuang untuk hal yang tidak penting</td><td>Rutin mengevaluasi ke mana waktu sehari-hari sebenarnya terpakai</td></tr>
+    </table>
+
+    <p class="pull">Bukan orang yang paling sibuk yang paling produktif, tapi orang yang tahu mana yang harus dikerjakan lebih dulu.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Teknik-Teknik Mengatur Waktu</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Membuat Daftar Prioritas (To-Do List)</h4><p>Tulis semua tugas dan kegiatan, lalu urutkan mana yang paling penting dan paling mendesak untuk dikerjakan lebih dulu.</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Menentukan Target Waktu untuk Setiap Tugas</h4><p>Beri batas waktu yang jelas untuk setiap tugas, bukan mengerjakannya tanpa target sehingga terasa tidak ada habisnya.</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Time Blocking (Membagi Waktu per Kegiatan)</h4><p>Bagi hari menjadi blok-blok waktu untuk kegiatan tertentu, misalnya blok belajar, blok istirahat, dan blok hiburan, supaya semuanya kebagian tempat.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Mengerjakan Satu Hal dalam Satu Waktu</h4><p>Fokus menyelesaikan satu tugas dulu sebelum pindah ke tugas lain. Mengerjakan banyak hal sekaligus justru membuat semuanya lebih lama selesai.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Mengenali Pencuri Waktu</h4><p>Sadari kegiatan yang tanpa terasa menghabiskan banyak waktu, seperti scroll media sosial tanpa tujuan, lalu batasi durasinya.</p></div>
+      <div class="tech-card"><span class="tech-num">06</span><h4>Istirahat Terjadwal</h4><p>Belajar terus tanpa henti justru menurunkan konsentrasi. Selingi dengan istirahat singkat, misalnya belajar 25 menit lalu istirahat 5 menit.</p></div>
+      <div class="tech-card"><span class="tech-num">07</span><h4>Evaluasi Waktu di Akhir Hari</h4><p>Sebelum tidur, cek kembali: rencana hari ini berhasil dijalankan atau tidak, dan apa yang bisa diperbaiki untuk besok.</p></div>
+      <div class="tech-card"><span class="tech-num">08</span><h4>Disiplin pada Rencana yang Sudah Dibuat</h4><p>Rencana sebaik apa pun tidak akan berguna jika tidak dijalankan. Latih diri untuk konsisten mengikuti jadwal yang sudah dibuat sendiri.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Kebiasaan yang Membantu Waktu Lebih Teratur</h2>
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menuliskan daftar tugas dan kegiatan sebelum memulai hari.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Mengerjakan tugas sekolah tanpa menunggu mendekati deadline.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menjauhkan HP atau menyalakan mode fokus saat waktunya belajar.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Memberi diri waktu istirahat setelah belajar dalam durasi tertentu.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Mengecek di akhir hari apakah rencana hari itu berhasil dijalankan.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Menilai Kebiasaan Mengatur Waktu Sendiri</h3>
+    <p>Beri bintang pada tiap teknik manajemen waktu sesuai seberapa baik kamu sudah menerapkannya selama ini (1 bintang = masih jarang, 5 bintang = sudah sangat rutin). Jawab sejujur-jujurnya, tidak ada jawaban yang salah.</p>
+    <div class="rate-card" id="rateCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Cerita Pengalaman Mengatur Waktu</h3>
+    <p>Pilih satu teknik manajemen waktu yang menurutmu paling sering kamu terapkan atau justru paling sulit kamu lakukan. Ceritakan minimal 3 contoh kejadian nyata yang pernah kamu alami.</p>
+    <input class="field" id="t2type" placeholder="Teknik manajemen waktu yang kamu ceritakan" style="margin-bottom:10px;">
+    <textarea id="t2text" rows="6" placeholder="Tuliskan cerita/pengalamanmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Peta Konsep Manajemen Waktu</h3>
+    <p>Buat satu peta konsep (mind map) sederhana yang menampilkan delapan teknik manajemen waktu beserta contoh penerapannya sehari-hari. Boleh digambar tangan di kertas lalu difoto, atau dibuat digital.</p>
+    <div class="draw-box">Gambar peta konsepmu di kertas, lalu tempel/lampirkan fotonya saat mengumpulkan</div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Mengatur Waktu Seminggu</h3>
+    <p>Pilih satu kebiasaan mengatur waktu yang ingin kamu perbaiki minggu ini, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Kebiasaan mengatur waktu yang ingin kamu perbaiki minggu ini" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Rencana Kegiatan</th><th>Waktu yang Digunakan</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 8 · Topik: Manajemen Waktu</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = days.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Kegiatan yang direncanakan..."></textarea></td>
+      <td><textarea id="waktu-${i}" placeholder="Perkiraan/realisasi waktu..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const principles = [
+    "Membuat Daftar Prioritas",
+    "Menentukan Target Waktu Tugas",
+    "Time Blocking",
+    "Mengerjakan Satu Hal dalam Satu Waktu",
+    "Mengenali Pencuri Waktu",
+    "Istirahat Terjadwal",
+    "Evaluasi Waktu di Akhir Hari",
+    "Disiplin pada Rencana Sendiri"
+  ];
+  const rateCard = document.getElementById('rateCard');
+  rateCard.innerHTML = principles.map((name,i) => `
+    <div class="rate-row">
+      <p>${name}</p>
+      <div class="rate-stars" data-idx="${i}">
+        ${[1,2,3,4,5].map(n => `<span class="star" data-val="${n}" onclick="setStar(${i},${n})">★</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setStar(idx, val){
+    const row = rateCard.querySelector(`.rate-stars[data-idx="${idx}"]`);
+    row.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      ratings: principles.map((n,i) => parseInt(rateCard.querySelector(`.rate-stars[data-idx="${i}"]`).dataset.value || 0)),
+      t2type: document.getElementById('t2type').value,
+      t2text: document.getElementById('t2text').value,
+      t4type: document.getElementById('t4type').value,
+      plan: days.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        waktu: document.getElementById(`waktu-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('manajemen-waktu-kelas8', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('manajemen-waktu-kelas8');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      (s.ratings || []).forEach((val,i) => { if(val) setStar(i, val); });
+      document.getElementById('t2type').value = s.t2type || '';
+      document.getElementById('t2text').value = s.t2text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`waktu-${i}`)) document.getElementById(`waktu-${i}`).value = p.waktu || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>

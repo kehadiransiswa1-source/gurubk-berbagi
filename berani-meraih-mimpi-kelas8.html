@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Berani Meraih Mimpi — Materi & Tugas Kelas 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F4F3FB;
+    --surface:#FFFFFF;
+    --surface-alt:#ECEAF8;
+    --ink:#1D1B31;
+    --ink-muted:#635F82;
+    --accent:#4F3FF0;
+    --accent-soft:#E7E4FC;
+    --danger:#E4572E;
+    --danger-soft:#FBE7E0;
+    --success:#12A594;
+    --success-soft:#DEF4F1;
+    --border:rgba(29,27,49,0.12);
+    --font-display:'Fraunces', serif;
+    --font-body:'IBM Plex Sans', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.65;-webkit-font-smoothing:antialiased;}
+  .page{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  @media (max-width:600px){.page{padding:0 16px 80px;}}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0 18px;border-bottom:1px solid var(--border);font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted);}
+  .topbar span.dot{color:var(--accent);}
+
+  .hero{margin:40px 0 8px;}
+  .hero-eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 14px;}
+  h1.title{font-family:var(--font-display);font-weight:600;font-size:42px;line-height:1.08;letter-spacing:-0.01em;margin:0 0 16px;}
+  @media (max-width:600px){h1.title{font-size:32px;}}
+  .dek{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:19px;color:var(--ink-muted);line-height:1.5;margin:0 0 40px;max-width:620px;}
+
+  article p{font-size:16.5px;margin:0 0 20px;color:var(--ink);}
+  article h2{font-family:var(--font-display);font-weight:600;font-size:27px;margin:52px 0 8px;letter-spacing:-.005em;}
+  .h2-eyebrow{display:block;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0 0 8px;}
+  article h3{font-family:var(--font-display);font-weight:600;font-size:18px;margin:22px 0 8px;}
+  article ul{padding-left:22px;margin:0 0 20px;}
+  article li{font-size:16px;margin-bottom:9px;}
+  strong{font-weight:600;}
+
+  .pull{font-family:var(--font-display);font-weight:500;font-style:italic;font-size:21px;line-height:1.45;color:var(--ink);border-left:3px solid var(--accent);padding:2px 0 2px 22px;margin:28px 0;}
+
+  /* compare table */
+  .cmp{width:100%;border-collapse:collapse;margin:20px 0 30px;border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+  .cmp th{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;text-align:left;padding:12px 16px;}
+  .cmp th.dangkal{background:var(--danger-soft);color:var(--danger);}
+  .cmp th.mendalam{background:var(--success-soft);color:var(--success);}
+  .cmp td{padding:12px 16px;font-size:14.5px;background:var(--surface);border-top:1px solid var(--border);}
+
+  /* technique cards */
+  .tech-list{display:flex;flex-direction:column;gap:12px;margin:20px 0 30px;}
+  .tech-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px;}
+  .tech-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:6px;display:block;}
+  .tech-card h4{font-family:var(--font-display);font-weight:600;font-size:16.5px;margin:0 0 6px;}
+  .tech-card p{margin:0;font-size:14.5px;color:var(--ink-muted);}
+
+  /* habit checklist */
+  .check-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px 22px;margin:20px 0 10px;}
+  .check-item{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);}
+  .check-item:last-child{border-bottom:none;}
+  .check-box{flex:none;width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ink-muted);margin-top:2px;cursor:pointer;}
+  .check-box.on{background:var(--success);border-color:var(--success);}
+  .check-item p{margin:0;font-size:15px;}
+
+  /* task section */
+  .task-header{background:linear-gradient(120deg, var(--accent) 0%, #6E5CF5 100%);color:#fff;border-radius:16px;padding:26px 26px 22px;margin:52px 0 30px;}
+  .task-header .h2-eyebrow{color:rgba(255,255,255,0.75);}
+  .task-header h2{font-family:var(--font-display);font-weight:600;font-size:28px;margin:0 0 8px;color:#fff;}
+  .task-header p{margin:0;font-size:14.5px;color:rgba(255,255,255,0.85);}
+
+  .task-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 24px 22px;margin-bottom:22px;}
+  .task-tag{display:inline-block;font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:20px;background:var(--accent-soft);color:var(--accent);margin-bottom:12px;}
+  .task-card h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin:0 0 8px;}
+  .task-card > p{font-size:14.5px;color:var(--ink-muted);margin:0 0 16px;}
+
+  textarea, input.field{
+    width:100%;font-family:var(--font-body);font-size:14.5px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;
+    resize:vertical;
+  }
+  textarea:focus, input.field:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .draw-box{
+    width:100%;min-height:220px;border:1.5px dashed var(--border);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;color:var(--ink-muted);
+    font-size:13px;font-style:italic;background:repeating-linear-gradient(0deg, transparent, transparent 27px, var(--border) 28px);
+    background-color:var(--bg);
+  }
+
+  /* self-assessment rating grid */
+  .rate-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:10px;}
+  .rate-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--border);}
+  .rate-row:last-child{border-bottom:none;}
+  .rate-row p{margin:0;font-size:14.5px;flex:1;}
+  .rate-stars{display:flex;gap:4px;flex:none;}
+  .star{width:20px;height:20px;cursor:pointer;color:var(--border);font-size:18px;user-select:none;}
+  .star.on{color:var(--accent);}
+
+  .plan-table{width:100%;border-collapse:collapse;margin-top:6px;}
+  .plan-table th{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;text-align:left;padding:10px 12px;background:var(--surface-alt);color:var(--ink-muted);}
+  .plan-table td{padding:8px;border-top:1px solid var(--border);vertical-align:top;}
+  .plan-table td.day{font-weight:600;font-size:13.5px;padding:12px;white-space:nowrap;}
+  .plan-table td textarea{min-height:56px;font-size:13px;}
+  @media (max-width:560px){
+    .plan-table, .plan-table thead, .plan-table tbody, .plan-table th, .plan-table td, .plan-table tr{display:block;}
+    .plan-table thead{display:none;}
+    .plan-table tr{margin-bottom:14px;border:1px solid var(--border);border-radius:10px;padding:10px;}
+    .plan-table td{border-top:none;padding:6px 0;}
+  }
+
+  .save-bar{display:flex;gap:10px;align-items:center;margin:10px 0 8px;flex-wrap:wrap;}
+  button.btn{font-family:var(--font-body);font-weight:600;font-size:14px;color:#fff;background:var(--accent);border:none;border-radius:10px;padding:12px 20px;cursor:pointer;transition:opacity .12s ease;}
+  button.btn:hover{opacity:.9;}
+  button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent);}
+  .save-note{font-size:12.5px;color:var(--ink-muted);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--border);font-size:13px;color:var(--ink-muted);text-align:center;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <span><span class="dot">●</span> Bimbingan Konseling · Kelas 8</span>
+    <span>Materi Belajar</span>
+  </div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Materi & Tugas untuk Kamu</p>
+    <h1 class="title">Berani Meraih Mimpi</h1>
+    <p class="dek">Punya cita-cita itu mudah, tapi berani mengambil langkah pertama untuk mewujudkannya sering terasa berat — apalagi kalau takut gagal atau takut dibilang aneh. Berani meraih mimpi bukan berarti tidak pernah takut, tapi tetap melangkah meskipun rasa takut itu ada.</p>
+  </div>
+
+  <article>
+
+    <h2><span class="h2-eyebrow">Sebelum Mulai</span>Kenapa Materi Ini Penting Buat Kamu?</h2>
+    <p>Di usia remaja seperti sekarang, kamu mulai memikirkan mau jadi apa nanti — entah itu cita-cita profesi, prestasi yang ingin diraih, atau hal baru yang ingin dicoba. Sayangnya, banyak mimpi yang berhenti hanya di angan-angan karena rasa takut gagal, takut dinilai orang lain, atau minder membandingkan diri dengan teman. Padahal, <strong>keberanian meraih mimpi</strong> adalah kemampuan yang bisa dilatih: mulai dari mengenali apa yang benar-benar kamu inginkan, sampai berani mencoba dan bangkit lagi saat gagal. Kebiasaan ini akan sangat membantumu, tidak hanya sekarang, tapi juga saat menghadapi pilihan-pilihan besar di masa depan.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 01</span>Mengenali Sikap terhadap Mimpi</h2>
+    <p>Coba jujur pada diri sendiri: apakah selama ini kamu lebih sering menyimpan mimpi sendirian karena takut, atau berani mengambil langkah kecil untuk mewujudkannya? Kenali dulu bedanya.</p>
+
+    <table class="cmp">
+      <tr><th class="dangkal">Sikap yang Menghambat Mimpi</th><th class="mendalam">Sikap yang Berani Meraih Mimpi</th></tr>
+      <tr><td>Takut mencoba karena takut gagal atau ditertawakan</td><td>Berani mencoba, dan menganggap gagal sebagai bagian dari proses belajar</td></tr>
+      <tr><td>Memendam ide dan cita-cita karena malu diketahui orang lain</td><td>Berani menyampaikan mimpi dan pendapat, walau belum tentu sempurna</td></tr>
+      <tr><td>Membandingkan diri dengan orang lain sampai merasa minder</td><td>Fokus pada perkembangan diri sendiri dari waktu ke waktu</td></tr>
+      <tr><td>Menyerah begitu menemui kesulitan atau kegagalan pertama</td><td>Mencari cara lain dan tetap mencoba saat menghadapi hambatan</td></tr>
+    </table>
+
+    <p class="pull">Mimpi tidak akan terwujud hanya dengan dipikirkan — ia perlu keberanian untuk melangkah, sekecil apa pun langkah itu.</p>
+
+    <h2><span class="h2-eyebrow">Bagian 02</span>Langkah-Langkah Berani Meraih Mimpi</h2>
+    <div class="tech-list">
+      <div class="tech-card"><span class="tech-num">01</span><h4>Mengenali Mimpi dan Cita-Cita Sendiri</h4><p>Luangkan waktu memikirkan apa yang benar-benar kamu inginkan, bukan sekadar ikut-ikutan teman atau mengikuti keinginan orang lain.</p></div>
+      <div class="tech-card"><span class="tech-num">02</span><h4>Menetapkan Tujuan yang Jelas</h4><p>Ubah mimpi yang masih samar menjadi tujuan yang jelas, misalnya bukan sekadar "ingin pintar matematika" tapi "ingin nilai ulangan matematika naik bulan ini".</p></div>
+      <div class="tech-card"><span class="tech-num">03</span><h4>Memecah Mimpi Besar Menjadi Langkah Kecil</h4><p>Mimpi besar bisa terasa menakutkan jika dilihat sekaligus. Pecah menjadi langkah-langkah kecil yang bisa mulai dikerjakan hari ini.</p></div>
+      <div class="tech-card"><span class="tech-num">04</span><h4>Berani Mencoba Hal Baru</h4><p>Jangan menunggu sampai merasa "siap sepenuhnya". Beranikan diri mencoba, meskipun masih ragu atau belum yakin hasilnya.</p></div>
+      <div class="tech-card"><span class="tech-num">05</span><h4>Menerima Kegagalan sebagai Bagian dari Proses</h4><p>Gagal bukan tanda bahwa kamu tidak mampu, melainkan bagian dari belajar. Setiap orang yang berhasil pernah mengalami kegagalan.</p></div>
+      <div class="tech-card"><span class="tech-num">06</span><h4>Mencari Dukungan dari Orang Sekitar</h4><p>Ceritakan mimpimu pada orang tua, guru, atau teman yang bisa dipercaya. Dukungan mereka bisa membantumu tetap semangat saat merasa ragu.</p></div>
+      <div class="tech-card"><span class="tech-num">07</span><h4>Konsisten Berusaha Meski Hasil Belum Terlihat</h4><p>Hasil sering tidak langsung terlihat. Tetap konsisten menjalani langkah-langkah kecil, meskipun belum ada perubahan besar yang terasa.</p></div>
+      <div class="tech-card"><span class="tech-num">08</span><h4>Merayakan Progres Kecil</h4><p>Hargai setiap kemajuan, sekecil apa pun. Merayakan progres membuatmu tetap termotivasi untuk melangkah ke tahap berikutnya.</p></div>
+    </div>
+
+    <h2><span class="h2-eyebrow">Bagian 03</span>Kebiasaan yang Membantu Berani Meraih Mimpi</h2>
+    <div class="check-card" id="habitCard">
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menuliskan mimpi atau cita-cita di tempat yang bisa dilihat setiap hari.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Berani mencoba hal baru meskipun ada rasa takut salah.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Bangkit dan mencoba lagi setelah mengalami kegagalan.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Meminta bantuan atau dukungan saat menghadapi kesulitan.</p></div>
+      <div class="check-item"><div class="check-box" onclick="toggleCheck(this)"></div><p>Menghargai usaha diri sendiri, bukan hanya melihat hasil akhirnya.</p></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-muted);margin-top:8px;">Klik kotak untuk menandai kebiasaan yang sudah rutin kamu lakukan.</p>
+
+  </article>
+
+  <div class="task-header">
+    <span class="h2-eyebrow">Saatnya Praktik</span>
+    <h2>Tugas Siswa</h2>
+    <p>Isi langsung di halaman ini, lalu simpan atau screenshot hasilnya untuk dikumpulkan ke Guru BK / Wali Kelas.</p>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 1</span>
+    <h3>Menilai Keberanian Diri dalam Meraih Mimpi</h3>
+    <p>Beri bintang pada tiap langkah berani meraih mimpi sesuai seberapa baik kamu sudah menerapkannya selama ini (1 bintang = masih jarang, 5 bintang = sudah sangat rutin). Jawab sejujur-jujurnya, tidak ada jawaban yang salah.</p>
+    <div class="rate-card" id="rateCard"></div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 2</span>
+    <h3>Cerita Pengalaman Meraih Mimpi</h3>
+    <p>Pilih satu langkah berani meraih mimpi yang menurutmu paling sering kamu terapkan atau justru paling sulit kamu lakukan. Ceritakan minimal 3 contoh kejadian nyata yang pernah kamu alami.</p>
+    <input class="field" id="t2type" placeholder="Langkah berani meraih mimpi yang kamu ceritakan" style="margin-bottom:10px;">
+    <textarea id="t2text" rows="6" placeholder="Tuliskan cerita/pengalamanmu di sini..."></textarea>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 3</span>
+    <h3>Peta Konsep Berani Meraih Mimpi</h3>
+    <p>Buat satu peta konsep (mind map) sederhana yang menampilkan delapan langkah berani meraih mimpi beserta contoh penerapannya sehari-hari. Boleh digambar tangan di kertas lalu difoto, atau dibuat digital.</p>
+    <div class="draw-box">Gambar peta konsepmu di kertas, lalu tempel/lampirkan fotonya saat mengumpulkan</div>
+  </div>
+
+  <div class="task-card">
+    <span class="task-tag">Tugas 4</span>
+    <h3>Rencana Berani Melangkah Menuju Mimpi Seminggu</h3>
+    <p>Pilih satu mimpi atau target kecil yang ingin kamu wujudkan minggu ini, lalu isi tabel berikut.</p>
+    <input class="field" id="t4type" placeholder="Mimpi/target kecil yang ingin kamu wujudkan minggu ini" style="margin-bottom:14px;">
+    <table class="plan-table">
+      <thead><tr><th>Hari</th><th>Langkah yang Dilakukan</th><th>Tantangan yang Dihadapi</th><th>Catatan Refleksi</th></tr></thead>
+      <tbody id="planBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-bar">
+    <button class="btn" onclick="saveWork()">Simpan Jawaban di Perangkat Ini</button>
+    <button class="btn ghost" onclick="printPage()">Cetak / Simpan sebagai PDF</button>
+  </div>
+  <p class="save-note" id="saveNote">Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.</p>
+
+  <footer>Materi Bimbingan dan Konseling — Kelas 8 · Topik: Berani Meraih Mimpi</footer>
+</div>
+
+<script>
+  const days = ["Senin", "Rabu", "Jumat", "Minggu"];
+  const planBody = document.getElementById('planBody');
+  planBody.innerHTML = days.map((d,i) => `
+    <tr>
+      <td class="day">${d}</td>
+      <td><textarea id="kegiatan-${i}" placeholder="Langkah yang direncanakan..."></textarea></td>
+      <td><textarea id="waktu-${i}" placeholder="Tantangan yang muncul..."></textarea></td>
+      <td><textarea id="refleksi-${i}" placeholder="Catatan..."></textarea></td>
+    </tr>`).join('');
+
+  const principles = [
+    "Mengenali Mimpi dan Cita-Cita Sendiri",
+    "Menetapkan Tujuan yang Jelas",
+    "Memecah Mimpi Besar Menjadi Langkah Kecil",
+    "Berani Mencoba Hal Baru",
+    "Menerima Kegagalan sebagai Bagian dari Proses",
+    "Mencari Dukungan dari Orang Sekitar",
+    "Konsisten Berusaha Meski Hasil Belum Terlihat",
+    "Merayakan Progres Kecil"
+  ];
+  const rateCard = document.getElementById('rateCard');
+  rateCard.innerHTML = principles.map((name,i) => `
+    <div class="rate-row">
+      <p>${name}</p>
+      <div class="rate-stars" data-idx="${i}">
+        ${[1,2,3,4,5].map(n => `<span class="star" data-val="${n}" onclick="setStar(${i},${n})">★</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  function setStar(idx, val){
+    const row = rateCard.querySelector(`.rate-stars[data-idx="${idx}"]`);
+    row.querySelectorAll('.star').forEach(s => {
+      s.classList.toggle('on', parseInt(s.dataset.val) <= val);
+    });
+    row.dataset.value = val;
+    saveState();
+  }
+
+  function toggleCheck(el){ el.classList.toggle('on'); saveState(); }
+
+  function collectState(){
+    const state = {
+      ratings: principles.map((n,i) => parseInt(rateCard.querySelector(`.rate-stars[data-idx="${i}"]`).dataset.value || 0)),
+      t2type: document.getElementById('t2type').value,
+      t2text: document.getElementById('t2text').value,
+      t4type: document.getElementById('t4type').value,
+      plan: days.map((d,i) => ({
+        kegiatan: document.getElementById(`kegiatan-${i}`).value,
+        waktu: document.getElementById(`waktu-${i}`).value,
+        refleksi: document.getElementById(`refleksi-${i}`).value
+      })),
+      habits: Array.from(document.querySelectorAll('.check-box')).map(b => b.classList.contains('on'))
+    };
+    return state;
+  }
+
+  function saveState(){
+    try{ localStorage.setItem('berani-meraih-mimpi-kelas8', JSON.stringify(collectState())); }catch(e){}
+  }
+
+  function loadState(){
+    try{
+      const raw = localStorage.getItem('berani-meraih-mimpi-kelas8');
+      if(!raw) return;
+      const s = JSON.parse(raw);
+      (s.ratings || []).forEach((val,i) => { if(val) setStar(i, val); });
+      document.getElementById('t2type').value = s.t2type || '';
+      document.getElementById('t2text').value = s.t2text || '';
+      document.getElementById('t4type').value = s.t4type || '';
+      (s.plan || []).forEach((p,i) => {
+        if(document.getElementById(`kegiatan-${i}`)) document.getElementById(`kegiatan-${i}`).value = p.kegiatan || '';
+        if(document.getElementById(`waktu-${i}`)) document.getElementById(`waktu-${i}`).value = p.waktu || '';
+        if(document.getElementById(`refleksi-${i}`)) document.getElementById(`refleksi-${i}`).value = p.refleksi || '';
+      });
+      const boxes = document.querySelectorAll('.check-box');
+      (s.habits || []).forEach((on,i) => { if(on && boxes[i]) boxes[i].classList.add('on'); });
+    }catch(e){}
+  }
+
+  function saveWork(){
+    saveState();
+    const note = document.getElementById('saveNote');
+    note.textContent = 'Tersimpan! Jawabanmu aman di perangkat ini.';
+    setTimeout(() => { note.textContent = 'Jawabanmu otomatis tersimpan di perangkat ini selama kamu tidak menghapus riwayat browser.'; }, 2500);
+  }
+
+  function printPage(){ saveState(); window.print(); }
+
+  document.querySelectorAll('textarea, input.field').forEach(el => el.addEventListener('input', saveState));
+  loadState();
+</script>
+</body>
+</html>
