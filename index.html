@@ -111,13 +111,16 @@
   /* MATERI PPTX */
   section.materi-pptx{background:var(--cloud);}
   .pptx-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:20px;}
-  .pptx-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, border-color .18s ease;}
-  .pptx-card:hover{transform:translateY(-3px); border-color:var(--coral);}
-  .pptx-icon{font-size:26px;}
+  .pptx-card{background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;}
+  .pptx-card:hover{transform:translateY(-3px); border-color:var(--coral); box-shadow:0 12px 28px rgba(20,20,40,0.08);}
+  .pptx-thumb{width:100%; aspect-ratio:16/9; object-fit:cover; display:block; border-bottom:1px solid var(--line); background:#f2f2f2;}
+  .pptx-body{padding:20px; display:flex; flex-direction:column; gap:8px; flex-grow:1;}
+  .pptx-icon{font-size:22px;}
   .pptx-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--coral);}
-  .pptx-card h4{font-size:16px; font-family:'Sora', sans-serif;}
+  .pptx-card h4{font-size:16px; font-family:'Sora', sans-serif; color:var(--ink);}
   .pptx-card p{font-size:13.5px; color:#4a5468; flex-grow:1;}
-  .pptx-open{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--teal); display:inline-flex; align-items:center; gap:6px;}
+  .pptx-open{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:#fff; background:var(--teal); text-decoration:none; text-align:center; padding:10px 14px; border-radius:10px; display:inline-flex; align-items:center; justify-content:center; gap:6px; margin-top:6px; transition:opacity .15s ease;}
+  .pptx-open:hover{opacity:.85;}
 
   /* GAME BK */
   section.game-bk{background:var(--navy-deep); color:#fff;}
@@ -527,48 +530,66 @@
       <p>Slide materi bimbingan yang bisa diunduh dan digunakan langsung untuk kegiatan klasikal atau belajar mandiri.</p>
     </div>
     <div class="pptx-grid">
-      <a href="materi/PersonalBranding.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">🧑‍💼</span>
-        <span class="pptx-tag">Bimbingan Karier</span>
-        <h4>Personal Branding</h4>
-        <p>Mengenal cara membangun citra diri yang positif dan autentik, sebagai bekal untuk masa depan dan dunia kerja.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
-      <a href="materi/Kelola_Emosimu.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">💛</span>
-        <span class="pptx-tag">Bimbingan Pribadi</span>
-        <h4>Kelola Emosimu</h4>
-        <p>Mengenali berbagai jenis emosi dan cara mengelolanya dengan sehat agar tidak berlarut-larut atau meledak-ledak.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
-      <a href="materi/Kesulitan_Pengambilan_Keputusan_Karier.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">🧭</span>
-        <span class="pptx-tag">Bimbingan Karier</span>
-        <h4>Kesulitan Pengambilan Keputusan Karier</h4>
-        <p>Memahami penyebab bingung menentukan arah karier dan langkah-langkah sederhana untuk mulai memutuskan dengan lebih yakin.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
-      <a href="materi/Jaga_Konsentrasi.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">🎯</span>
-        <span class="pptx-tag">Bimbingan Belajar</span>
-        <h4>Jaga Konsentrasi</h4>
-        <p>Tips dan kebiasaan sederhana untuk menjaga fokus belajar di tengah banyaknya gangguan sehari-hari.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
-      <a href="materi/keutamaan-bersyukur.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">🙏</span>
-        <span class="pptx-tag">Bimbingan Pribadi</span>
-        <h4>Keutamaan Bersyukur</h4>
-        <p>Mengenal manfaat rasa syukur bagi kesehatan mental dan cara melatihnya menjadi kebiasaan sehari-hari.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
-      <a href="materi/FOMO.pptx" download class="pptx-card reveal">
-        <span class="pptx-icon">📱</span>
-        <span class="pptx-tag">Bimbingan Sosial</span>
-        <h4>Mengelola Rasa FOMO</h4>
-        <p>Memahami apa itu FOMO (fear of missing out), penyebabnya, dan cara menghadapinya agar tetap tenang dan nyaman dengan diri sendiri.</p>
-        <span class="pptx-open">Unduh PPTX ↓</span>
-      </a>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/PersonalBranding.jpg" alt="Pratinjau slide Personal Branding" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">🧑‍💼</span>
+          <span class="pptx-tag">Bimbingan Karier</span>
+          <h4>Personal Branding</h4>
+          <p>Mengenal cara membangun citra diri yang positif dan autentik, sebagai bekal untuk masa depan dan dunia kerja.</p>
+          <a href="materi/PersonalBranding.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/Kelola_Emosimu.jpg" alt="Pratinjau slide Kelola Emosimu" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">💛</span>
+          <span class="pptx-tag">Bimbingan Pribadi</span>
+          <h4>Kelola Emosimu</h4>
+          <p>Mengenali berbagai jenis emosi dan cara mengelolanya dengan sehat agar tidak berlarut-larut atau meledak-ledak.</p>
+          <a href="materi/Kelola_Emosimu.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/Kesulitan_Pengambilan_Keputusan_Karier.jpg" alt="Pratinjau slide Kesulitan Pengambilan Keputusan Karier" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">🧭</span>
+          <span class="pptx-tag">Bimbingan Karier</span>
+          <h4>Kesulitan Pengambilan Keputusan Karier</h4>
+          <p>Memahami penyebab bingung menentukan arah karier dan langkah-langkah sederhana untuk mulai memutuskan dengan lebih yakin.</p>
+          <a href="materi/Kesulitan_Pengambilan_Keputusan_Karier.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/Jaga_Konsentrasi.jpg" alt="Pratinjau slide Jaga Konsentrasi" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">🎯</span>
+          <span class="pptx-tag">Bimbingan Belajar</span>
+          <h4>Jaga Konsentrasi</h4>
+          <p>Tips dan kebiasaan sederhana untuk menjaga fokus belajar di tengah banyaknya gangguan sehari-hari.</p>
+          <a href="materi/Jaga_Konsentrasi.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/keutamaan-bersyukur.jpg" alt="Pratinjau slide Keutamaan Bersyukur" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">🙏</span>
+          <span class="pptx-tag">Bimbingan Pribadi</span>
+          <h4>Keutamaan Bersyukur</h4>
+          <p>Mengenal manfaat rasa syukur bagi kesehatan mental dan cara melatihnya menjadi kebiasaan sehari-hari.</p>
+          <a href="materi/keutamaan-bersyukur.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
+      <div class="pptx-card reveal">
+        <img src="materi/preview/FOMO.jpg" alt="Pratinjau slide FOMO" class="pptx-thumb" loading="lazy">
+        <div class="pptx-body">
+          <span class="pptx-icon">📱</span>
+          <span class="pptx-tag">Bimbingan Sosial</span>
+          <h4>Mengelola Rasa FOMO</h4>
+          <p>Memahami apa itu FOMO (fear of missing out), penyebabnya, dan cara menghadapinya agar tetap tenang dan nyaman dengan diri sendiri.</p>
+          <a href="materi/FOMO.pptx" download class="pptx-open">Unduh PPTX ↓</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
