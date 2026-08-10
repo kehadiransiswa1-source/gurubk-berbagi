@@ -108,6 +108,17 @@
   .klasikal-card p{font-size:13.5px; color:#4a5468; flex-grow:1;}
   .klasikal-open{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--coral); display:inline-flex; align-items:center; gap:6px;}
 
+  /* MATERI PPTX */
+  section.materi-pptx{background:var(--cloud);}
+  .pptx-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:20px;}
+  .pptx-card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:24px; text-decoration:none; color:var(--ink); display:flex; flex-direction:column; gap:10px; transition:transform .18s ease, border-color .18s ease;}
+  .pptx-card:hover{transform:translateY(-3px); border-color:var(--coral);}
+  .pptx-icon{font-size:26px;}
+  .pptx-tag{font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--coral);}
+  .pptx-card h4{font-size:16px; font-family:'Sora', sans-serif;}
+  .pptx-card p{font-size:13.5px; color:#4a5468; flex-grow:1;}
+  .pptx-open{font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--teal); display:inline-flex; align-items:center; gap:6px;}
+
   /* GAME BK */
   section.game-bk{background:var(--navy-deep); color:#fff;}
   section.game-bk .section-head p{color:rgba(255,255,255,0.65);}
@@ -178,6 +189,7 @@
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#layanan">Layanan</a></li>
       <li><a href="#layanan-klasikal">Layanan Klasikal</a></li>
+      <li><a href="#materi-pptx">Materi PPTX</a></li>
       <li><a href="#game-bk">Game BK</a></li>
       <li><a href="#artikel">Artikel</a></li>
       <li><a href="#kontak">Kontak</a></li>
@@ -503,6 +515,60 @@
           <span class="klasikal-open">Buka materi →</span>
         </a>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="materi-pptx" id="materi-pptx">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow dark">Unduhan</div>
+      <h2>Materi Presentasi (PPTX)</h2>
+      <p>Slide materi bimbingan yang bisa diunduh dan digunakan langsung untuk kegiatan klasikal atau belajar mandiri.</p>
+    </div>
+    <div class="pptx-grid">
+      <a href="materi/PersonalBranding.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">🧑‍💼</span>
+        <span class="pptx-tag">Bimbingan Karier</span>
+        <h4>Personal Branding</h4>
+        <p>Mengenal cara membangun citra diri yang positif dan autentik, sebagai bekal untuk masa depan dan dunia kerja.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
+      <a href="materi/Kelola_Emosimu.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">💛</span>
+        <span class="pptx-tag">Bimbingan Pribadi</span>
+        <h4>Kelola Emosimu</h4>
+        <p>Mengenali berbagai jenis emosi dan cara mengelolanya dengan sehat agar tidak berlarut-larut atau meledak-ledak.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
+      <a href="materi/Kesulitan_Pengambilan_Keputusan_Karier.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">🧭</span>
+        <span class="pptx-tag">Bimbingan Karier</span>
+        <h4>Kesulitan Pengambilan Keputusan Karier</h4>
+        <p>Memahami penyebab bingung menentukan arah karier dan langkah-langkah sederhana untuk mulai memutuskan dengan lebih yakin.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
+      <a href="materi/Jaga_Konsentrasi.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">🎯</span>
+        <span class="pptx-tag">Bimbingan Belajar</span>
+        <h4>Jaga Konsentrasi</h4>
+        <p>Tips dan kebiasaan sederhana untuk menjaga fokus belajar di tengah banyaknya gangguan sehari-hari.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
+      <a href="materi/keutamaan-bersyukur.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">🙏</span>
+        <span class="pptx-tag">Bimbingan Pribadi</span>
+        <h4>Keutamaan Bersyukur</h4>
+        <p>Mengenal manfaat rasa syukur bagi kesehatan mental dan cara melatihnya menjadi kebiasaan sehari-hari.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
+      <a href="materi/FOMO.pptx" download class="pptx-card reveal">
+        <span class="pptx-icon">📱</span>
+        <span class="pptx-tag">Bimbingan Sosial</span>
+        <h4>Mengelola Rasa FOMO</h4>
+        <p>Memahami apa itu FOMO (fear of missing out), penyebabnya, dan cara menghadapinya agar tetap tenang dan nyaman dengan diri sendiri.</p>
+        <span class="pptx-open">Unduh PPTX ↓</span>
+      </a>
     </div>
   </div>
 </section>
