@@ -58,6 +58,25 @@
   .pill-link{margin-top:22px; display:inline-flex; align-items:center; gap:8px; font-size:13px; font-family:'IBM Plex Mono'; background:rgba(242,183,5,0.12); border:1px solid rgba(242,183,5,0.35); color:var(--gold); padding:8px 16px; border-radius:999px; text-decoration:none;}
   .pill-link:hover{background:rgba(242,183,5,0.2);}
 
+  /* PENCARIAN */
+  section.pencarian{padding:34px 0 6px; background:var(--cloud);}
+  .search-box{max-width:720px; margin:0 auto;}
+  .search-input-wrap{position:relative; display:flex; align-items:center; background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:4px 8px; box-shadow:0 6px 20px rgba(16,24,38,0.05); transition:border-color .15s ease;}
+  .search-input-wrap:focus-within{border-color:var(--teal);}
+  .search-ic{font-size:16px; padding:0 10px 0 4px; flex-shrink:0;}
+  #searchInput{flex:1; border:none; outline:none; background:transparent; font-family:'Inter'; font-size:15.5px; padding:13px 4px; color:var(--ink); min-width:0;}
+  .search-clear{border:none; background:none; cursor:pointer; font-size:15px; color:#8891a3; padding:8px 10px; flex-shrink:0;}
+  .search-hint{margin-top:10px; font-size:13px; color:#6a7488; text-align:center;}
+  .search-results{margin-top:16px; display:flex; flex-direction:column; gap:10px; max-height:64vh; overflow-y:auto;}
+  .search-result-item{background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 18px; text-decoration:none; color:var(--ink); display:flex; gap:14px; align-items:flex-start; cursor:pointer; transition:border-color .15s ease, transform .15s ease;}
+  .search-result-item:hover{border-color:var(--teal); transform:translateY(-1px);}
+  .search-result-icon{font-size:21px; flex-shrink:0; line-height:1.4;}
+  .search-result-body{flex:1; min-width:0;}
+  .search-result-group{font-family:'IBM Plex Mono', monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--teal);}
+  .search-result-item h4{font-size:15px; margin:4px 0 4px; font-family:'Sora'; font-weight:600;}
+  .search-result-item p{font-size:13px; color:#4a5468; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+  .search-empty{text-align:center; padding:22px 10px; color:#6a7488; font-size:14px;}
+
   /* MIRROR SIGNATURE */
   .mirror-box{display:flex; flex-direction:column; align-items:center; gap:16px;}
   .mirror{width:230px; height:230px; border-radius:50%; background:radial-gradient(circle at 32% 28%, #33456f 0%, #1a2647 55%, #0f1830 100%); border:2px solid rgba(242,183,5,0.28); display:flex; align-items:center; justify-content:center; padding:26px; position:relative; box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);}
@@ -189,6 +208,7 @@
       <span class="txt">Guru BK Berbagi<small>SMP Wisata Sanur</small></span>
     </a>
     <ul class="nav-links">
+      <li><a href="#pencarian" id="navSearchLink">🔍 Cari</a></li>
       <li><a href="#tentang">Tentang</a></li>
       <li><a href="#layanan">Layanan</a></li>
       <li><a href="#layanan-klasikal">Layanan Klasikal</a></li>
@@ -219,6 +239,20 @@
       </div>
       <button class="btn btn-ghost" id="mirrorBtn" style="color:var(--navy); border-color:var(--line); background:#fff;">🔄 Refleksi Baru</button>
       <p class="mirror-hint">Cermin kecil untuk mulai mengenal diri sendiri</p>
+    </div>
+  </div>
+</section>
+
+<section class="pencarian" id="pencarian">
+  <div class="wrap">
+    <div class="search-box reveal">
+      <div class="search-input-wrap">
+        <span class="search-ic">🔍</span>
+        <input type="text" id="searchInput" placeholder="Cari materi, artikel, game, atau PPTX... misalnya: bullying, percaya diri, ujian" autocomplete="off">
+        <button type="button" id="searchClear" class="search-clear" aria-label="Hapus pencarian" hidden>✕</button>
+      </div>
+      <p class="search-hint" id="searchHint">Ketik kata kunci untuk mencari di seluruh Layanan Klasikal, Materi PPTX, Game BK, dan Artikel di halaman ini.</p>
+      <div class="search-results" id="searchResults" hidden></div>
     </div>
   </div>
 </section>
@@ -930,6 +964,192 @@
     entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
   }, {threshold:0.12});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+  // ====================================================================
+  // KOLOM PENCARIAN
+  // Mengindeks otomatis semua kartu Layanan Klasikal, Materi PPTX,
+  // Game BK, dan Artikel yang sudah ada di halaman — tidak perlu diisi
+  // manual. Kalau nanti ada materi/game/artikel baru ditambahkan lewat
+  // array masing-masing (klasikalGrid, games, articles), pencarian akan
+  // otomatis ikut mengenalinya karena dijalankan setelah semuanya render.
+  // ====================================================================
+  (function(){
+    function norm(s){ return (s || '').toLowerCase(); }
+
+    function buildIndex(){
+      const idx = [];
+
+      document.querySelectorAll('.klasikal-card').forEach(el=>{
+        idx.push({
+          title: el.querySelector('h4')?.textContent.trim() || '',
+          tag: el.querySelector('.klasikal-tag')?.textContent.trim() || '',
+          desc: el.querySelector('p')?.textContent.trim() || '',
+          icon: el.querySelector('.klasikal-icon')?.textContent.trim() || '📘',
+          group: 'Layanan Klasikal',
+          href: el.getAttribute('href'),
+          target: el
+        });
+      });
+
+      document.querySelectorAll('.pptx-card').forEach(el=>{
+        idx.push({
+          title: el.querySelector('h4')?.textContent.trim() || '',
+          tag: el.querySelector('.pptx-tag')?.textContent.trim() || '',
+          desc: el.querySelector('p')?.textContent.trim() || '',
+          icon: el.querySelector('.pptx-icon')?.textContent.trim() || '📄',
+          group: 'Materi PPTX',
+          href: '#materi-pptx',
+          target: el
+        });
+      });
+
+      document.querySelectorAll('#gameGrid .game-card').forEach(el=>{
+        idx.push({
+          title: el.querySelector('h3')?.textContent.trim() || '',
+          tag: el.querySelector('.game-tag')?.textContent.trim() || '',
+          desc: el.querySelector('p')?.textContent.trim() || '',
+          icon: el.querySelector('.game-icon')?.textContent.trim() || '🎲',
+          group: 'Game BK',
+          href: el.getAttribute('href'),
+          target: el
+        });
+      });
+
+      document.querySelectorAll('#articleList > a.honesty-card').forEach(el=>{
+        idx.push({
+          title: el.querySelector('h3')?.textContent.trim() || '',
+          tag: el.querySelector('.art-tag')?.textContent.trim() || '',
+          desc: el.querySelector('p')?.textContent.trim() || '',
+          icon: '📰',
+          group: 'Artikel',
+          href: el.getAttribute('href'),
+          target: el
+        });
+      });
+
+      document.querySelectorAll('#articleList > details.article-card').forEach(el=>{
+        idx.push({
+          title: el.querySelector('h3')?.textContent.trim() || '',
+          tag: el.querySelector('.art-tag')?.textContent.trim() || '',
+          desc: el.querySelector('.art-body p')?.textContent.trim() || '',
+          icon: '📰',
+          group: 'Artikel',
+          href: null,
+          target: el
+        });
+      });
+
+      return idx;
+    }
+
+    function initSearch(){
+      const searchIndex = buildIndex();
+      const input = document.getElementById('searchInput');
+      const resultsBox = document.getElementById('searchResults');
+      const hint = document.getElementById('searchHint');
+      const clearBtn = document.getElementById('searchClear');
+      if(!input || !resultsBox) return;
+
+      function renderResults(query){
+        const q = norm(query.trim());
+
+        if(!q){
+          resultsBox.hidden = true;
+          resultsBox.innerHTML = '';
+          hint.hidden = false;
+          clearBtn.hidden = true;
+          return;
+        }
+
+        clearBtn.hidden = false;
+        hint.hidden = true;
+        resultsBox.hidden = false;
+        resultsBox.innerHTML = '';
+
+        const matches = searchIndex.filter(item=>{
+          const hay = norm(item.title + ' ' + item.tag + ' ' + item.desc);
+          return hay.includes(q);
+        }).sort((a, b)=>{
+          const aTitle = norm(a.title).includes(q) ? 0 : 1;
+          const bTitle = norm(b.title).includes(q) ? 0 : 1;
+          return aTitle - bTitle;
+        });
+
+        if(matches.length === 0){
+          const empty = document.createElement('div');
+          empty.className = 'search-empty';
+          empty.textContent = 'Tidak ditemukan materi yang cocok. Coba kata kunci lain, misalnya "bullying", "percaya diri", atau "ujian".';
+          resultsBox.appendChild(empty);
+          return;
+        }
+
+        matches.forEach(item=>{
+          const a = document.createElement('a');
+          a.className = 'search-result-item';
+          a.href = item.href || '#';
+
+          const icon = document.createElement('span');
+          icon.className = 'search-result-icon';
+          icon.textContent = item.icon;
+
+          const body = document.createElement('span');
+          body.className = 'search-result-body';
+
+          const group = document.createElement('span');
+          group.className = 'search-result-group';
+          group.textContent = item.group + (item.tag ? ' · ' + item.tag : '');
+
+          const h4 = document.createElement('h4');
+          h4.textContent = item.title;
+
+          const p = document.createElement('p');
+          p.textContent = item.desc;
+
+          body.appendChild(group);
+          body.appendChild(h4);
+          body.appendChild(p);
+          a.appendChild(icon);
+          a.appendChild(body);
+
+          if(!item.href){
+            a.addEventListener('click', function(e){
+              e.preventDefault();
+              item.target.setAttribute('open', '');
+              item.target.scrollIntoView({behavior:'smooth', block:'center'});
+            });
+          }
+
+          resultsBox.appendChild(a);
+        });
+      }
+
+      input.addEventListener('input', ()=> renderResults(input.value));
+      clearBtn.addEventListener('click', ()=>{
+        input.value = '';
+        renderResults('');
+        input.focus();
+      });
+    }
+
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', initSearch);
+    } else {
+      initSearch();
+    }
+
+    // Fokuskan kolom pencarian saat link "Cari" di menu diklik
+    const navSearchLink = document.getElementById('navSearchLink');
+    if(navSearchLink){
+      navSearchLink.addEventListener('click', function(){
+        setTimeout(function(){
+          const el = document.getElementById('searchInput');
+          if(el) el.focus();
+        }, 400);
+      });
+    }
+  })();
 </script>
 
 </body>
