@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bullying: Kenali, Cegah, dan Berani Bertindak — Guru BK Berbagi</title>
+<meta name="description" content="Series BK: apa itu bullying, jenis-jenisnya, dampaknya, langkah yang harus dilakukan, dan peran Guru BK — untuk siswa SMP Wisata Sanur.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#16213E;
+    --navy-deep:#0D1428;
+    --cloud:#F4F6FA;
+    --gold:#F2B705;
+    --coral:#FF6B4A;
+    --teal:#2A9D8F;
+    --ink:#101826;
+    --line: rgba(16,24,38,0.12);
+    --maxw: 900px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter', sans-serif; background:var(--cloud); color:var(--ink); line-height:1.6; -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Sora', sans-serif; line-height:1.2;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+  .eyebrow{font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .eyebrow::before{content:""; width:22px; height:2px; background:var(--gold); display:inline-block;}
+  .eyebrow.dark{color:var(--teal);}
+
+  .topbar{background:var(--navy); padding:16px 0;}
+  .topbar .wrap{display:flex; align-items:center; justify-content:space-between;}
+  .back-link{color:rgba(255,255,255,0.75); text-decoration:none; font-size:14px; font-family:'IBM Plex Mono', monospace; display:inline-flex; align-items:center; gap:8px;}
+  .back-link:hover{color:var(--gold);}
+  .brand{color:#fff; font-family:'Sora'; font-weight:700; font-size:14px; opacity:.85;}
+
+  .hero{background:radial-gradient(120% 140% at 20% -10%, #1E2C50 0%, var(--navy) 45%, var(--navy-deep) 100%); color:#fff; padding:60px 0 56px;}
+  .hero h1{font-size:clamp(30px, 5vw, 46px); font-weight:800; letter-spacing:-0.02em;}
+  .hero h1 em{font-style:normal; color:var(--gold);}
+  .hero p.lead{margin-top:18px; font-size:16.5px; max-width:56ch; color:rgba(255,255,255,0.78);}
+  .hero .quote{margin-top:26px; border-left:3px solid var(--gold); padding-left:16px; font-size:15px; color:rgba(255,255,255,0.85); font-style:italic;}
+
+  section{padding:56px 0;}
+  .section-head{max-width:640px; margin-bottom:32px;}
+  .section-head h2{font-size:clamp(22px,3.2vw,30px); font-weight:700; letter-spacing:-0.01em;}
+  .section-head p{margin-top:12px; color:#3c465c; font-size:15.5px;}
+
+  /* Definisi */
+  .callout{background:#fff; border:1px solid var(--line); border-left:4px solid var(--teal); border-radius:14px; padding:22px 24px; font-size:15.5px; color:#2a3348;}
+  .callout strong{color:var(--navy);}
+  .note-box{background:var(--navy); color:#fff; border-radius:14px; padding:20px 22px; font-size:14.5px; margin-top:20px; display:flex; gap:12px; align-items:flex-start;}
+  .note-box .ic{font-size:18px; flex-shrink:0;}
+
+  .where-row{display:flex; gap:14px; flex-wrap:wrap; margin-top:22px;}
+  .where-chip{background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 18px; font-size:13.5px; font-family:'IBM Plex Mono', monospace; color:var(--navy); flex:1; min-width:140px; text-align:center;}
+
+  /* Jenis bullying */
+  section.jenis{background:#fff;}
+  .jenis-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px;}
+  .jenis-card{background:var(--cloud); border:1px solid var(--line); border-radius:16px; padding:24px;}
+  .jenis-card .num{width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Sora'; font-weight:700; font-size:14px; color:#fff; margin-bottom:14px;}
+  .jenis-card:nth-child(1) .num{background:var(--navy);}
+  .jenis-card:nth-child(2) .num{background:var(--gold); color:var(--navy);}
+  .jenis-card:nth-child(3) .num{background:var(--teal);}
+  .jenis-card:nth-child(4) .num{background:var(--coral);}
+  .jenis-card h3{font-size:16.5px; margin-bottom:8px;}
+  .jenis-card p{font-size:13.5px; color:#4a5468; margin-bottom:12px;}
+  .jenis-card ul{list-style:none; display:flex; flex-direction:column; gap:6px;}
+  .jenis-card li{font-size:13px; color:#3c465c; display:flex; gap:8px;}
+  .jenis-card li::before{content:"•"; color:var(--coral); font-weight:700;}
+
+  /* Dampak */
+  .dampak-list{display:flex; flex-direction:column; gap:14px;}
+  .dampak-item{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px 22px; display:flex; gap:16px; align-items:flex-start;}
+  .dampak-item .num{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--coral); flex-shrink:0; padding-top:2px;}
+  .dampak-item h3{font-size:15.5px; margin-bottom:4px;}
+  .dampak-item p{font-size:13.5px; color:#4a5468;}
+
+  /* Langkah */
+  section.langkah{background:#fff;}
+  .langkah-list{display:flex; flex-direction:column; gap:14px;}
+  .langkah-item{border:1px solid var(--line); border-radius:14px; padding:20px 22px; display:flex; gap:18px; align-items:flex-start; background:var(--cloud);}
+  .langkah-item .num{width:32px; height:32px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Sora'; font-weight:700; font-size:14px; flex-shrink:0;}
+  .langkah-item h3{font-size:15.5px; margin-bottom:4px; color:var(--navy);}
+  .langkah-item p{font-size:13.5px; color:#4a5468;}
+
+  /* Guru BK */
+  .gurubk-box{background:linear-gradient(120deg, var(--navy) 0%, #22315a 100%); color:#fff; border-radius:18px; padding:32px 28px;}
+  .gurubk-box h2{font-size:22px; margin-bottom:16px; color:#fff;}
+  .gurubk-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:16px; margin-top:20px;}
+  .gurubk-card h4{font-size:14.5px; color:var(--gold); margin-bottom:6px;}
+  .gurubk-card p{font-size:13px; color:rgba(255,255,255,0.75);}
+
+  .final-cta{background:var(--cloud); text-align:center; padding:56px 0;}
+  .final-cta h2{font-size:clamp(22px,3.4vw,30px); margin-bottom:14px;}
+  .final-cta p{color:#3c465c; font-size:15px; max-width:52ch; margin:0 auto 26px;}
+  .btn{font-family:'Sora', sans-serif; font-weight:600; font-size:14.5px; padding:13px 26px; border-radius:999px; border:1px solid transparent; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; background:var(--coral); color:#fff; box-shadow:0 8px 24px rgba(255,107,74,0.3);}
+
+  .tag-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .tag{font-family:'IBM Plex Mono'; font-size:12px; padding:7px 13px; border-radius:999px; background:#fff; border:1px solid var(--line); color:var(--navy);}
+
+  footer{background:var(--navy-deep); color:rgba(255,255,255,0.55); text-align:center; padding:28px 0; font-size:12.5px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="index.html" class="back-link">← Kembali ke Guru BK Berbagi</a>
+    <span class="brand">SMP Wisata Sanur</span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Series BK · Perundungan</div>
+    <h1>Bullying: Kenali, Cegah, dan <em>Berani Bertindak</em></h1>
+    <p class="lead">Sekolah seharusnya menjadi tempat yang aman untuk semua. Yuk, kenali apa itu bullying, jenis-jenisnya, dampaknya, dan apa yang bisa kita lakukan bersama.</p>
+    <p class="quote">"Kebaikan kecilmu bisa menyelamatkan seseorang."</p>
+  </div>
+</section>
+
+<section id="apa-itu">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow dark">01 · Apa itu Bullying?</div>
+      <h2>Bukan sekadar bercanda</h2>
+    </div>
+    <div class="callout">
+      <strong>Bullying</strong> adalah perilaku menyakiti, merendahkan, atau mengintimidasi orang lain yang dilakukan secara sengaja dan dapat terjadi berulang. Bullying tidak hanya meninggalkan luka fisik, tetapi juga luka di hati yang bisa bertahan lama.
+    </div>
+    <p style="margin-top:20px; font-size:14.5px; color:#4a5468;">Siapa pun bisa menjadi korban, dan siapa pun bisa menjadi pelaku. Bullying bisa terjadi:</p>
+    <div class="where-row">
+      <div class="where-chip">🏫 Di sekolah</div>
+      <div class="where-chip">🧑‍🤝‍🧑 Di lingkungan pergaulan</div>
+      <div class="where-chip">📱 Di media digital</div>
+      <div class="where-chip">✨ Dan di mana saja</div>
+    </div>
+    <div class="note-box">
+      <span class="ic">💬</span>
+      <span>Setiap orang berhak merasa aman, dihargai, dan diperlakukan dengan baik. Karena setiap kata dan perbuatan kita berpengaruh bagi orang lain.</span>
+    </div>
+  </div>
+</section>
+
+<section class="jenis" id="jenis">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow dark">02 · Jenis-jenis Bullying</div>
+      <h2>Kenali bentuknya agar lebih waspada</h2>
+      <p>Setiap bentuk bullying itu salah dan bisa melukai perasaan orang lain.</p>
+    </div>
+    <div class="jenis-grid">
+      <div class="jenis-card">
+        <div class="num">1</div>
+        <h3>Bullying Fisik</h3>
+        <p>Perilaku menyakiti tubuh atau merusak barang milik orang lain.</p>
+        <ul>
+          <li>Memukul</li><li>Menendang</li><li>Mendorong</li><li>Mencubit</li><li>Merusak barang</li>
+        </ul>
+      </div>
+      <div class="jenis-card">
+        <div class="num">2</div>
+        <h3>Bullying Verbal</h3>
+        <p>Perilaku menggunakan kata-kata untuk menyakiti dan merendahkan orang lain.</p>
+        <ul>
+          <li>Mengejek</li><li>Menghina</li><li>Memanggil dengan julukan yang menyakitkan</li><li>Mengancam</li>
+        </ul>
+      </div>
+      <div class="jenis-card">
+        <div class="num">3</div>
+        <h3>Bullying Sosial</h3>
+        <p>Perilaku yang bertujuan mengucilkan atau menjauhi seseorang dari pergaulan.</p>
+        <ul>
+          <li>Mengabaikan</li><li>Mengucilkan</li><li>Tidak mengajak bermain/bergaul</li><li>Menyebarkan gosip</li>
+        </ul>
+      </div>
+      <div class="jenis-card">
+        <div class="num">4</div>
+        <h3>Cyberbullying</h3>
+        <p>Perilaku menyakiti, mempermalukan, atau mengintimidasi seseorang melalui media digital.</p>
+        <ul>
+          <li>Menyebar fitnah di media sosial</li><li>Mengirim pesan kasar</li><li>Mengunggah foto/video tanpa izin</li><li>Mempermalukan secara online</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="dampak">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow dark">03 · Dampak Bullying</div>
+      <h2>Bukan hanya melukai saat ini</h2>
+      <p>Setiap tindakan bullying bisa meninggalkan luka yang mendalam bagi korban, dan bisa berdampak dalam jangka panjang.</p>
+    </div>
+    <div class="dampak-list">
+      <div class="dampak-item"><span class="num">01</span><div><h3>Merasa takut dan tidak nyaman</h3><p>Korban merasa cemas, khawatir, dan tidak aman saat di sekolah maupun di lingkungan sekitarnya.</p></div></div>
+      <div class="dampak-item"><span class="num">02</span><div><h3>Kehilangan rasa percaya diri</h3><p>Sering direndahkan membuat korban merasa tidak berharga, selalu merasa salah, dan meragukan kemampuannya sendiri.</p></div></div>
+      <div class="dampak-item"><span class="num">03</span><div><h3>Sulit berkonsentrasi belajar</h3><p>Korban menjadi sulit fokus, prestasi menurun, dan tidak semangat mengikuti kegiatan belajar.</p></div></div>
+      <div class="dampak-item"><span class="num">04</span><div><h3>Menarik diri dari lingkungan</h3><p>Korban cenderung menyendiri, menjauhi teman, dan enggan berinteraksi karena takut atau tidak percaya lagi pada orang lain.</p></div></div>
+      <div class="dampak-item"><span class="num">05</span><div><h3>Merasa tidak aman</h3><p>Rasa takut dan trauma akibat bullying dapat berdampak pada kesehatan mental, seperti stres, hingga keinginan untuk menyakiti diri sendiri.</p></div></div>
+    </div>
+    <div class="note-box" style="margin-top:20px;">
+      <span class="ic">💙</span>
+      <span>Luka yang tidak terlihat tidak berarti tidak sakit. Mari kita jaga perasaan dan kesehatan mental satu sama lain.</span>
+    </div>
+  </div>
+</section>
+
+<section class="langkah" id="langkah">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow dark">04 · Apa yang Harus Dilakukan?</div>
+      <h2>Kamu tidak sendirian</h2>
+      <p>Jika kamu mengalami atau melihat bullying, lakukan langkah berikut:</p>
+    </div>
+    <div class="langkah-list">
+      <div class="langkah-item"><span class="num">1</span><div><h3>Jangan ikut melakukan atau mendukung</h3><p>Jangan tertawa, membagikan, atau membiarkan bullying terjadi. Kamu bisa jadi bagian dari solusi!</p></div></div>
+      <div class="langkah-item"><span class="num">2</span><div><h3>Jauhkan diri dari situasi yang tidak aman</h3><p>Utamakan keselamatan diri. Segera pergi dan cari tempat yang lebih aman.</p></div></div>
+      <div class="langkah-item"><span class="num">3</span><div><h3>Simpan bukti jika terjadi secara digital</h3><p>Screenshot, rekam, atau simpan pesan sebagai bukti untuk membantu penanganan.</p></div></div>
+      <div class="langkah-item"><span class="num">4</span><div><h3>Ceritakan kepada orang yang dipercaya</h3><p>Berbicaralah dengan orang tua, guru, teman dekat, atau siapa pun yang bisa membantu dan kamu percaya.</p></div></div>
+      <div class="langkah-item"><span class="num">5</span><div><h3>Hubungi Guru BK / wali kelas</h3><p>Guru BK siap mendengarkan, membantu, dan mendampingi untuk mencari solusi terbaik.</p></div></div>
+    </div>
+    <div class="note-box" style="margin-top:20px;">
+      <span class="ic">🤍</span>
+      <span>Melaporkan bullying bukan berarti mengadu, tetapi langkah berani untuk menghentikan kekerasan dan melindungi diri sendiri serta orang lain.</span>
+    </div>
+  </div>
+</section>
+
+<section id="peran-guru-bk">
+  <div class="wrap">
+    <div class="gurubk-box">
+      <div class="eyebrow" style="margin-bottom:6px;">05 · Peran Guru BK</div>
+      <h2>Guru BK hadir untuk membantu, bukan menghakimi</h2>
+      <p style="font-size:14.5px; color:rgba(255,255,255,0.75); max-width:56ch;">Guru BK hadir untuk membantu menciptakan lingkungan sekolah yang aman, nyaman, dan bebas dari bullying.</p>
+      <div class="gurubk-grid">
+        <div class="gurubk-card"><h4>👂 Mendengarkan &amp; memahami masalah</h4><p>Guru BK akan mendengarkan dengan empati dan tanpa menghakimi.</p></div>
+        <div class="gurubk-card"><h4>🤝 Memberikan pendampingan</h4><p>Memberi dukungan emosional agar siswa merasa tenang dan tidak sendirian.</p></div>
+        <div class="gurubk-card"><h4>💡 Membantu mencari solusi</h4><p>Bersama siswa menemukan langkah terbaik untuk mengatasi masalah.</p></div>
+        <div class="gurubk-card"><h4>🧑‍🤝‍🧑 Berkoordinasi dengan pihak terkait</h4><p>Bekerja sama dengan guru, wali kelas, orang tua, dan pihak sekolah.</p></div>
+        <div class="gurubk-card"><h4>🛡️ Menciptakan lingkungan yang lebih aman</h4><p>Melalui program pencegahan, edukasi, dan pembiasaan sikap positif.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="wrap">
+    <h2>Berani bicara bukan berarti lemah</h2>
+    <p>Meminta bantuan adalah langkah untuk melindungi diri. Kamu bisa cerita kapan saja ke Guru BK SMP Wisata Sanur.</p>
+    <a href="index.html#kontak" class="btn">Hubungi Guru BK →</a>
+    <div class="tag-row" style="justify-content:center;">
+      <span class="tag">#StopBullying</span>
+      <span class="tag">#BeKind</span>
+      <span class="tag">#BeraniBicara</span>
+      <span class="tag">#SekolahAman</span>
+      <span class="tag">#BKPeduli</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Guru BK Berbagi — Tim BK SMP Wisata Sanur
+</footer>
+
+</body>
+</html>
