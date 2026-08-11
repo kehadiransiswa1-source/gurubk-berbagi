@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radar Rasa — Misi Kepekaan Sosial-Emosional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0B2027;
+    --bg-panel:#0F2C34;
+    --bg-panel-raised:#153842;
+    --accent-warm:#FF8C61;
+    --accent-soft:#FFD166;
+    --text-light:#F4F1EA;
+    --text-muted:#9FB8BD;
+    --success:#6FCF97;
+    --danger:#E86A6A;
+    --radar-line: rgba(159,184,189,0.18);
+    --radius: 18px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(circle at 50% -10%, #16414c 0%, var(--bg-deep) 55%),
+      var(--bg-deep);
+    color:var(--text-light);
+    font-family:'Plus Jakarta Sans', sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:28px 18px 80px;}
+  h1,h2,h3{font-family:'Baloo 2', sans-serif;margin:0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-soft);
+    margin-bottom:8px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent-soft);box-shadow:0 0 8px var(--accent-soft);}
+
+  /* ---------- HERO / RADAR ---------- */
+  .hero{padding:18px 0 8px;text-align:center;}
+  .hero h1{font-size:34px;font-weight:800;line-height:1.15;color:var(--text-light);}
+  .hero h1 span{color:var(--accent-warm);}
+  .hero p.sub{color:var(--text-muted);font-size:15px;max-width:520px;margin:12px auto 0;line-height:1.55;}
+
+  .radar-box{
+    position:relative;width:min(320px,80vw);aspect-ratio:1/1;margin:28px auto 8px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--bg-panel-raised) 0%, var(--bg-panel) 70%, var(--bg-deep) 100%);
+    border:1px solid var(--radar-line);
+    overflow:hidden;
+  }
+  .radar-box .ring{position:absolute;border:1px solid var(--radar-line);border-radius:50%;}
+  .radar-box .ring.r1{inset:12%;}
+  .radar-box .ring.r2{inset:32%;}
+  .radar-box .ring.r3{inset:52%;}
+  .radar-sweep{
+    position:absolute;inset:0;border-radius:50%;
+    background:conic-gradient(from 0deg, rgba(255,140,97,0.35), transparent 35%);
+    animation:spin 5s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .blip{
+    position:absolute;width:13px;height:13px;border-radius:50%;
+    background:var(--text-muted);
+    transform:translate(-50%,-50%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:var(--bg-deep);
+    box-shadow:0 0 0 rgba(0,0,0,0);
+    transition:background .3s, box-shadow .3s;
+  }
+  .blip.done{background:var(--success);box-shadow:0 0 12px rgba(111,207,151,0.7);}
+  .blip.active{background:var(--accent-warm);box-shadow:0 0 14px rgba(255,140,97,0.85);animation:pulse 1.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{transform:translate(-50%,-50%) scale(1);}50%{transform:translate(-50%,-50%) scale(1.35);}}
+  .radar-center{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:10px;height:10px;border-radius:50%;background:var(--accent-soft);
+    box-shadow:0 0 10px var(--accent-soft);
+  }
+
+  .progress-label{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-muted);letter-spacing:0.06em;margin-top:6px;}
+  .progress-label b{color:var(--accent-soft);}
+
+  /* ---------- CARDS / STATIONS ---------- */
+  .card{
+    background:var(--bg-panel);
+    border:1px solid rgba(159,184,189,0.14);
+    border-radius:var(--radius);
+    padding:26px 24px;
+    margin-top:22px;
+    box-shadow:0 12px 30px rgba(0,0,0,0.25);
+  }
+  .station-title{font-size:22px;font-weight:700;margin-bottom:6px;color:var(--text-light);}
+  .station-desc{color:var(--text-muted);font-size:14.5px;line-height:1.6;margin-bottom:18px;}
+  .scenario{
+    background:var(--bg-panel-raised);
+    border-left:3px solid var(--accent-warm);
+    border-radius:10px;
+    padding:16px 18px;
+    font-size:15px;
+    line-height:1.65;
+    margin-bottom:18px;
+  }
+  .scenario .who{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-soft);letter-spacing:0.08em;text-transform:uppercase;display:block;margin-bottom:6px;}
+
+  .options{display:flex;flex-direction:column;gap:10px;}
+  .opt{
+    text-align:left;
+    background:transparent;
+    border:1.5px solid rgba(159,184,189,0.3);
+    color:var(--text-light);
+    padding:13px 16px;
+    border-radius:12px;
+    font-family:inherit;font-size:14.5px;
+    cursor:pointer;
+    transition:border-color .2s, background .2s, transform .15s;
+    line-height:1.5;
+  }
+  .opt:hover:not(:disabled){border-color:var(--accent-warm);transform:translateX(2px);}
+  .opt:disabled{cursor:default;}
+  .opt.correct{border-color:var(--success);background:rgba(111,207,151,0.12);}
+  .opt.wrong{border-color:var(--danger);background:rgba(232,106,106,0.1);}
+  .opt.dim{opacity:0.45;}
+
+  .feedback{
+    margin-top:14px;padding:14px 16px;border-radius:12px;
+    font-size:14px;line-height:1.65;
+    display:none;
+  }
+  .feedback.show{display:block;animation:fadein .35s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+  .feedback.good{background:rgba(111,207,151,0.12);border:1px solid rgba(111,207,151,0.4);color:#dff5e6;}
+  .feedback.mid{background:rgba(255,209,102,0.12);border:1px solid rgba(255,209,102,0.4);color:#fff3d6;}
+
+  textarea, input[type="text"]{
+    width:100%;background:var(--bg-panel-raised);border:1.5px solid rgba(159,184,189,0.3);
+    border-radius:12px;color:var(--text-light);font-family:inherit;font-size:14.5px;
+    padding:13px 15px;resize:vertical;line-height:1.6;
+  }
+  textarea:focus,input:focus{outline:2px solid var(--accent-warm);outline-offset:1px;border-color:transparent;}
+  label.field-label{display:block;font-size:13px;color:var(--text-muted);margin:16px 0 6px;font-weight:600;}
+
+  .slider-row{margin-top:10px;}
+  input[type="range"]{width:100%;accent-color:var(--accent-warm);}
+  .slider-scale{display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px;font-family:'IBM Plex Mono',monospace;}
+
+  .nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px;}
+  .btn{
+    font-family:'Baloo 2',sans-serif;font-weight:700;font-size:15px;
+    border:none;border-radius:999px;padding:12px 26px;cursor:pointer;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-primary{background:var(--accent-warm);color:#22120a;box-shadow:0 6px 18px rgba(255,140,97,0.35);}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,140,97,0.45);}
+  .btn-primary:disabled{opacity:0.35;cursor:not-allowed;box-shadow:none;transform:none;}
+  .btn-ghost{background:transparent;color:var(--text-muted);border:1.5px solid rgba(159,184,189,0.3);}
+  .btn-ghost:hover{color:var(--text-light);border-color:var(--text-light);}
+
+  .hidden{display:none !important;}
+
+  .badge-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+  .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;background:var(--bg-panel-raised);color:var(--accent-soft);padding:5px 10px;border-radius:999px;border:1px solid rgba(255,209,102,0.3);}
+
+  .final-badge{
+    text-align:center;padding:30px 20px;
+  }
+  .final-badge .ring-badge{
+    width:110px;height:110px;border-radius:50%;margin:0 auto 18px;
+    background:radial-gradient(circle, var(--accent-warm) 0%, #b85a35 100%);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 6px rgba(255,140,97,0.15), 0 10px 30px rgba(255,140,97,0.35);
+    font-size:44px;
+  }
+  .summary-box{
+    background:var(--bg-panel-raised);border-radius:14px;padding:16px 18px;margin-top:18px;text-align:left;
+    font-size:14px;color:var(--text-muted);line-height:1.7;
+  }
+  .summary-box b{color:var(--text-light);}
+
+  @media(max-width:480px){
+    .hero h1{font-size:27px;}
+    .card{padding:20px 16px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .radar-sweep{animation:none;}
+    .blip.active{animation:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Misi Bimbingan Konseling</div>
+    <h1>Radar <span>Rasa</span></h1>
+    <p class="sub">Setiap orang di sekitarmu memancarkan sinyal perasaan — kadang jelas, kadang samar. Misimu: tangkap sinyal itu, pahami artinya, dan balas dengan cara yang tepat. Empat titik menanti di radar.</p>
+
+    <div class="radar-box" id="radarBox">
+      <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="radar-sweep"></div>
+      <div class="radar-center"></div>
+      <!-- blips positioned via JS -->
+    </div>
+    <div class="progress-label">STASIUN <b id="progNum">0</b>/4 TERTANGKAP</div>
+  </div>
+
+  <!-- START CARD -->
+  <div class="card" id="cardIntro">
+    <div class="station-title">Sebelum mulai…</div>
+    <p class="station-desc">Tulis namamu supaya jurnal refleksi di akhir misi ini jadi milikmu sendiri. Tidak ada jawaban "benar mutlak" di sini — yang dinilai adalah kejujuran dan kedalaman cara kamu memahami perasaan orang lain.</p>
+    <label class="field-label">Nama</label>
+    <input type="text" id="inputNama" placeholder="Nama lengkap">
+    <label class="field-label">Kelas</label>
+    <input type="text" id="inputKelas" placeholder="Contoh: 7B">
+    <div class="nav-row">
+      <span></span>
+      <button class="btn btn-primary" id="btnStart">Mulai Misi →</button>
+    </div>
+  </div>
+
+  <!-- STATION 1 -->
+  <div class="card hidden" id="station1">
+    <div class="eyebrow">Stasiun 1 — Baca Sinyal</div>
+    <div class="station-title">Ekspresi yang Tak Terucap</div>
+    <p class="station-desc">Tidak semua orang bilang langsung apa yang mereka rasakan. Perhatikan tanda-tandanya, lalu tebak sinyal perasaan yang sebenarnya terpancar.</p>
+
+    <div class="scenario">
+      <span class="who">Situasi</span>
+      Rani biasanya paling ramai kalau istirahat, tapi hari ini dia cuma duduk diam di pojok kelas sambil main hp, tidak menoleh saat teman-temannya lewat, dan menjawab "iya" pendek-pendek waktu diajak ngobrol.
+    </div>
+    <div class="options" id="opts1"></div>
+    <div class="feedback" id="fb1"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-back="intro">← Kembali</button>
+      <button class="btn btn-primary" id="next1" disabled>Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- STATION 2 -->
+  <div class="card hidden" id="station2">
+    <div class="eyebrow">Stasiun 2 — Tukar Posisi</div>
+    <div class="station-title">Kalau Aku Jadi Dia</div>
+    <p class="station-desc">Kepekaan sosial artinya bisa "memakai sepatu orang lain" — melihat situasi dari sudut pandangnya, bukan cuma sudut pandangmu.</p>
+
+    <div class="scenario">
+      <span class="who">Situasi</span>
+      Kelompokmu sedang presentasi tugas kelompok. Salah satu anggota, Bimo, gugup dan salah menyebutkan data di depan kelas. Beberapa teman sekelas tertawa cukup keras. Bimo diam, wajahnya memerah, lalu buru-buru duduk sebelum bagiannya selesai.
+      <br><br>
+      Menurutmu, apa yang paling mungkin dirasakan Bimo saat itu?
+    </div>
+    <div class="options" id="opts2"></div>
+    <div class="feedback" id="fb2"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-back="station1">← Kembali</button>
+      <button class="btn btn-primary" id="next2" disabled>Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- STATION 3 -->
+  <div class="card hidden" id="station3">
+    <div class="eyebrow">Stasiun 3 — Respon Tepat</div>
+    <div class="station-title">Setelah Tahu, Ngapain?</div>
+    <p class="station-desc">Peka saja belum cukup — langkah berikutnya adalah merespons dengan cara yang benar-benar membantu, bukan yang terasa nyaman untukmu saja.</p>
+
+    <div class="scenario">
+      <span class="who">Situasi</span>
+      Setelah presentasi tadi, jam istirahat tiba. Kamu lihat Bimo jalan sendirian ke kantin, sedikit menunduk, dan menghindar dari kelompok teman-teman yang tadi ikut tertawa. Kamu kebetulan berpapasan dengannya.
+    </div>
+    <div class="options" id="opts3"></div>
+    <div class="feedback" id="fb3"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-back="station2">← Kembali</button>
+      <button class="btn btn-primary" id="next3" disabled>Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- STATION 4: reflection journal -->
+  <div class="card hidden" id="station4">
+    <div class="eyebrow">Stasiun 4 — Jurnal Radar</div>
+    <div class="station-title">Sinyal dari Hidupmu Sendiri</div>
+    <p class="station-desc">Sekarang giliran ceritamu. Jawab jujur — jurnal ini bukan untuk dinilai benar-salah, tapi untuk melatih kepekaanmu terus-menerus.</p>
+
+    <label class="field-label">1. Ceritakan satu momen nyata (minggu ini atau kapan pun) saat kamu menyadari temanmu sedang merasa sedih, marah, atau cemas — padahal dia tidak mengatakannya langsung. Dari mana kamu tahu?</label>
+    <textarea id="j1" rows="3" placeholder="Tulis ceritamu di sini..."></textarea>
+
+    <label class="field-label">2. Apa yang kamu lakukan saat itu? Kalau bisa mengulang momen itu, apakah ada respons yang ingin kamu ubah?</label>
+    <textarea id="j2" rows="3" placeholder="Tulis ceritamu di sini..."></textarea>
+
+    <label class="field-label">3. Menurutmu, apa yang membuat seseorang sulit peka terhadap perasaan orang lain? (Misalnya: terlalu sibuk, fokus ke diri sendiri, tidak tahu tandanya, dll.)</label>
+    <textarea id="j3" rows="3" placeholder="Tulis pendapatmu..."></textarea>
+
+    <label class="field-label">Seberapa yakin kamu bisa mengenali perasaan temanmu sebelum mereka mengucapkannya?</label>
+    <div class="slider-row">
+      <input type="range" id="slider1" min="1" max="5" value="3">
+      <div class="slider-scale"><span>Belum yakin</span><span>Cukup yakin</span><span>Sangat yakin</span></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn btn-ghost" data-back="station3">← Kembali</button>
+      <button class="btn btn-primary" id="btnFinish">Selesaikan Misi →</button>
+    </div>
+  </div>
+
+  <!-- FINAL -->
+  <div class="card hidden" id="cardFinal">
+    <div class="final-badge">
+      <div class="ring-badge">📡</div>
+      <h2 style="font-size:24px;">Sinyal Berhasil Ditangkap, <span id="finalName">Kawan</span>!</h2>
+      <p class="station-desc" style="max-width:460px;margin:8px auto 0;">Kamu baru saja melatih tiga kemampuan inti kepekaan sosial-emosional: membaca tanda, mengambil sudut pandang orang lain, dan memberi respons yang membantu.</p>
+
+      <div class="badge-row" style="justify-content:center;">
+        <span class="tag">Baca Sinyal ✓</span>
+        <span class="tag">Tukar Posisi ✓</span>
+        <span class="tag">Respon Tepat ✓</span>
+        <span class="tag">Jurnal Radar ✓</span>
+      </div>
+
+      <div class="summary-box" id="summaryBox"></div>
+
+      <p class="station-desc" id="sendStatus" style="margin-top:18px;">⏳ Mengirim jurnalmu ke Guru BK...</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// TEMPEL LINK FORMSPREE KAMU DI SINI (lihat panduan di komentar bawah, cukup 3 langkah tanpa coding)
+const FORM_ENDPOINT = "PASTE_LINK_FORMSPREE_DI_SINI";
+/* CARA PASANG (3 langkah, ±2 menit, tanpa coding):
+   1. Buka https://formspree.io → Sign up gratis pakai email bk@smpwisatasanur.sch.id
+      (Formspree akan kirim email verifikasi ke alamat itu — buka & klik link verifikasi).
+   2. Setelah masuk dashboard, klik "New Form" → beri nama "Radar Rasa" → Create.
+      Formspree akan menampilkan link endpoint, bentuknya seperti:
+      https://formspree.io/f/xxxxabcd
+   3. Salin link itu, tempel menggantikan tulisan "PASTE_LINK_FORMSPREE_DI_SINI" di atas.
+      Simpan file, upload ke GitHub Pages. Selesai — setiap jurnal siswa yang masuk otomatis
+      dikirim sebagai email ke bk@smpwisatasanur.sch.id (paket gratis: 50 kiriman/bulan).
+*/
+
+const state = { nama:'', kelas:'', station1:null, station2:null, station3:null, progress:0 };
+
+const radarBox = document.getElementById('radarBox');
+const positions = [
+  {top:'20%', left:'50%'},
+  {top:'50%', left:'82%'},
+  {top:'80%', left:'50%'},
+  {top:'50%', left:'18%'},
+];
+positions.forEach((p,i)=>{
+  const b = document.createElement('div');
+  b.className='blip';
+  b.style.top=p.top; b.style.left=p.left;
+  b.dataset.idx=i;
+  b.textContent = i+1;
+  radarBox.appendChild(b);
+});
+function updateRadar(activeIdx){
+  document.querySelectorAll('.blip').forEach((b,i)=>{
+    b.classList.remove('active','done');
+    if(i < state.progress) b.classList.add('done');
+    else if(i === activeIdx) b.classList.add('active');
+  });
+  document.getElementById('progNum').textContent = state.progress;
+}
+updateRadar(0);
+
+function showCard(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+document.querySelectorAll('[data-back]').forEach(btn=>{
+  btn.addEventListener('click', ()=> showCard('card'+cap(btn.dataset.back) in document.getElementById ? '' : null));
+});
+// simpler back handling
+document.querySelectorAll('[data-back]').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const target = btn.dataset.back;
+    if(target==='intro') showCard('cardIntro');
+    else showCard(target);
+  });
+});
+
+document.getElementById('btnStart').addEventListener('click', ()=>{
+  state.nama = document.getElementById('inputNama').value.trim() || 'Kawan';
+  state.kelas = document.getElementById('inputKelas').value.trim();
+  showCard('station1');
+  updateRadar(0);
+});
+
+// ---- Station data ----
+const s1opts = [
+  {text:"Rani sedang lelah biasa, tidak ada yang perlu dikhawatirkan.", correct:false, fb:"Bisa saja, tapi perubahan drastis dari 'paling ramai' jadi menghindar & jawaban pendek biasanya sinyal ada sesuatu yang lebih dari sekadar lelah. Coba lihat opsi lain."},
+  {text:"Rani kemungkinan sedang menghadapi masalah dan menarik diri — sikapnya berubah drastis dari biasanya.", correct:true, fb:"Tepat! Perubahan pola perilaku (dari ramai jadi menarik diri, jawaban singkat, menghindari kontak) adalah salah satu sinyal sosial paling kuat bahwa seseorang sedang tidak baik-baik saja."},
+  {text:"Rani sengaja jaim (jaga image) di depan orang lain.", correct:false, fb:"Kurang tepat. 'Jaim' biasanya bukan pola yang tiba-tiba muncul dan konsisten seharian. Perubahan mendadak lebih mengarah ke sinyal emosional, bukan sekadar gaya."},
+];
+
+const s2opts = [
+  {text:"Malu dan terpukul, karena ditertawakan di depan banyak orang saat sedang berusaha.", correct:true, fb:"Benar. Ditertawakan saat sedang berusaha (apalagi di depan kelas) biasanya memicu rasa malu yang dalam — bukan cuma 'agak canggung'. Tanda fisik seperti wajah memerah dan buru-buru duduk memperkuat itu."},
+  {text:"Biasa saja, karena presentasi memang sering ada yang salah ucap.", correct:false, fb:"Perhatikan lagi tanda fisiknya: wajah memerah, diam, dan buru-buru mengakhiri bagiannya. Itu bukan reaksi 'biasa saja' — itu tanda tekanan emosional."},
+  {text:"Bimo pasti sedang pura-pura supaya dikasihani teman-teman.", correct:false, fb:"Ini menuduh niat Bimo tanpa bukti. Kepekaan sosial dimulai dari mempercayai apa yang terlihat (tanda fisik & perilaku), bukan berprasangka buruk lebih dulu."},
+];
+
+const s3opts = [
+  {text:"Membiarkannya saja, supaya tidak canggung — nanti juga baikan sendiri.", correct:false, fb:"Membiarkan bisa terasa 'aman' untukmu, tapi belum tentu membantu Bimo. Kepekaan sosial berarti berani bertindak kecil meski terasa canggung."},
+  {text:"Menghampiri, duduk bareng, dan bicara hal ringan dulu (tidak langsung menyinggung kejadian tadi) — biarkan dia yang membuka cerita kalau mau.", correct:true, fb:"Ini respons yang matang. Menemani tanpa memaksa bicara memberi rasa didukung tanpa membuatnya makin tidak nyaman mengulang momen memalukan."},
+  {text:"Langsung bilang di depan teman-teman lain, 'Tadi kamu keliatan malu banget ya pas salah ngomong!'", correct:false, fb:"Ini justru mengulang rasa malunya di depan orang lain lagi. Menyebut ulang momen sensitif secara terbuka bisa memperparah, bukan membantu."},
+];
+
+function renderOptions(containerId, opts, feedbackId, nextBtnId, stateKey){
+  const container = document.getElementById(containerId);
+  container.innerHTML='';
+  opts.forEach((o,i)=>{
+    const btn = document.createElement('button');
+    btn.className='opt';
+    btn.textContent = o.text;
+    btn.addEventListener('click', ()=>{
+      if(state[stateKey] !== null) return;
+      state[stateKey] = i;
+      state[stateKey + 'Text'] = o.text;
+      const buttons = container.querySelectorAll('.opt');
+      buttons.forEach((b,j)=>{
+        b.disabled = true;
+        if(j===i) b.classList.add(o.correct ? 'correct':'wrong');
+        else if(!opts[j].correct) b.classList.add('dim');
+        else b.classList.add('correct');
+      });
+      const fb = document.getElementById(feedbackId);
+      fb.textContent = o.fb;
+      fb.className = 'feedback show ' + (o.correct ? 'good':'mid');
+      document.getElementById(nextBtnId).disabled = false;
+    });
+    container.appendChild(btn);
+  });
+}
+renderOptions('opts1', s1opts, 'fb1', 'next1', 'station1');
+renderOptions('opts2', s2opts, 'fb2', 'next2', 'station2');
+renderOptions('opts3', s3opts, 'fb3', 'next3', 'station3');
+
+document.getElementById('next1').addEventListener('click', ()=>{
+  state.progress = 1; updateRadar(1); showCard('station2');
+});
+document.getElementById('next2').addEventListener('click', ()=>{
+  state.progress = 2; updateRadar(2); showCard('station3');
+});
+document.getElementById('next3').addEventListener('click', ()=>{
+  state.progress = 3; updateRadar(3); showCard('station4');
+});
+
+document.getElementById('btnFinish').addEventListener('click', ()=>{
+  state.progress = 4; updateRadar(4);
+  document.getElementById('finalName').textContent = state.nama;
+  const j1 = document.getElementById('j1').value.trim();
+  const j2 = document.getElementById('j2').value.trim();
+  const j3 = document.getElementById('j3').value.trim();
+  const conf = document.getElementById('slider1').value;
+  const confLabel = ['','Belum yakin','Mulai yakin','Cukup yakin','Yakin','Sangat yakin'][conf];
+
+  document.getElementById('summaryBox').innerHTML = `
+    <b>Nama / Kelas:</b> ${state.nama}${state.kelas ? ' / '+state.kelas : ''}<br><br>
+    <b>Cerita nyata:</b> ${j1 || '(tidak diisi)'}<br><br>
+    <b>Refleksi respons:</b> ${j2 || '(tidak diisi)'}<br><br>
+    <b>Pandangan tentang hambatan kepekaan:</b> ${j3 || '(tidak diisi)'}<br><br>
+    <b>Tingkat keyakinan diri:</b> ${confLabel} (${conf}/5)
+  `;
+  showCard('cardFinal');
+
+  const payload = {
+    nama: state.nama,
+    kelas: state.kelas,
+    s1: state.station1Text || '-',
+    s2: state.station2Text || '-',
+    s3: state.station3Text || '-',
+    j1: j1, j2: j2, j3: j3,
+    confidence: conf
+  };
+  sendToTeacher(payload, j1, j2, j3, confLabel, conf);
+});
+
+function sendToTeacher(payload, j1, j2, j3, confLabel, conf){
+  const statusEl = document.getElementById('sendStatus');
+
+  if(!FORM_ENDPOINT || FORM_ENDPOINT.indexOf('PASTE_LINK') === 0){
+    statusEl.textContent = '⚠️ Pengiriman otomatis belum diaktifkan oleh Guru BK. Tunjukkan layar ini langsung ke Guru BK.';
+    return;
+  }
+
+  const mailtoFallback = 'mailto:bk@smpwisatasanur.sch.id?subject=' +
+    encodeURIComponent('Radar Rasa - Jurnal Refleksi: ' + payload.nama + ' (' + payload.kelas + ')') +
+    '&body=' + encodeURIComponent(
+      'Nama: ' + payload.nama + '\nKelas: ' + payload.kelas +
+      '\n\nCerita nyata:\n' + j1 +
+      '\n\nRefleksi respons:\n' + j2 +
+      '\n\nPandangan tentang hambatan kepekaan:\n' + j3 +
+      '\n\nTingkat keyakinan diri: ' + confLabel + ' (' + conf + '/5)'
+    );
+
+  fetch(FORM_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      _subject: 'Radar Rasa — Jurnal ' + payload.nama + ' (' + payload.kelas + ')',
+      nama: payload.nama,
+      kelas: payload.kelas,
+      'stasiun_1_baca_sinyal': payload.s1,
+      'stasiun_2_tukar_posisi': payload.s2,
+      'stasiun_3_respon_tepat': payload.s3,
+      'jurnal_1_cerita_nyata': j1,
+      'jurnal_2_refleksi_respons': j2,
+      'jurnal_3_hambatan_kepekaan': j3,
+      'tingkat_keyakinan': confLabel + ' (' + conf + '/5)'
+    })
+  })
+  .then(res=>{
+    if(res.ok){
+      statusEl.textContent = '✅ Jurnalmu sudah terkirim ke email Guru BK (bk@smpwisatasanur.sch.id).';
+    } else {
+      throw new Error('send failed');
+    }
+  })
+  .catch(()=>{
+    statusEl.innerHTML = '⚠️ Pengiriman otomatis gagal (kemungkinan koneksi bermasalah). ' +
+      '<a href="' + mailtoFallback + '" style="color:var(--accent-soft);">Klik di sini untuk kirim manual lewat email →</a>';
+  });
+}
+</script>
+</body>
+</html>
