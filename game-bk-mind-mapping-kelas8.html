@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peta Pikiran — Belajar Lebih Efektif & Kreatif</title>
+<style>
+  :root{
+    --paper:#F2F6F4;
+    --paper-2:#E7EFEC;
+    --ink:#1F2A44;
+    --ink-soft:#4A5568;
+    --coral:#FF6B5B;
+    --teal:#2EC4B6;
+    --gold:#F2A93B;
+    --purple:#7B61FF;
+    --line:#C9D6D2;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
+
+  /* ---------- Header ---------- */
+  header{text-align:center;margin-bottom:36px;}
+  .eyebrow{
+    color:var(--purple);
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:.2px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,42px);
+    line-height:1.15;
+    margin:6px 0 10px;
+    font-weight:800;
+  }
+  h1 span{color:var(--coral);}
+  .sub{color:var(--ink-soft);font-size:16px;max-width:520px;margin:0 auto;}
+
+  /* ---------- Central mind-map nav ---------- */
+  .mindnav{position:relative;margin:44px auto 10px;max-width:760px;}
+  .mindnav svg{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+  .center-node{
+    position:relative;z-index:1;
+    width:150px;height:150px;border-radius:50%;
+    background:var(--ink);color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto;text-align:center;font-weight:800;font-size:17px;
+    line-height:1.25;padding:10px;
+  }
+  .branch-grid{
+    position:relative;z-index:1;
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    margin-top:38px;
+  }
+  @media(max-width:680px){.branch-grid{grid-template-columns:repeat(2,1fr);}}
+  .branch{
+    border:none;cursor:pointer;border-radius:18px;
+    padding:20px 14px;color:var(--white);font-weight:700;font-size:15px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    transition:transform .15s ease;
+  }
+  .branch:hover{transform:translateY(-4px);}
+  .branch small{font-weight:500;font-size:12.5px;opacity:.9;}
+  .b1{background:var(--coral);}
+  .b2{background:var(--teal);}
+  .b3{background:var(--gold);}
+  .b4{background:var(--purple);}
+  .branch .dot{font-size:26px;}
+
+  /* ---------- Panels ---------- */
+  .panel{
+    display:none;
+    background:var(--white);
+    border-radius:20px;
+    padding:28px;
+    margin-top:34px;
+    box-shadow:0 1px 0 var(--line);
+    border:1px solid var(--line);
+  }
+  .panel.active{display:block;}
+  .panel h2{margin-top:0;font-size:22px;}
+  .back-btn{
+    background:none;border:none;color:var(--ink-soft);font-weight:600;
+    cursor:pointer;font-size:14px;margin-bottom:14px;padding:0;
+  }
+  .back-btn:hover{color:var(--ink);}
+
+  /* ---------- Materi ---------- */
+  .materi-step{
+    display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--paper-2);
+  }
+  .materi-step:last-child{border-bottom:none;}
+  .num{
+    flex:0 0 34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--white);font-weight:800;font-size:15px;
+  }
+  .materi-step p{margin:2px 0 0;color:var(--ink-soft);font-size:15px;line-height:1.5;}
+  .materi-step strong{display:block;font-size:16px;margin-bottom:2px;}
+
+  /* ---------- Quiz ---------- */
+  .q-progress{color:var(--ink-soft);font-size:13px;margin-bottom:6px;}
+  .q-text{font-size:18px;font-weight:700;margin:6px 0 18px;}
+  .opt{
+    display:block;width:100%;text-align:left;
+    background:var(--paper);border:2px solid var(--paper-2);
+    border-radius:12px;padding:13px 16px;margin-bottom:10px;
+    font-size:15px;cursor:pointer;color:var(--ink);
+  }
+  .opt:hover{border-color:var(--purple);}
+  .opt.correct{background:#E4F8E9;border-color:#3FB55E;}
+  .opt.wrong{background:#FDEAEA;border-color:var(--coral);}
+  .opt[disabled]{cursor:default;}
+  .quiz-result{text-align:center;padding:20px 0;}
+  .quiz-result .score{font-size:44px;font-weight:800;color:var(--purple);}
+  .primary-btn{
+    background:var(--ink);color:var(--white);border:none;border-radius:12px;
+    padding:12px 22px;font-weight:700;font-size:15px;cursor:pointer;margin-top:10px;
+  }
+  .primary-btn:hover{opacity:.9;}
+
+  /* ---------- Susun peta ---------- */
+  .map-topic{
+    text-align:center;font-weight:800;font-size:20px;color:var(--white);
+    background:var(--teal);border-radius:14px;padding:16px;margin-bottom:22px;
+  }
+  .slots{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px;}
+  @media(max-width:560px){.slots{grid-template-columns:1fr;}}
+  .slot{
+    min-height:56px;border:2px dashed var(--line);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;color:var(--ink-soft);padding:8px;text-align:center;
+  }
+  .slot.filled{border-style:solid;color:var(--ink);font-weight:700;}
+  .bank{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:20px;min-height:44px;}
+  .chip{
+    background:var(--gold);color:var(--ink);font-weight:700;font-size:14px;
+    padding:9px 16px;border-radius:20px;cursor:pointer;border:none;
+  }
+  .chip.selected{outline:3px solid var(--purple);}
+  .chip[disabled]{opacity:.35;cursor:default;}
+  .map-feedback{font-weight:700;margin-top:8px;min-height:22px;}
+
+  /* ---------- Refleksi ---------- */
+  textarea{
+    width:100%;min-height:130px;border-radius:12px;border:2px solid var(--paper-2);
+    padding:14px;font-size:15px;font-family:inherit;resize:vertical;color:var(--ink);
+  }
+  textarea:focus{outline:none;border-color:var(--purple);}
+  label.field{display:block;font-weight:700;font-size:14px;margin:16px 0 6px;}
+  .save-msg{color:var(--teal);font-weight:700;font-size:14px;margin-top:10px;min-height:18px;}
+
+  footer{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:44px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">Layanan Bimbingan Klasikal · Kelas 8</div>
+    <h1>Peta Pikiran: Belajar Lebih <span>Efektif</span> & Kreatif</h1>
+    <p class="sub">Satu topik, banyak cabang ide. Yuk pelajari cara kerja otakmu saat mencatat dan berpikir, lalu buktikan sendiri lewat permainan di bawah.</p>
+  </header>
+
+  <div class="mindnav" id="home">
+    <svg viewBox="0 0 760 210" preserveAspectRatio="none">
+      <line x1="380" y1="150" x2="95"  y2="205" stroke="#C9D6D2" stroke-width="2"/>
+      <line x1="380" y1="150" x2="285" y2="205" stroke="#C9D6D2" stroke-width="2"/>
+      <line x1="380" y1="150" x2="475" y2="205" stroke="#C9D6D2" stroke-width="2"/>
+      <line x1="380" y1="150" x2="665" y2="205" stroke="#C9D6D2" stroke-width="2"/>
+    </svg>
+    <div class="center-node">PETA<br>PIKIRAN</div>
+    <div class="branch-grid">
+      <button class="branch b1" onclick="showPanel('materi')">
+        <span class="dot">🧠</span> Apa & Kenapa <small>Materi singkat</small>
+      </button>
+      <button class="branch b2" onclick="showPanel('kuis')">
+        <span class="dot">❓</span> Uji Pemahaman <small>Kuis 6 soal</small>
+      </button>
+      <button class="branch b3" onclick="showPanel('susun'); resetMap();">
+        <span class="dot">🌿</span> Susun Peta <small>Latihan cabang</small>
+      </button>
+      <button class="branch b4" onclick="showPanel('refleksi')">
+        <span class="dot">✍️</span> Refleksi Diri <small>Tulis pengalamanmu</small>
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= MATERI ================= -->
+  <section class="panel" id="panel-materi">
+    <button class="back-btn" onclick="showPanel('home')">← Kembali ke menu</button>
+    <h2>Apa itu Mind Mapping, dan kenapa penting?</h2>
+    <div class="materi-step">
+      <div class="num" style="background:var(--coral)">1</div>
+      <div><strong>Cara kerja otak menyukai cabang, bukan baris</strong>
+      <p>Otak menyimpan informasi seperti jaringan yang saling terhubung, bukan seperti daftar lurus ke bawah. Mind mapping meniru cara ini: satu ide utama di tengah, lalu bercabang ke ide-ide pendukung.</p></div>
+    </div>
+    <div class="materi-step">
+      <div class="num" style="background:var(--teal)">2</div>
+      <div><strong>Empat bagian utama sebuah peta pikiran</strong>
+      <p>Topik utama di tengah, cabang utama untuk sub-topik besar, cabang kecil untuk detail, dan kata kunci singkat (bukan kalimat panjang) di setiap cabang.</p></div>
+    </div>
+    <div class="materi-step">
+      <div class="num" style="background:var(--gold)">3</div>
+      <div><strong>Warna dan gambar membantu ingatan</strong>
+      <p>Memberi warna berbeda tiap cabang dan menambahkan simbol kecil membuat otak lebih mudah mengenali dan mengingat kembali informasi saat belajar atau ujian.</p></div>
+    </div>
+    <div class="materi-step">
+      <div class="num" style="background:var(--purple)">4</div>
+      <div><strong>Kapan mind mapping paling berguna?</strong>
+      <p>Merangkum bab pelajaran, brainstorming ide tugas, merencanakan proyek kelompok, sampai menyusun rencana belajar sebelum ulangan.</p></div>
+    </div>
+    <button class="primary-btn" onclick="showPanel('kuis')">Lanjut ke Kuis →</button>
+  </section>
+
+  <!-- ================= KUIS ================= -->
+  <section class="panel" id="panel-kuis">
+    <button class="back-btn" onclick="showPanel('home')">← Kembali ke menu</button>
+    <h2>Uji Pemahaman</h2>
+    <div id="quiz-body"></div>
+  </section>
+
+  <!-- ================= SUSUN PETA ================= -->
+  <section class="panel" id="panel-susun">
+    <button class="back-btn" onclick="showPanel('home')">← Kembali ke menu</button>
+    <h2>Susun Peta Pikiranmu</h2>
+    <p class="sub" style="margin:0 0 18px;text-align:left;">Topiknya sudah ditentukan. Klik salah satu kata di bawah, lalu klik kotak cabang yang menurutmu paling cocok.</p>
+    <div class="map-topic">🎒 Topik: Cara Belajar Efektif</div>
+    <div class="slots" id="slots"></div>
+    <div class="bank" id="bank"></div>
+    <div class="map-feedback" id="map-feedback"></div>
+    <button class="primary-btn" onclick="checkMap()">Cek Jawaban</button>
+    <button class="primary-btn" style="background:var(--ink-soft)" onclick="resetMap()">Acak Ulang</button>
+  </section>
+
+  <!-- ================= REFLEKSI ================= -->
+  <section class="panel" id="panel-refleksi">
+    <button class="back-btn" onclick="showPanel('home')">← Kembali ke menu</button>
+    <h2>Refleksi Diri</h2>
+    <p class="sub" style="margin:0 0 6px;text-align:left;">Tulis dengan jujur, tidak akan dinilai benar-salah.</p>
+
+    <label class="field">Nama</label>
+    <textarea id="r-nama" style="min-height:44px"></textarea>
+
+    <label class="field">1. Setelah belajar hari ini, hal baru apa yang kamu pahami tentang mind mapping?</label>
+    <textarea id="r1"></textarea>
+
+    <label class="field">2. Pelajaran atau tugas apa yang menurutmu paling cocok kamu bantu dengan mind mapping mulai minggu ini?</label>
+    <textarea id="r2"></textarea>
+
+    <label class="field">3. Apa satu langkah kecil yang akan kamu coba supaya catatanmu lebih rapi dan mudah diingat?</label>
+    <textarea id="r3"></textarea>
+
+    <button class="primary-btn" onclick="saveReflection()">Simpan Refleksi (unduh .txt)</button>
+    <div class="save-msg" id="save-msg"></div>
+  </section>
+
+  <footer>Materi Bimbingan Klasikal · Tema Mind Mapping · Kelas 8</footer>
+</div>
+
+<script>
+function showPanel(name){
+  document.getElementById('home').style.display = (name==='home') ? '' : 'none';
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  if(name!=='home'){
+    document.getElementById('panel-'+name).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+}
+
+/* ---------------- KUIS ---------------- */
+const questions = [
+  {q:"Di manakah topik utama biasanya diletakkan dalam mind mapping?",
+   opts:["Di sudut kiri atas","Di tengah halaman","Di baris paling bawah","Di luar kertas"], a:1},
+  {q:"Kenapa mind mapping dianggap lebih mudah diingat dibanding catatan berupa kalimat panjang?",
+   opts:["Karena tulisannya lebih kecil","Karena memakai kata kunci, warna, dan cabang yang meniru cara kerja otak","Karena tidak perlu dibaca ulang","Karena dibuat dengan komputer"], a:1},
+  {q:"Manakah yang sebaiknya ditulis pada setiap cabang mind mapping?",
+   opts:["Kalimat panjang lengkap","Satu paragraf penuh","Kata kunci singkat","Kutipan buku"], a:2},
+  {q:"Apa fungsi warna berbeda pada tiap cabang?",
+   opts:["Sekadar mempercantik saja","Membantu otak membedakan dan mengingat kategori ide","Mengikuti aturan baku yang wajib","Tidak ada fungsinya"], a:1},
+  {q:"Situasi manakah yang paling cocok memakai mind mapping?",
+   opts:["Menghafal satu kata saja","Merangkum satu bab pelajaran sebelum ulangan","Menulis nomor telepon","Mengisi absen kelas"], a:1},
+  {q:"Apa yang dimaksud dengan 'cabang utama' dalam mind mapping?",
+   opts:["Kata kunci pertama yang terhubung langsung ke topik utama","Judul buku yang digunakan","Nama siswa yang membuat","Warna dasar peta"], a:0},
+];
+let qi=0, score=0, answered=false;
+
+function renderQuiz(){
+  const body = document.getElementById('quiz-body');
+  if(qi>=questions.length){
+    body.innerHTML = `<div class="quiz-result">
+      <div>Skor kamu</div>
+      <div class="score">${score}/${questions.length}</div>
+      <p class="sub" style="margin-top:6px;">${score===questions.length ? 'Keren, kamu sudah paham betul konsep mind mapping!' : 'Bagus, coba pelajari lagi bagian materi supaya makin mantap.'}</p>
+      <button class="primary-btn" onclick="qi=0;score=0;renderQuiz();">Ulangi Kuis</button>
+      <button class="primary-btn" style="background:var(--teal)" onclick="showPanel('susun'); resetMap();">Lanjut ke Susun Peta →</button>
+    </div>`;
+    return;
+  }
+  answered=false;
+  const item = questions[qi];
+  body.innerHTML = `
+    <div class="q-progress">Soal ${qi+1} dari ${questions.length}</div>
+    <div class="q-text">${item.q}</div>
+    ${item.opts.map((o,i)=>`<button class="opt" onclick="pick(${i})">${o}</button>`).join('')}
+  `;
+}
+function pick(i){
+  if(answered) return;
+  answered=true;
+  const item = questions[qi];
+  document.querySelectorAll('.opt').forEach((btn,idx)=>{
+    btn.disabled=true;
+    if(idx===item.a) btn.classList.add('correct');
+    else if(idx===i) btn.classList.add('wrong');
+  });
+  if(i===item.a) score++;
+  setTimeout(()=>{ qi++; renderQuiz(); }, 900);
+}
+renderQuiz();
+
+/* ---------------- SUSUN PETA ---------------- */
+const mapItems = [
+  {label:"Buat ringkasan pakai kata kunci", slot:0},
+  {label:"Gunakan warna berbeda tiap topik", slot:1},
+  {label:"Belajar dengan jadwal rutin, bukan mendadak", slot:2},
+  {label:"Diskusi kelompok untuk saling menjelaskan", slot:3},
+];
+const slotLabels = ["Mencatat","Mengingat","Waktu Belajar","Belajar Bersama"];
+let selectedChip=null, mapState=[];
+
+function resetMap(){
+  mapState = mapItems.map(()=>null);
+  const slotsEl = document.getElementById('slots');
+  slotsEl.innerHTML = slotLabels.map((l,i)=>`<div class="slot" id="slot-${i}" onclick="placeInSlot(${i})">Cabang: ${l}</div>`).join('');
+  const shuffled = [...mapItems].sort(()=>Math.random()-0.5);
+  const bankEl = document.getElementById('bank');
+  bankEl.innerHTML = shuffled.map((it,i)=>`<button class="chip" data-label="${it.label}" data-slot="${it.slot}" onclick="selectChip(this)">${it.label}</button>`).join('');
+  document.getElementById('map-feedback').textContent='';
+  selectedChip=null;
+}
+function selectChip(btn){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedChip=btn;
+}
+function placeInSlot(i){
+  if(!selectedChip) return;
+  const slotEl = document.getElementById('slot-'+i);
+  slotEl.textContent = selectedChip.dataset.label;
+  slotEl.classList.add('filled');
+  slotEl.dataset.correctSlot = selectedChip.dataset.slot;
+  selectedChip.disabled = true;
+  selectedChip.classList.remove('selected');
+  selectedChip=null;
+}
+function checkMap(){
+  let correct=0;
+  slotLabels.forEach((_,i)=>{
+    const slotEl = document.getElementById('slot-'+i);
+    if(slotEl.dataset.correctSlot !== undefined && parseInt(slotEl.dataset.correctSlot)===i) correct++;
+  });
+  document.getElementById('map-feedback').textContent =
+    correct===slotLabels.length
+      ? `Mantap! Semua ${correct} cabang tersusun tepat.`
+      : `${correct} dari ${slotLabels.length} cabang sudah tepat. Klik "Acak Ulang" untuk coba lagi.`;
+}
+
+/* ---------------- REFLEKSI ---------------- */
+function saveReflection(){
+  const nama = document.getElementById('r-nama').value.trim() || "(tanpa nama)";
+  const r1 = document.getElementById('r1').value.trim();
+  const r2 = document.getElementById('r2').value.trim();
+  const r3 = document.getElementById('r3').value.trim();
+  const content =
+`REFLEKSI DIRI - MIND MAPPING
+Nama: ${nama}
+
+1. Hal baru yang dipahami tentang mind mapping:
+${r1 || '-'}
+
+2. Pelajaran/tugas yang cocok dibantu mind mapping:
+${r2 || '-'}
+
+3. Langkah kecil yang akan dicoba:
+${r3 || '-'}
+`;
+  const blob = new Blob([content], {type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `refleksi-mindmapping-${nama.replace(/\s+/g,'_')}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  document.getElementById('save-msg').textContent = 'Tersimpan! File refleksi telah diunduh.';
+}
+</script>
+</body>
+</html>
